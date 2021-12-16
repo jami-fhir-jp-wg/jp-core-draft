@@ -1,0 +1,6 @@
+- name: Index
+  filename: Index.guide.md
+- name: ServerCapabilityStatement
+  filename: ServerCapabilityStatement.guide.md
+- name: ClientCapabilityStatement
+  filename: ClientCapabilityStatement.guide.md

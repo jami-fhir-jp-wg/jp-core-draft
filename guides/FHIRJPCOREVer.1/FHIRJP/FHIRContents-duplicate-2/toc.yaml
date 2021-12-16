@@ -1,0 +1,12 @@
+- name: Index
+  filename: Index.guide.md
+- name: Profiles
+  filename: Profiles
+- name: Extensions
+  filename: Extensions.guide.md
+- name: OperationsAndSearchParameters
+  filename: OperationsAndSearchParameters.guide.md
+- name: Terminology
+  filename: Terminology
+- name: CapabilityStatements
+  filename: CapabilityStatements

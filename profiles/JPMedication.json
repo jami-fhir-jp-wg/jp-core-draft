@@ -1,0 +1,3181 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "98f6b570-4345-474c-b631-8a0b09ec6312",
+  "meta": {
+    "lastUpdated": "2021-12-04T23:06:36.873+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Medication",
+  "version": "1.0.0",
+  "name": "JP_Medication",
+  "status": "active",
+  "date": "2021-12-04T09:24:43.5308889+00:00",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "このプロファイルはMedicationリソースに対して、主に注射薬剤リストデータを送受信するための基礎となる制約と拡張を定めたものである。",
+  "purpose": "このプロファイルはMedicationリソースに対して、主に注射薬剤リストデータを送受信するための基礎となる制約と拡張を定めたものである。",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "script10.6",
+      "uri": "http://ncpdp.org/SCRIPT10_6",
+      "name": "Mapping to NCPDP SCRIPT 10.6"
+    },
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    },
+    {
+      "identity": "w5",
+      "uri": "http://hl7.org/fhir/fivews",
+      "name": "FiveWs Pattern Mapping"
+    },
+    {
+      "identity": "v2",
+      "uri": "http://hl7.org/v2",
+      "name": "HL7 v2 Mapping"
+    },
+    {
+      "identity": "ssmix",
+      "uri": "http://www.ss-mix.org/cons/",
+      "name": "SS-MIX2標準"
+    },
+    {
+      "identity": "jahis",
+      "uri": "https://www.jahis.jp/standard/",
+      "name": "JAHIS制定済み標準「処方データ交換規約3.0C」"
+    }
+  ],
+  "kind": "resource",
+  "abstract": false,
+  "type": "Medication",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Medication",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Medication",
+        "path": "Medication",
+        "short": "Medication Resourceの定義",
+        "definition": "このResourceは薬剤を処方し、払い出し（調剤）、その管理を定義し、IDを付与するためにまず利用され、薬剤の使用状態を示すためにも使われます。",
+        "condition": [
+          "dom-2"
+        ],
+        "mapping": [
+          {
+            "identity": "ss-mix",
+            "map": "RXE"
+          }
+        ]
+      },
+      {
+        "id": "Medication.id",
+        "path": "Medication.id",
+        "short": "このアーチファクトに対する論理ID",
+        "definition": "リソースに対するURLとして使われるリソースの論理ID。この値は一度割り当てられたら変更されることはない。",
+        "comment": "ResourceにIDがない時期は、create操作のためにサーバにResourceが送信されている時期だけである。"
+      },
+      {
+        "id": "Medication.meta",
+        "path": "Medication.meta",
+        "short": "このresourceに対するメタデータ。",
+        "definition": "このResourceに対するメタデータ。\r\nThe metadata about the resource. This is content that is maintained by the infrastructure. Changes to the content might not always be associated with version changes to the resource."
+      },
+      {
+        "id": "Medication.identifier",
+        "path": "Medication.identifier",
+        "short": "この薬剤に関する業務用のID",
+        "definition": "この薬剤に関する業務用のID",
+        "comment": "IDとしてシリアルナンバーを使うこともできる。"
+      },
+      {
+        "id": "Medication.identifier.use",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.use",
+        "definition": "このIDを使用する目的。",
+        "comment": "明示的に「一時的なもの」と指定されていない限り、アプリケーションはこのIDを永続的IDと想定してもよい。",
+        "requirements": "IDの組み合わせの中から、特定の状況に応じて適切なIDを選択することができてもよい。",
+        "isModifierReason": "この項目は\"Is Modifier\"と指定されている。一時的なIDと永続的IDをアプリケーションが取り違えないためである。",
+        "mapping": [
+          {
+            "identity": "ssmix",
+            "map": "N/A"
+          }
+        ]
+      },
+      {
+        "id": "Medication.identifier.type",
+        "path": "Medication.identifier.type",
+        "short": "IDについての解説",
+        "definition": "特定の目的のために使用されるIDを指定することができるコード化された型。",
+        "comment": "このElementはIDの一般的な分類のみを扱う。Identifier.systemと1..1で対応するコードは扱うべきではない(SHOULD NOT)。IDの中には使い方によって複数の分類に該当するものもある。システムが把握していれば、型はシステム定義の一部であるためこの型は不要である。しかし、システムが把握していない場合でもIDを扱わなければならないこともある。\r\nいろいろなシステムで同じ型が使われているので、型とシステムは一対一の関係とはならない。",
+        "requirements": "IDシステムの内容について不明であってもをユーザーはそれを使うことができる。"
+      },
+      {
+        "id": "Medication.identifier.type.coding",
+        "path": "Medication.identifier.type.coding",
+        "short": "用語集で定義されたコード",
+        "definition": "用語集で定義されたコードに対する参照",
+        "comment": "FHIR日本実装ワーキンググループでは、薬剤に関する用語集としてHOTコードでの表現を推奨する。コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用するするべきではない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。",
+        "binding": {
+          "strength": "preferred",
+          "description": "HOTx codes",
+          "valueSet": "http://www2.medis.or.jp/master/hcode/"
+        },
+        "mapping": [
+          {
+            "identity": "ssmix2",
+            "map": "RXE-2"
+          },
+          {
+            "identity": "JAHIS",
+            "map": "RXE-2"
+          }
+        ]
+      },
+      {
+        "id": "Medication.identifier.type.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.type.coding.system",
+        "short": "コードシステムのID",
+        "definition": "その記号が何を意味するか規定しているコードシステムのIDである。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。"
+      },
+      {
+        "id": "Medication.identifier.type.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.type.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.identifier.type.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.type.coding.code",
+        "short": "システムで定義された文法による記号",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "用語集の中で特定のコードに参照する必要がある。"
+      },
+      {
+        "id": "Medication.identifier.type.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.type.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "ユーザーにとってシステムで処理はされないが人間可読なコードの意味を提示することができる必要がある。"
+      },
+      {
+        "id": "Medication.identifier.type.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.type.coding.userSelected",
+        "short": "このコードがユーザーが選択したものであるかどうか。",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.identifier.type.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.type.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。",
+        "mapping": [
+          {
+            "identity": "ssmix",
+            "map": "RXE?"
+          },
+          {
+            "identity": "JAHIS",
+            "map": "RXE?"
+          }
+        ]
+      },
+      {
+        "id": "Medication.identifier.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.system",
+        "short": "ID値のためのネームスペース",
+        "definition": "値のネームスペースを特定する。つまり、値セットが唯一のものであることを示すURLを指定する。",
+        "comment": "Identifier.systemは常に大文字小文字を判別する。",
+        "requirements": "IDには多くのデータセットがある。二つのIDをマッチさせるにはそれが何を扱っているのかを知る必要がある。システムは特定のユニークIDの組み合わせを識別する。",
+        "mapping": [
+          {
+            "identity": "ssmix",
+            "map": "RXE2/CE3"
+          },
+          {
+            "identity": "JAHIS",
+            "map": "RXE2/CE3"
+          }
+        ]
+      },
+      {
+        "id": "Medication.identifier.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.value",
+        "short": "一意な値",
+        "definition": "一般的にIDはユーザーに関連しており、システムの中では一意である。",
+        "comment": "値がフル規格のURIである場合は、そのシステムは urn:ietf:rfc:3986 に準拠しなければならない(SHALL)。この値は原則として機械的にマッピングするためにある。結果として、比較のためにも正規化することができる（例えば、意味のない空白やダッシュなどの記号を省略するなど）。人間が読めるような形式で表示された値であっても、[Rendered Value extension](extension-rendered-value.html)を使って伝えることができる。Identifier.valueはIdentifier.systemが大文字小文字を同一視することを許していたとしても、大文字小文字を区別するとして扱われる。",
+        "mapping": [
+          {
+            "identity": "ssmix",
+            "map": "RXE2"
+          }
+        ]
+      },
+      {
+        "id": "Medication.identifier.period",
+        "path": "Medication.identifier.period",
+        "short": "IDの有効期間",
+        "definition": "IDが有効である（あった）期間",
+        "comment": "時間の範囲を示す期間。使用される文脈によっては、連続するすべての範囲が指定される（例えば「患者はこの時間の範囲に入院していた」）が、範囲内の一つの値として示されることもある（例えば「この2つの時間の間に患者に与えなさい」）\r\n\r\n期間(period)は存続する期間(duration, 経過時間)を意味するのではない。[Duration](datatypes.html#Duration)を参照"
+      },
+      {
+        "id": "Medication.identifier.period.id",
+        "path": "Medication.identifier.period.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "Medication.identifier.period.start",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.period.start",
+        "short": "境界を含む開始時刻",
+        "definition": "期間の開始時刻。境界も含む。",
+        "comment": "低い方のエレメントがない場合は低い方の境界がないことを示す。"
+      },
+      {
+        "id": "Medication.identifier.period.end",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.period.end",
+        "short": "継続中でなければ、境界を含む終了時刻",
+        "definition": "期間の終了を示す。終了時刻が示されない場合は、終了時刻がインスタンスが作成された時にはわかっていないか計画されていないことを示している。開始時刻は過去であり、終了時刻は未来を示すであろう。そして、それはその期間がその時刻で終了することが期待されていたあるいは予定されていたことを意味する。",
+        "comment": "高い方の値は該当する日付/時刻を含んでいる。すなわち、2012-02-03T10:00:00は2012-02-03で終了する期間に含まれる。",
+        "meaningWhenMissing": "期間の最後が示されていなければ、その期間は現在進行中であることを示す。",
+        "mapping": [
+          {
+            "identity": "ssmix2",
+            "map": "DR.2"
+          }
+        ]
+      },
+      {
+        "id": "Medication.identifier.assigner",
+        "path": "Medication.identifier.assigner",
+        "short": "IDを発行した組織・機関（単にテキストで表現されることもある）",
+        "definition": "IDを発行・管理する組織・機関",
+        "comment": "Identifier.assignerは.referrence elementを省略してもよく、.display elementだけが発行した組織・機関を示す名前やその他の情報であることもある。",
+        "mapping": [
+          {
+            "identity": "ssmix2",
+            "map": "CX.6, CX.9"
+          }
+        ]
+      },
+      {
+        "id": "Medication.identifier.assigner.reference",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.reference",
+        "short": "文字での参照、相対的、内部あるいは絶対的URL",
+        "definition": "他のResourceが存在する場所への参照。参照はサービスのベースURLに対する相対的なものや、リソースがある場所を示す絶対的URLであることもある。参照はバージョンを指定していることもあればそうでないこともある。もし参照が、FHIRのRESTfulサーバ以外を対象としていれば、それはバージョンが指定されているべきである。分割された内部参照('#'で始まる)の場合は内部に含まれるResourceへの参照である。",
+        "comment": "絶対URLを使えば安定してクラウドやWeb上にスケーラブルな対応をすることができる。一方で、相対・論理参照を使えば閉鎖されたエコシステム内部に適した柔軟な対応ができる。絶対URLをはFHIRリソースのRESTfulサーバを指定するために必要となるわけではないが、より推奨される方法である。もし、URLが\"/[type]/[id]\"で構成されていれば、FHIRのRESTfulサーバへの参照を想定していると推測することもできる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.type",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.type",
+        "short": "参照先の型(たとえば、\"Patient\")",
+        "definition": "参照の対象として予定される型。もし、Reference.typeとReference.referenceがともに指定されていて、Reference.referenceがFHIRのURLであればどちらも一致させるべきである(SHALL)。\n\r\n型はResouce Definitionに対するCanonical URLであってその型も参照の対象となる。Referenceはhttp://hl7.org/fhir/StructureDefinition/に対する相対URLである。たとえば、\"Patient\"はhttp://hl7.org/fhir/StructureDefinition/Patientへの参照である。絶対URLは論理モデルにおいて、論理モデル内部での参照として飲み使用可能であり、Resouceに対しては指定できない。",
+        "comment": "このelementは参照の対象の型を指定するためのものである。他のElementで指定されていた型であってもなくても指定することができる。場合によっては、対象の型は参照（たとえば、RESTful URL)についての調査により決定されることもあるし、参照の対象から決定されることもある。もし、参照と型のどちらもが指定されていたら、参照は指定された型を決定されるべきである(SHALL)。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier",
+        "path": "Medication.identifier.assigner.identifier",
+        "short": "正確な参照がわからない場合の論理参照",
+        "definition": "対象となるresouceへのID。FHIRサーバを経由してこの参照が指定するEntityが指定できないか、実際の位置を示す既知のIDへとResourceを変換できない場合のように、ほかのresourceを直接参照することができない場合に使われる。Reference.identifireがFHIRインスタンスである何かを実際に示している必要はないが、FHIRインスタンスとして表現されると想定される業務概念を示されなくてはらならず(SHALL)、そのインスタンスは参照先のFHIRのResource型である必要がある。",
+        "comment": "IDが参照として与えられている場合には、参照を処理するシステムはIDをIDが利用される業務コンテキストがわかっているかどうか参照を解決するためにしか利用することができない。このIDはグローバル(たとえば国民ID）であることもあるが、そうでないこともある。そのため、この参照を利用する有効な機構（たとえば、データを連鎖させたり、包含させるなど）、サーバが参照を解決することができるとも期待できない。サーバは到達できなかったり、解決できないあるいは拒否されるような参照でもIDとして受け取ることができる。CapabilityStatement.rest.resource.referencePolicyを参照のこと。\r\n\r\nIDと正確な参照が共に提供されている場合は、正確な参照が優先される。Resourceを処理するアプリケーションも許容されるがIDが正確な参照と一致することを確認することは求められてない。\r\n\r\nアプリケーションは論理参照を正確な参照へとコンバートする際に、実際に示している論理参照を外したり、削除してもよい。\r\n\r\n参照はFHIRのResourceとして表現することができる構造となるように示されているが、アプリケーションが参照の対象について検索することを求めていない限り、実際にFHIR Resourceのインスタンスが存在していなくてもよい。IDを参照しているコンテンツは、どのリソースの型が限定的に許容されるか明示されていなくても論理的な制約を満たさなければならない。たとえば、薬剤処方を示すIDの型がReference(Observation|DIagnosticReport)であることは、正当化されないであろう。Reference.identifierのユースケースの一つは、FHIRの表現が存在しない場合に、(Any)を参照する型として利用するような場合である。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.use",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.use",
+        "definition": "このIDが使われる目的",
+        "comment": "アプリケーションはIDが永続的なものと想定することができる。ただし、一時的であると明示されている場合もある。.",
+        "requirements": "IDとして用意されたデータセットから特定のコンテキストに応じて適切なIDを付与することが許容される。",
+        "isModifierReason": "アプリケーションが永続的なものに対して一時的なIDであると誤認しないように\"Is Modifier\"と標識されている。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.type",
+        "path": "Medication.identifier.assigner.identifier.type",
+        "short": "IDについての説明",
+        "definition": "特定の目的のために使用されるIDを指定することができるコード化された型。",
+        "comment": "このElementはIDの一般的な分類のみを扱う。Identifier.systemと1..1で対応するコードは扱うべきではない(SHOULD NOT)。IDの中には使い方によって複数の分類に該当するものもある。システムが把握していれば、型はシステム定義の一部であるためこの型は不要である。しかし、システムが把握していない場合でもIDを扱わなければならないこともある。\r\nいろいろなシステムで同じ型が使われているので、型とシステムは一対一の関係とはならない。",
+        "requirements": "IDシステムの内容について不明であってもをユーザーはそれを使うことができる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.type.coding",
+        "path": "Medication.identifier.assigner.identifier.type.coding",
+        "short": "用語集で定義されたコード",
+        "definition": "用語集で定義されたコードに対する参照",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.type.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.type.coding.system",
+        "short": "コードシステムのID",
+        "definition": "その記号が何を意味するか規定しているコードシステムのIDである。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.type.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.type.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.type.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.type.coding.code",
+        "short": "用語集で定義された文法での記号",
+        "definition": "用語集で定義された文法での記号である。記号はあらかじめ決められたコードや用語集で定義された文法（たとえば、post-coordinationのような修飾語との組み合わせ)での表現である。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "用語集の中で特定のコードに参照する必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.type.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.type.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "ユーザーにとってシステムで処理はされないが人間可読なコードの意味を提示することができる必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.type.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.type.coding.userSelected",
+        "short": "このコードがユーザーが選択したものであるかどうか。",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.type.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.type.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.system",
+        "short": "ID値に対するネームスペース",
+        "definition": "値に対するネームスペースを確定する。つまり、値セットが一意に示されるURLのことを示す。",
+        "comment": "Identifier.systemは常に大文字小文字を区別する。",
+        "requirements": "IDとし提供される記号には多くの組み合わせがある。二つのIDをマッチさせるには、IDが何を扱っているのかを理解する必要がある。システムIDは個別のIDを示す集合である。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.value",
+        "short": "一意な値",
+        "definition": "一般的にIDはユーザーに関連しており、システムの中では一意である。",
+        "comment": "値がフル規格のURIである場合は、そのシステムは urn:ietf:rfc:3986 に準拠しなければならない(SHALL)。この値は原則として機械的にマッピングするためにある。結果として、比較のためにも正規化することができる（例えば、意味のない空白やダッシュなどの記号を省略するなど）。人間が読めるような形式で表示された値であっても、[Rendered Value extension](extension-rendered-value.html)を使って伝えることができる。Identifier.valueはIdentifier.systemが大文字小文字を同一視することを許していたとしても、大文字小文字を区別するとして扱われる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.period",
+        "path": "Medication.identifier.assigner.identifier.period",
+        "short": "IDの有効期間",
+        "definition": "IDが有効である（あった）期間",
+        "comment": "時間の範囲を示す期間。使用される文脈によっては、連続するすべての範囲が指定される（例えば「患者はこの時間の範囲に入院していた」）が、範囲内の一つの値として示されることもある（例えば「この2つの時間の間に患者に与えなさい」）\r\n\r\n期間(period)は存続する期間(duration, 経過時間)を意味するのではない。[Duration](datatypes.html#Duration)を参照"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.period.start",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.period.start",
+        "short": "境界を含む開始時刻",
+        "definition": "期間の開始時刻。境界も含む。",
+        "comment": "低い方のElementがない場合は低い方の境界がないことを示す。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.period.end",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.period.end",
+        "short": "継続中でなければ、境界を含む終了時刻",
+        "definition": "期間の終了を示す。終了時刻が示されない場合は、終了時刻がインスタンスが作成された時にはわかっていないか計画されていないことを示している。開始時刻は過去であり、終了時刻は未来を示すであろう。そして、それはその期間がその時刻で終了することが期待されていたあるいは予定されていたことを意味する。",
+        "comment": "高い方の値は該当する日付/時刻を含んでいる。すなわち、2012-02-03T10:00:00は2012-02-03で終了する期間に含まれる。",
+        "meaningWhenMissing": "期間の最後が示されていなければ、その期間は現在進行中であることを示す。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner",
+        "path": "Medication.identifier.assigner.identifier.assigner",
+        "short": "IDを発行した組織・機関（単にテキストで表現されることもある）",
+        "definition": "IDを発行・管理する組織・機関",
+        "comment": "Identifier.assignerは.referrence elementを省略してもよく、.display elementだけが発行した組織・機関を示す名前やその他の情報であることもある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.reference",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.reference",
+        "short": "文字での参照、相対的、内部あるいは絶対的URL",
+        "definition": "他のResourceが存在する場所への参照。参照はサービスのベースURLに対する相対的なものや、リソースがある場所を示す絶対的URLであることもある。参照はバージョンを指定していることもあればそうでないこともある。もし参照が、FHIRのRESTfulサーバ以外を対象としていれば、それはバージョンが指定されているべきである。分割された内部参照('#'で始まる)の場合は内部に含まれるResourceへの参照である。",
+        "comment": "絶対URLを使えば安定してクラウドやWeb上にスケーラブルな対応をすることができる。一方で、相対・論理参照を使えば閉鎖されたエコシステム内部に適した柔軟な対応ができる。絶対URLをはFHIRリソースのRESTfulサーバを指定するために必要となるわけではないが、より推奨される方法である。もし、URLが\"/[type]/[id]\"で構成されていれば、FHIRのRESTfulサーバへの参照を想定していると推測することもできる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.type",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.type",
+        "short": "参照先の型(たとえば、\"Patient\")",
+        "definition": "参照の対象として予定される型。もし、Reference.typeとReference.referenceがともに指定されていて、Reference.referenceがFHIRのURLであればどちらも一致させるべきである(SHALL)。\n\r\n型はResouce Definitionに対するCanonical URLであってその型も参照の対象となる。Referenceはhttp://hl7.org/fhir/StructureDefinition/に対する相対URLである。たとえば、\"Patient\"はhttp://hl7.org/fhir/StructureDefinition/Patientへの参照である。絶対URLは論理モデルにおいて、論理モデル内部での参照として飲み使用可能であり、Resouceに対しては指定できない。",
+        "comment": "このelementは参照の対象の型を指定するためのものである。他のElementで指定されていた型であってもなくても指定することができる。場合によっては、対象の型は参照（たとえば、RESTful URL)についての調査により決定されることもあるし、参照の対象から決定されることもある。もし、参照と型のどちらもが指定されていたら、参照は指定された型を決定されるべきである(SHALL)。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier",
+        "short": "正確な参照がわからない場合の論理参照",
+        "definition": "対象となるresouceへのID。FHIRサーバを経由してこの参照が指定するEntityが指定できないか、実際の位置を示す既知のIDへとResourceを変換できない場合のように、ほかのresourceを直接参照することができない場合に使われる。Reference.identifireがFHIRインスタンスである何かを実際に示している必要はないが、FHIRインスタンスとして表現されると想定される業務概念を示さなくてはならず（SHALL)、そのインスタンスは参照先のFHIRのResource型である必要がある。",
+        "comment": "IDが参照として与えられている場合には、参照を処理するシステムはIDをIDが利用される業務コンテキストがわかっているかどうか参照を解決するためにしか利用することができない。このIDはグローバル(たとえば国民ID）であることもあるが、そうでないこともある。そのため、この参照を利用する有効な機構（たとえば、データを連鎖させたり、包含させるなど）、サーバが参照を解決することができるとも期待できない。サーバは到達できなかったり、解決できないあるいは拒否されるような参照でもIDとして受け取ることができる。CapabilityStatement.rest.resource.referencePolicyを参照のこと。\r\n\r\nIDと正確な参照が共に提供されている場合は、正確な参照が優先される。Resourceを処理するアプリケーションも許容されるがIDが正確な参照と一致することを確認することは求められてない。\r\n\r\nアプリケーションは論理参照を正確な参照へとコンバートする際に、実際に示している論理参照を外したり、削除してもよい。\r\n\r\n参照はFHIRのResourceとして表現することができる構造となるように示されているが、アプリケーションが参照の対象について検索することを求めていない限り、実際にFHIR Resourceのインスタンスが存在していなくてもよい。IDを参照しているコンテンツは、どのリソースの型が限定的に許容されるか明示されていなくても論理的な制約を満たさなければならない。たとえば、薬剤処方を示すIDの型がReference(Observation|DIagnosticReport)であることは、正当化されないであろう。Reference.identifierのユースケースの一つは、FHIRの表現が存在しない場合に、(Any)を参照する型として利用するような場合である。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.use",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.use",
+        "definition": "このIDが使われる目的",
+        "comment": "アプリケーションはIDが永続的なものと想定することができる。ただし、一時的であると明示されている場合もある。.",
+        "requirements": "IDとして用意されたデータセットから特定のコンテキストに応じて適切なIDを付与することが許容される。",
+        "isModifierReason": "アプリケーションが永続的なものに対して一時的なIDであると誤認しないように\"Is Modifier\"と標識されている。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.type",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.type",
+        "short": "IDについての説明",
+        "definition": "特定の目的のために使用されるIDを指定することができるコード化された型。",
+        "comment": "このElementはIDの一般的な分類のみを扱う。Identifier.systemと1..1で対応するコードは扱うべきではない(SHOULD NOT)。IDの中には使い方によって複数の分類に該当するものもある。システムが把握していれば、型はシステム定義の一部であるためこの型は不要である。しかし、システムが把握していない場合でもIDを扱わなければならないこともある。\r\nいろいろなシステムで同じ型が使われているので、型とシステムは一対一の関係とはならない。",
+        "requirements": "IDシステムの内容について不明であってもをユーザーはそれを使うことができる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding",
+        "short": "用語集で定義されたコード",
+        "definition": "用語集で定義されたコードに対する参照",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.system",
+        "short": "コードシステムのID",
+        "definition": "その記号が何を意味するか規定しているコードシステムのIDである。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.code",
+        "short": "用語集で定義された文法での記号",
+        "definition": "用語集で定義された文法での記号である。記号はあらかじめ決められたコードや用語集で定義された文法（たとえば、post-coordinationのような修飾語との組み合わせ)での表現である。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "用語集の中で特定のコードに参照する必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "ユーザーにとってシステムで処理はされないが人間可読なコードの意味を提示することができる必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.type.coding.userSelected",
+        "short": "このコードがユーザーが選択したものであるかどうか。",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.type.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.type.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.system",
+        "short": "ID値に対するネームスペース",
+        "definition": "値に対するネームスペースを確定する。つまり、値セットが一意に示されるURLのことを示す。",
+        "comment": "Identifier.systemは常に大文字小文字を区別する。",
+        "requirements": "IDとし提供される記号には多くの組み合わせがあります。二つのIDをマッチさせるには、IDが何を扱っているのかを理解する必要があります。システムIDは個別のIDを示す集合です。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.value",
+        "short": "一意な値",
+        "definition": "一般的にIDはユーザーに関連しており、システムの中では一意である。",
+        "comment": "値がフル規格のURIである場合は、そのシステムは urn:ietf:rfc:3986 に準拠しなければならない(SHALL)。この値は原則として機械的にマッピングするためにある。結果として、比較のためにも正規化することができる（例えば、意味のない空白やダッシュなどの記号を省略するなど）。人間が読めるような形式で表示された値であっても、[Rendered Value extension](extension-rendered-value.html)を使って伝えることができる。Identifier.valueはIdentifier.systemが大文字小文字を同一視することを許していたとしても、大文字小文字を区別するとして扱われる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.period",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.period",
+        "short": "IDの有効期間",
+        "definition": "IDが有効である（あった）期間",
+        "comment": "時間の範囲を示す期間。使用される文脈によっては、連続するすべての範囲が指定される（例えば「患者はこの時間の範囲に入院していた」）が、範囲内の一つの値として示されることもある（例えば「この2つの時間の間に患者に与えなさい」）\r\n\r\n期間(period)は存続する期間(duration, 経過時間)を意味するのではない。[Duration](datatypes.html#Duration)を参照"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.period.start",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.period.start",
+        "short": "境界を含む開始時刻",
+        "definition": "期間の開始時刻。境界も含む。",
+        "comment": "低い方のElementがない場合は低い方の境界がないことを示す。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.period.end",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.period.end",
+        "short": "継続中でなければ、境界を含む終了時刻",
+        "definition": "期間の終了を示す。終了時刻が示されない場合は、終了時刻がインスタンスが作成された時にはわかっていないか計画されていないことを示している。開始時刻は過去であり、終了時刻は未来を示すであろう。そして、それはその期間がその時刻で終了することが期待されていたあるいは予定されていたことを意味する。",
+        "comment": "高い方の値は該当する日付/時刻を含んでいる。すなわち、2012-02-03T10:00:00は2012-02-03で終了する期間に含まれる。",
+        "meaningWhenMissing": "期間の最後が示されていなければ、その期間は現在進行中であることを示す。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner",
+        "short": "IDを発行した組織・機関（単にテキストで表現されることもある）",
+        "definition": "IDを発行・管理する組織・機関",
+        "comment": "Identifier.assignerは.referrence elementを省略してもよく、.display elementだけが発行した組織・機関を示す名前やその他の情報であることもある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.reference",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.reference",
+        "short": "文字での参照、相対的、内部あるいは絶対的URL",
+        "definition": "他のResourceが存在する場所への参照。参照はサービスのベースURLに対する相対的なものや、リソースがある場所を示す絶対的URLであることもある。参照はバージョンを指定していることもあればそうでないこともある。もし参照が、FHIRのRESTfulサーバ以外を対象としていれば、それはバージョンが指定されているべきである。分割された内部参照('#'で始まる)の場合は内部に含まれるResourceへの参照である。",
+        "comment": "絶対URLを使えば安定してクラウドやWeb上にスケーラブルな対応をすることができる。一方で、相対・論理参照を使えば閉鎖されたエコシステム内部に適した柔軟な対応ができる。絶対URLをはFHIRリソースのRESTfulサーバを指定するために必要となるわけではないが、より推奨される方法である。もし、URLが\"/[type]/[id]\"で構成されていれば、FHIRのRESTfulサーバへの参照を想定していると推測することもできる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.type",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.type",
+        "short": "参照先の型(たとえば、\"Patient\")",
+        "definition": "参照の対象として予定される型。もし、Reference.typeとReference.referenceがともに指定されていて、Reference.referenceがFHIRのURLであればどちらも一致させるべきである(SHALL)。\n\r\n型はResouce Definitionに対するCanonical URLであってその型も参照の対象となる。Referenceはhttp://hl7.org/fhir/StructureDefinition/に対する相対URLである。たとえば、\"Patient\"はhttp://hl7.org/fhir/StructureDefinition/Patientへの参照である。絶対URLは論理モデルにおいて、論理モデル内部での参照として飲み使用可能であり、Resouceに対しては指定できない。",
+        "comment": "このelementは参照の対象の型を指定するためのものである。他のElementで指定されていた型であってもなくても指定することができる。場合によっては、対象の型は参照（たとえば、RESTful URL)についての調査により決定されることもあるし、参照の対象から決定されることもある。もし、参照と型のどちらもが指定されていたら、参照は指定された型を決定されるべきである(SHALL)。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier",
+        "short": "正確な参照がわからない場合の論理参照",
+        "definition": "対象となるresouceへのID。FHIRサーバを経由してこの参照が指定するEntityが指定できないか、実際の位置を示す既知のIDへとResourceを変換できない場合のように、ほかのresourceを直接参照することができない場合に使われる。Reference.identifireがFHIRインスタンスである何かを実際に示している必要はないが、FHIRインスタンスとして表現されると想定される業務概念を示さなくてはならず（SHALL)、そのインスタンスは参照先のFHIRのResource型である必要がある。",
+        "comment": "IDが参照として与えられている場合には、参照を処理するシステムはIDをIDが利用される業務コンテキストがわかっているかどうか参照を解決するためにしか利用することができない。このIDはグローバル(たとえば国民ID）であることもあるが、そうでないこともある。そのため、この参照を利用する有効な機構（たとえば、データを連鎖させたり、包含させるなど）、サーバが参照を解決することができるとも期待できない。サーバは到達できなかったり、解決できないあるいは拒否されるような参照でもIDとして受け取ることができる。CapabilityStatement.rest.resource.referencePolicyを参照のこと。\r\n\r\nIDと正確な参照が共に提供されている場合は、正確な参照が優先される。Resourceを処理するアプリケーションも許容されるがIDが正確な参照と一致することを確認することは求められてない。\r\n\r\nアプリケーションは論理参照を正確な参照へとコンバートする際に、実際に示している論理参照を外したり、削除してもよい。\r\n\r\n参照はFHIRのResourceとして表現することができる構造となるように示されているが、アプリケーションが参照の対象について検索することを求めていない限り、実際にFHIR Resourceのインスタンスが存在していなくてもよい。IDを参照しているコンテンツは、どのリソースの型が限定的に許容されるか明示されていなくても論理的な制約を満たさなければならない。たとえば、薬剤処方を示すIDの型がReference(Observation|DIagnosticReport)であることは、正当化されないであろう。Reference.identifierのユースケースの一つは、FHIRの表現が存在しない場合に、(Any)を参照する型として利用するような場合である。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.use",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.use",
+        "definition": "このIDが使われる目的",
+        "comment": "アプリケーションはIDが永続的なものと想定することができる。ただし、一時的であると明示されている場合もある。.",
+        "requirements": "IDとして用意されたデータセットから特定のコンテキストに応じて適切なIDを付与することが許容される。",
+        "isModifierReason": "アプリケーションが永続的なものに対して一時的なIDであると誤認しないように\"Is Modifier\"と標識されている。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type",
+        "short": "IDについての説明",
+        "definition": "特定の目的のために使用されるIDを指定することができるコード化された型。",
+        "comment": "このElementはIDの一般的な分類のみを扱う。Identifier.systemと1..1で対応するコードは扱うべきではない(SHOULD NOT)。IDの中には使い方によって複数の分類に該当するものもある。システムが把握していれば、型はシステム定義の一部であるためこの型は不要である。しかし、システムが把握していない場合でもIDを扱わなければならないこともある。\r\nいろいろなシステムで同じ型が使われているので、型とシステムは一対一の関係とはならない。",
+        "requirements": "IDシステムの内容について不明であってもをユーザーはそれを使うことができる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding",
+        "short": "用語集で定義されたコード",
+        "definition": "用語集で定義されたコードに対する参照",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.system",
+        "short": "コードシステムのID",
+        "definition": "その記号が何を意味するか規定しているコードシステムのIDである。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.code",
+        "short": "用語集で定義された文法での記号",
+        "definition": "用語集で定義された文法での記号である。記号はあらかじめ決められたコードや用語集で定義された文法（たとえば、post-coordinationのような修飾語との組み合わせ)での表現である。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "用語集の中で特定のコードに参照する必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "ユーザーにとってシステムで処理はされないが人間可読なコードの意味を提示することができる必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.userSelected",
+        "short": "このコードがユーザーが選択したものであるかどうか。",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.system",
+        "short": "ID値に対するネームスペース",
+        "definition": "値に対するネームスペースを確定する。つまり、値セットが一意に示されるURLのことを示す。",
+        "comment": "Identifier.systemは常に大文字小文字を判別する。",
+        "requirements": "IDとし提供される記号には多くの組み合わせがあります。二つのIDをマッチさせるには、IDが何を扱っているのかを理解する必要があります。システムIDは個別のIDを示す集合です。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.value",
+        "short": "一意な値",
+        "definition": "一般的にIDはユーザーに関連しており、システムの中では一意である。",
+        "comment": "値がフル規格のURIである場合は、そのシステムは urn:ietf:rfc:3986 に準拠しなければならない(SHALL)。この値は原則として機械的にマッピングするためにある。結果として、比較のためにも正規化することができる（例えば、意味のない空白やダッシュなどの記号を省略するなど）。人間が読めるような形式で表示された値であっても、[Rendered Value extension](extension-rendered-value.html)を使って伝えることができる。Identifier.valueはIdentifier.systemが大文字小文字を同一視することを許していたとしても、大文字小文字を区別するとして扱われる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period",
+        "short": "IDの有効期間",
+        "definition": "IDが有効である（あった）期間",
+        "comment": "時間の範囲を示す期間。使用される文脈によっては、連続するすべての範囲が指定される（例えば「患者はこの時間の範囲に入院していた」）が、範囲内の一つの値として示されることもある（例えば「この2つの時間の間に患者に与えなさい」）\r\n\r\n期間(period)は存続する期間(duration, 経過時間)を意味するのではない。[Duration](datatypes.html#Duration)を参照"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period.start",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period.start",
+        "short": "境界を含む開始時刻",
+        "definition": "期間の開始時刻。境界も含む。",
+        "comment": "低い方のElementがない場合は低い方の境界がないことを示す。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period.end",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period.end",
+        "short": "継続中でなければ、境界を含む終了時刻",
+        "definition": "期間の終了を示す。終了時刻が示されない場合は、終了時刻がインスタンスが作成された時にはわかっていないか計画されていないことを示している。開始時刻は過去であり、終了時刻は未来を示すであろう。そして、それはその期間がその時刻で終了することが期待されていたあるいは予定されていたことを意味する。",
+        "comment": "高い方の値は該当する日付/時刻を含んでいる。すなわち、2012-02-03T10:00:00は2012-02-03で終了する期間に含まれる。",
+        "meaningWhenMissing": "期間の最後が示されていなければ、その期間は現在進行中であることを示す。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner",
+        "short": "IDを発行した組織・機関（単にテキストで表現されることもある）",
+        "definition": "IDを発行・管理する組織・機関",
+        "comment": "Identifier.assignerは.referrence elementを省略してもよく、.display elementだけが発行した組織・機関を示す名前やその他の情報であることもある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.reference",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.reference",
+        "short": "文字での参照、相対的、内部あるいは絶対的URL",
+        "definition": "他のResourceが存在する場所への参照。参照はサービスのベースURLに対する相対的なものや、リソースがある場所を示す絶対的URLであることもある。参照はバージョンを指定していることもあればそうでないこともある。もし参照が、FHIRのRESTfulサーバ以外を対象としていれば、それはバージョンが指定されているべきである。分割された内部参照('#'で始まる)の場合は内部に含まれるResourceへの参照である。",
+        "comment": "絶対URLを使えば安定してクラウドやWeb上にスケーラブルな対応をすることができる。一方で、相対・論理参照を使えば閉鎖されたエコシステム内部に適した柔軟な対応ができる。絶対URLをはFHIRリソースのRESTfulサーバを指定するために必要となるわけではないが、より推奨される方法である。もし、URLが\"/[type]/[id]\"で構成されていれば、FHIRのRESTfulサーバへの参照を想定していると推測することもできる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.type",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.type",
+        "short": "参照先の型(たとえば、\"Patient\")",
+        "definition": "参照の対象として予定される型。もし、Reference.typeとReference.referenceがともに指定されていて、Reference.referenceがFHIRのURLであればどちらも一致させるべきである(SHALL)。\n\r\n型はResouce Definitionに対するCanonical URLであってその型も参照の対象となる。Referenceはhttp://hl7.org/fhir/StructureDefinition/に対する相対URLである。たとえば、\"Patient\"はhttp://hl7.org/fhir/StructureDefinition/Patientへの参照である。絶対URLは論理モデルにおいて、論理モデル内部での参照として飲み使用可能であり、Resouceに対しては指定できない。",
+        "comment": "このelementは参照の対象の型を指定するためのものである。他のElementで指定されていた型であってもなくても指定することができる。場合によっては、対象の型は参照（たとえば、RESTful URL)についての調査により決定されることもあるし、参照の対象から決定されることもある。もし、参照と型のどちらもが指定されていたら、参照は指定された型を決定されるべきである(SHALL)。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier",
+        "short": "正確な参照がわからない場合の論理参照",
+        "definition": "対象となるresouceへのID。FHIRサーバを経由してこの参照が指定するEntityが指定できないか、実際の位置を示す既知のIDへとResourceを変換できない場合のように、ほかのresourceを直接参照することができない場合に使われる。Reference.identifireがFHIRインスタンスである何かを実際に示している必要はないが、FHIRインスタンスとして表現されると想定される業務概念を示さなくてはならず（SHALL)、そのインスタンスは参照先のFHIRのResource型である必要がある。",
+        "comment": "IDが参照として与えられている場合には、参照を処理するシステムはIDをIDが利用される業務コンテキストがわかっているかどうか参照を解決するためにしか利用することができない。このIDはグローバル(たとえば国民ID）であることもあるが、そうでないこともある。そのため、この参照を利用する有効な機構（たとえば、データを連鎖させたり、包含させるなど）、サーバが参照を解決することができるとも期待できない。サーバは到達できなかったり、解決できないあるいは拒否されるような参照でもIDとして受け取ることができる。CapabilityStatement.rest.resource.referencePolicyを参照のこと。\r\n\r\nIDと正確な参照が共に提供されている場合は、正確な参照が優先される。Resourceを処理するアプリケーションも許容されるがIDが正確な参照と一致することを確認することは求められてない。\r\n\r\nアプリケーションは論理参照を正確な参照へとコンバートする際に、実際に示している論理参照を外したり、削除してもよい。\r\n\r\n参照はFHIRのResourceとして表現することができる構造となるように示されているが、アプリケーションが参照の対象について検索することを求めていない限り、実際にFHIR Resourceのインスタンスが存在していなくてもよい。IDを参照しているコンテンツは、どのリソースの型が限定的に許容されるか明示されていなくても論理的な制約を満たさなければならない。たとえば、薬剤処方を示すIDの型がReference(Observation|DIagnosticReport)であることは、正当化されないであろう。Reference.identifierのユースケースの一つは、FHIRの表現が存在しない場合に、(Any)を参照する型として利用するような場合である。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.use",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.use",
+        "definition": "このIDが使われる目的",
+        "comment": "アプリケーションはIDが永続的なものと想定することができる。ただし、一時的であると明示されている場合もある。.",
+        "requirements": "IDとして用意されたデータセットから特定のコンテキストに応じて適切なIDを付与することが許容される。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type",
+        "short": "IDについての説明",
+        "definition": "特定の目的のために使用されるIDを指定することができるコード化された型。",
+        "comment": "このElementはIDの一般的な分類のみを扱う。Identifier.systemと1..1で対応するコードは扱うべきではない(SHOULD NOT)。IDの中には使い方によって複数の分類に該当するものもある。システムが把握していれば、型はシステム定義の一部であるためこの型は不要である。しかし、システムが把握していない場合でもIDを扱わなければならないこともある。\r\nいろいろなシステムで同じ型が使われているので、型とシステムは一対一の関係とはならない。",
+        "requirements": "IDシステムの内容について不明であってもをユーザーはそれを使うことができる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding",
+        "short": "用語集で定義されたコード",
+        "definition": "用語集で定義されたコードに対する参照",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.system",
+        "short": "コードシステムのID",
+        "definition": "その記号が何を意味するか規定しているコードシステムのIDである。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.code",
+        "short": "用語集で定義された文法での記号",
+        "definition": "用語集で定義された文法での記号である。記号はあらかじめ決められたコードや用語集で定義された文法（たとえば、post-coordinationのような修飾語との組み合わせ)での表現である。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.coding.userSelected",
+        "short": "このコードがユーザーが選択したものであるかどうか。",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.type.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.system",
+        "short": "ID値に対するネームスペース",
+        "definition": "値に対するネームスペースを確定する。つまり、値セットが一意に示されるURLのことを示す。",
+        "comment": "Identifier.systemは常に大文字小文字を判別する。",
+        "requirements": "IDとし提供される記号には多くの組み合わせがあります。二つのIDをマッチさせるには、IDが何を扱っているのかを理解する必要があります。システムIDは個別のIDを示す集合です。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.value",
+        "short": "一意な値",
+        "definition": "一般的にIDはユーザーに関連しており、システムの中では一意である。",
+        "comment": "値がフル規格のURIである場合は、そのシステムは urn:ietf:rfc:3986 に準拠しなければならない(SHALL)。この値は原則として機械的にマッピングするためにある。結果として、比較のためにも正規化することができる（例えば、意味のない空白やダッシュなどの記号を省略するなど）。人間が読めるような形式で表示された値であっても、[Rendered Value extension](extension-rendered-value.html)を使って伝えることができる。Identifier.valueはIdentifier.systemが大文字小文字を同一視することを許していたとしても、大文字小文字を区別するとして扱われる。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period",
+        "short": "IDの有効期間",
+        "definition": "IDが有効である（あった）期間",
+        "comment": "時間の範囲を示す期間。使用される文脈によっては、連続するすべての範囲が指定される（例えば「患者はこの時間の範囲に入院していた」）が、範囲内の一つの値として示されることもある（例えば「この2つの時間の間に患者に与えなさい」）\r\n\r\n期間(period)は存続する期間(duration, 経過時間)を意味するのではない。[Duration](datatypes.html#Duration)を参照"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period.start",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period.start",
+        "short": "境界を含む開始時刻",
+        "definition": "期間の開始時刻。境界も含む。",
+        "comment": "低い方のElementがない場合は低い方の境界がないことを示す。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period.end",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.period.end",
+        "short": "継続中でなければ、境界を含む終了時刻",
+        "definition": "期間の終了を示す。終了時刻が示されない場合は、終了時刻がインスタンスが作成された時にはわかっていないか計画されていないことを示している。開始時刻は過去であり、終了時刻は未来を示すであろう。そして、それはその期間がその時刻で終了することが期待されていたあるいは予定されていたことを意味する。",
+        "comment": "高い方の値は該当する日付/時刻を含んでいる。すなわち、2012-02-03T10:00:00は2012-02-03で終了する期間に含まれる。",
+        "meaningWhenMissing": "期間の最後が示されていなければ、その期間は現在進行中であることを示す。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner",
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner",
+        "short": "IDを発行した組織・機関（単にテキストで表現されることもある）",
+        "definition": "IDを発行・管理する組織・機関",
+        "comment": "Identifier.assignerは.referrence elementを省略してもよく、.display elementだけが発行した組織・機関を示す名前やその他の情報であることもある。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.identifier.assigner.display",
+        "short": "Resourceを代替するテキスト",
+        "definition": "Resouceへの参照に加えて、Resourceを特定するプレインテキストでの説明",
+        "comment": "このエレメントは一般的にはResouce.textとは異なる。何が参照されているのかを示すためのものであって、詳しく解説するものではない。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.identifier.assigner.display",
+        "short": "Resourceを代替するテキスト",
+        "definition": "Resouceへの参照に加えて、Resourceを特定するプレインテキストでの説明",
+        "comment": "このエレメントは一般的にはResouce.textとは異なる。何が参照されているのかを示すためのものであって、詳しく解説するものではない。"
+      },
+      {
+        "id": "Medication.identifier.assigner.identifier.assigner.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.identifier.assigner.display",
+        "short": "Resourceを代替するテキスト",
+        "definition": "Resouceへの参照に加えて、Resourceを特定するプレインテキストでの説明",
+        "comment": "このエレメントは一般的にはResouce.textとは異なる。何が参照されているのかを示すためのものであって、詳しく解説するものではない。"
+      },
+      {
+        "id": "Medication.identifier.assigner.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.identifier.assigner.display",
+        "short": "Resourceを代替するテキスト",
+        "definition": "Resouceへの参照に加えて、Resourceを特定するプレインテキストでの説明",
+        "comment": "このエレメントは一般的にはResouce.textとは異なる。何が参照されているのかを示すためのものであって、詳しく解説するものではない。"
+      },
+      {
+        "id": "Medication.code",
+        "path": "Medication.code",
+        "short": "この薬剤を特定するコード",
+        "definition": "この薬剤を指定するコード。該当するコードがない場合はテキスト表記。\r\n使用法について注記：日本ではHOTコードを利用することが推奨される。一般的な薬剤コードとしてRxNorm、SNOMD CT, IDMPなど標準的な医薬品コードを使うことができる。国や地域に特有のローカルコードも使うことができ、他のコードに変換することもできる。",
+        "comment": "使われるコンテキストによるが、ユーザー(処方や調剤などを行った人）によって実際にコードが選択されたのであれば、coding.userSelectedはtrueとすることとなる。Codingのデータ型で説明されているように、「ユーザーインターフェース（たとえば、選択肢から特定の項目をユーザーが選択するような形式）で特定のコードをユーザーが選択したのであれば、\"userSlected\"に記録されてもよい」\r\nユーザーが選択したコードがあれば、その選択がコード変換などで優先される。そのほかのコードは代替のコードシステムか低粒度のコード（たとえば、ベンダー固有の初期値のための一般的なコード）に文字列変換変換するしかない。",
+        "binding": {
+          "strength": "preferred",
+          "description": "薬品の種類を規定するコード化された概念"
+        }
+      },
+      {
+        "id": "Medication.code.coding",
+        "path": "Medication.code.coding",
+        "short": "ターミノロジーで規定されたコード",
+        "definition": "ターミノロジーで規定されたコードへの参照",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "Medication.code.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.code.coding.system",
+        "short": "コードシステムのID",
+        "definition": "その記号が何を意味するか規定しているコードシステムのIDである。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。"
+      },
+      {
+        "id": "Medication.code.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.code.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.code.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.code.coding.code",
+        "short": "用語集で定義された文法での記号",
+        "definition": "用語集で定義された文法での記号である。記号はあらかじめ決められたコードや用語集で定義された文法（たとえば、post-coordinationのような修飾語との組み合わせ)での表現である。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "用語集の中で特定のコードに参照する必要がある。"
+      },
+      {
+        "id": "Medication.code.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.code.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "ユーザーにとってシステムで処理はされないが人間可読なコードの意味を提示することができる必要がある。"
+      },
+      {
+        "id": "Medication.code.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.code.coding.userSelected",
+        "short": "このコードがユーザーが選択したものであるかどうか。",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.code.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.code.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。"
+      },
+      {
+        "id": "Medication.status",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.status",
+        "definition": "JP Coreでは active で固定される。\r\n薬剤が有効に使われているかどうかを指定するコード。",
+        "comment": "このステータスは薬剤がローカルにあるシステム内で薬剤データベースや棚卸表で有効とされているかどうかを識別するためのものである。たとえば、薬剤システムで「ABC病院特製クリーム」といった製剤のために新しい薬剤ファイルを作成されるような場合もある。未来のある時点では、薬剤記録を作成した時にエラーが発生し、ステータスが「entered-in-error」に変化することもありうる。このステータスは薬剤が特定の処方集に記載されているかどうかを指定するためのものではない。薬剤記録が複数の処方集やカタログを参照することも可能であり、それぞれの記録が異なるステータスを持つこともある。",
+        "min": 1,
+        "fixedCode": "active",
+        "isModifierReason": "このエレメントはすべての属性の解釈によって変化する。"
+      },
+      {
+        "id": "Medication.manufacturer",
+        "path": "Medication.manufacturer",
+        "short": "製品を製造者"
+      },
+      {
+        "id": "Medication.manufacturer.reference",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.reference",
+        "short": "文字上の参照か相対的、あるいは内部、絶対URL",
+        "definition": "Resourceがどこにあるのかを示す参照。参照は相対的参照であることもあり、その場合はサービスベースのURLに関連付けられるか、どこにResourceがあるのかを示す絶対URLとなる。参照はそのバージョンで異なることもある。もし、参照先がFHIRのRESTfulサーバでなければ、バージョン特有のものであることが装丁されるべきである。内部フラグメントでの参照('#'で始まるもの）は内包されたResourceへの参照である。",
+        "comment": "絶対的URLは、クラウドやWebでの条件で安定していてスケーラブルな方法として利用されるが、一方で相対的・論理的参照はクローズドなエコシステムの境界を越えてデータをやりとりする場合には柔軟な対応ができる。推奨されて入るものの、絶対URLはFHIRのRESTfulサーバを指定する必要はない。URLが\"/[type]/[id]\"という構造であれば、FHIRのRESTfulサーバであることが想定されるはずである。"
+      },
+      {
+        "id": "Medication.manufacturer.type",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.type",
+        "short": "参照先の型(たとえば、\"Patient\")",
+        "definition": "参照の対象として予定される型。もし、Reference.typeとReference.referenceがともに指定されていて、Reference.referenceがFHIRのURLであればどちらも一致させるべきである(SHALL)。\n\r\n型はResouce Definitionに対するCanonical URLであってその型も参照の対象となる。Referenceはhttp://hl7.org/fhir/StructureDefinition/に対する相対URLである。たとえば、\"Patient\"はhttp://hl7.org/fhir/StructureDefinition/Patientへの参照である。絶対URLは論理モデルにおいて、論理モデル内部での参照として飲み使用可能であり、Resouceに対しては指定できない。",
+        "comment": "このelementは参照の対象の型を指定するためのものである。他のElementで指定されていた型であってもなくても指定することができる。場合によっては、対象の型は参照（たとえば、RESTful URL)についての調査により決定されることもあるし、参照の対象から決定されることもある。もし、参照と型のどちらもが指定されていたら、参照は指定された型を決定されるべきである(SHALL)。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier",
+        "path": "Medication.manufacturer.identifier",
+        "short": "正確な参照がわからない場合の論理参照",
+        "definition": "対象となるresouceへのID。FHIRサーバを経由してこの参照が指定するEntityが指定できないか、実際の位置を示す既知のIDへとResourceを変換できない場合のように、ほかのresourceを直接参照することができない場合に使われる。Reference.identifireがFHIRインスタンスである何かを実際に示している必要はないが、FHIRインスタンスとして表現されると想定される業務概念を示されなくてはらならず(SHALL)、そのインスタンスは参照先のFHIRのResource型である必要がある。",
+        "comment": "IDが参照として与えられている場合には、参照を処理するシステムはIDをIDが利用される業務コンテキストがわかっているかどうか参照を解決するためにしか利用することができない。このIDはグローバル(たとえば国民ID）であることもあるが、そうでないこともある。そのため、この参照を利用する有効な機構（たとえば、データを連鎖させたり、包含させるなど）、サーバが参照を解決することができるとも期待できない。サーバは到達できなかったり、解決できないあるいは拒否されるような参照でもIDとして受け取ることができる。CapabilityStatement.rest.resource.referencePolicyを参照のこと。\r\n\r\nIDと正確な参照が共に提供されている場合は、正確な参照が優先される。Resourceを処理するアプリケーションも許容されるがIDが正確な参照と一致することを確認することは求められてない。\r\n\r\nアプリケーションは論理参照を正確な参照へとコンバートする際に、実際に示している論理参照を外したり、削除してもよい。\r\n\r\n参照はFHIRのResourceとして表現することができる構造となるように示されているが、アプリケーションが参照の対象について検索することを求めていない限り、実際にFHIR Resourceのインスタンスが存在していなくてもよい。IDを参照しているコンテンツは、どのリソースの型が限定的に許容されるか明示されていなくても論理的な制約を満たさなければならない。たとえば、薬剤処方を示すIDの型がReference(Observation|DIagnosticReport)であることは、正当化されないであろう。Reference.identifierのユースケースの一つは、FHIRの表現が存在しない場合に、(Any)を参照する型として利用するような場合である。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.use",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.use",
+        "definition": "このIDが使われる目的",
+        "comment": "アプリケーションはIDが永続的なものと想定することができる。ただし、一時的であると明示されている場合もある。.",
+        "requirements": "IDとして用意されたデータセットから特定のコンテキストに応じて適切なIDを付与することが許容される。",
+        "isModifierReason": "アプリケーションが永続的なものに対して一時的なIDであると誤認しないように\"Is Modifier\"と標識されている。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.type",
+        "path": "Medication.manufacturer.identifier.type",
+        "short": "IDについての説明",
+        "definition": "特定の目的のために使用されるIDを指定することができるコード化された型。",
+        "comment": "このElementはIDの一般的な分類のみを扱う。Identifier.systemと1..1で対応するコードは扱うべきではない(SHOULD NOT)。IDの中には使い方によって複数の分類に該当するものもある。システムが把握していれば、型はシステム定義の一部であるためこの型は不要である。しかし、システムが把握していない場合でもIDを扱わなければならないこともある。\r\nいろいろなシステムで同じ型が使われているので、型とシステムは一対一の関係とはならない。",
+        "requirements": "IDシステムの内容について不明であってもをユーザーはそれを使うことができる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.type.coding",
+        "path": "Medication.manufacturer.identifier.type.coding",
+        "short": "用語集で規定されたコード",
+        "definition": "用語集で規定されたコードへの参照",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.type.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.type.coding.system",
+        "short": "コードシステムのID",
+        "definition": "その記号が何を意味するか規定しているコードシステムのIDである。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.type.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.type.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.type.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.type.coding.code",
+        "short": "用語集で定義された文法での記号",
+        "definition": "用語集で定義された文法での記号である。記号はあらかじめ決められたコードや用語集で定義された文法（たとえば、post-coordinationのような修飾語との組み合わせ)での表現である。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "用語集の中で特定のコードに参照する必要がある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.type.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.type.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "ユーザーにとってシステムで処理はされないが人間可読なコードの意味を提示することができる必要がある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.type.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.type.coding.userSelected",
+        "short": "このコードがユーザーが選択したものであるかどうか。",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.type.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.type.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.system",
+        "short": "ID値に対するネームスペース",
+        "definition": "値に対するネームスペースを確定する。つまり、値セットが一意に示されるURLのことを示す。",
+        "comment": "Identifier.systemは常に大文字小文字を判別する。",
+        "requirements": "IDとし提供される記号には多くの組み合わせがある。二つのIDをマッチさせるには、IDが何を扱っているのかを理解する必要がある。システムIDは個別のIDを示す集合である。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.value",
+        "short": "一意な値",
+        "definition": "一般的にIDはユーザーに関連しており、システムの中では一意である。",
+        "comment": "値がフル規格のURIである場合は、そのシステムは urn:ietf:rfc:3986 に準拠しなければならない(SHALL)。この値は原則として機械的にマッピングするためにある。結果として、比較のためにも正規化することができる（例えば、意味のない空白やダッシュなどの記号を省略するなど）。人間が読めるような形式で表示された値であっても、[Rendered Value extension](extension-rendered-value.html)を使って伝えることができる。Identifier.valueはIdentifier.systemが大文字小文字を同一視することを許していたとしても、大文字小文字を区別するとして扱われる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.period",
+        "path": "Medication.manufacturer.identifier.period",
+        "short": "IDの有効期間",
+        "definition": "IDが有効である（あった）期間",
+        "comment": "時間の範囲を示す期間。使用される文脈によっては、連続するすべての範囲が指定される（例えば「患者はこの時間の範囲に入院していた」）が、範囲内の一つの値として示されることもある（例えば「この2つの時間の間に患者に与えなさい」）\r\n\r\n期間(period)は存続する期間(duration, 経過時間)を意味するのではない。[Duration](datatypes.html#Duration)を参照"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.period.start",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.period.start",
+        "short": "境界を含む開始時刻",
+        "definition": "期間の開始時刻。境界も含む。",
+        "comment": "低い方のElementがない場合は低い方の境界がないことを示す。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.period.end",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.period.end",
+        "short": "継続中でなければ、境界を含む終了時刻",
+        "definition": "期間の終了を示す。終了時刻が示されない場合は、終了時刻がインスタンスが作成された時にはわかっていないか計画されていないことを示している。開始時刻は過去であり、終了時刻は未来を示すであろう。そして、それはその期間がその時刻で終了することが期待されていたあるいは予定されていたことを意味する。",
+        "comment": "高い方の値は該当する日付/時刻を含んでいる。すなわち、2012-02-03T10:00:00は2012-02-03で終了する期間に含まれる。",
+        "meaningWhenMissing": "期間の最後が示されていなければ、その期間は現在進行中であることを示す。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner",
+        "path": "Medication.manufacturer.identifier.assigner",
+        "short": "IDを発行した組織・機関（単にテキストで表現されることもある）",
+        "definition": "IDを発行・管理する組織・機関",
+        "comment": "Identifier.assignerは.referrence elementを省略してもよく、.display elementだけが発行した組織・機関を示す名前やその他の情報であることもある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.reference",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.reference",
+        "short": "文字での参照、相対的、内部あるいは絶対的URL",
+        "definition": "他のResourceが存在する場所への参照。参照はサービスのベースURLに対する相対的なものや、リソースがある場所を示す絶対的URLであることもある。参照はバージョンを指定していることもあればそうでないこともある。もし参照が、FHIRのRESTfulサーバ以外を対象としていれば、それはバージョンが指定されているべきである。分割された内部参照('#'で始まる)の場合は内部に含まれるResourceへの参照である。",
+        "comment": "絶対URLを使えば安定してクラウドやWeb上にスケーラブルな対応をすることができる。一方で、相対・論理参照を使えば閉鎖されたエコシステム内部に適した柔軟な対応ができる。絶対URLをはFHIRリソースのRESTfulサーバを指定するために必要となるわけではないが、より推奨される方法である。もし、URLが\"/[type]/[id]\"で構成されていれば、FHIRのRESTfulサーバへの参照を想定していると推測することもできる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.type",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.type",
+        "short": "参照先の型(たとえば、\"Patient\")",
+        "definition": "参照の対象として予定される型。もし、Reference.typeとReference.referenceがともに指定されていて、Reference.referenceがFHIRのURLであればどちらも一致させるべきである(SHALL)。\n\r\n型はResouce Definitionに対するCanonical URLであってその型も参照の対象となる。Referenceはhttp://hl7.org/fhir/StructureDefinition/に対する相対URLである。たとえば、\"Patient\"はhttp://hl7.org/fhir/StructureDefinition/Patientへの参照である。絶対URLは論理モデルにおいて、論理モデル内部での参照として飲み使用可能であり、Resouceに対しては指定できない。",
+        "comment": "このelementは参照の対象の型を指定するためのものである。他のElementで指定されていた型であってもなくても指定することができる。場合によっては、対象の型は参照（たとえば、RESTful URL)についての調査により決定されることもあるし、参照の対象から決定されることもある。もし、参照と型のどちらもが指定されていたら、参照は指定された型を決定されるべきである(SHALL)。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier",
+        "path": "Medication.manufacturer.identifier.assigner.identifier",
+        "short": "正確な参照がわからない場合の論理参照",
+        "definition": "対象となるresouceへのID。FHIRサーバを経由してこの参照が指定するEntityが指定できないか、実際の位置を示す既知のIDへとResourceを変換できない場合のように、ほかのresourceを直接参照することができない場合に使われる。Reference.identifireがFHIRインスタンスである何かを実際に示している必要はないが、FHIRインスタンスとして表現されると想定される業務概念を示されなくてはらならず(SHALL)、そのインスタンスは参照先のFHIRのResource型である必要がある。",
+        "comment": "IDが参照として与えられている場合には、参照を処理するシステムはIDをIDが利用される業務コンテキストがわかっているかどうか参照を解決するためにしか利用することができない。このIDはグローバル(たとえば国民ID）であることもあるが、そうでないこともある。そのため、この参照を利用する有効な機構（たとえば、データを連鎖させたり、包含させるなど）、サーバが参照を解決することができるとも期待できない。サーバは到達できなかったり、解決できないあるいは拒否されるような参照でもIDとして受け取ることができる。CapabilityStatement.rest.resource.referencePolicyを参照のこと。\r\n\r\nIDと正確な参照が共に提供されている場合は、正確な参照が優先される。Resourceを処理するアプリケーションも許容されるがIDが正確な参照と一致することを確認することは求められてない。\r\n\r\nアプリケーションは論理参照を正確な参照へとコンバートする際に、実際に示している論理参照を外したり、削除してもよい。\r\n\r\n参照はFHIRのResourceとして表現することができる構造となるように示されているが、アプリケーションが参照の対象について検索することを求めていない限り、実際にFHIR Resourceのインスタンスが存在していなくてもよい。IDを参照しているコンテンツは、どのリソースの型が限定的に許容されるか明示されていなくても論理的な制約を満たさなければならない。たとえば、薬剤処方を示すIDの型がReference(Observation|DIagnosticReport)であることは、正当化されないであろう。Reference.identifierのユースケースの一つは、FHIRの表現が存在しない場合に、(Any)を参照する型として利用するような場合である。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.use",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.use",
+        "definition": "このIDが使われる目的",
+        "comment": "アプリケーションはIDが永続的なものと想定することができる。ただし、一時的であると明示されている場合もある。.",
+        "requirements": "IDとして用意されたデータセットから特定のコンテキストに応じて適切なIDを付与することが許容される。",
+        "isModifierReason": "アプリケーションが永続的なものに対して一時的なIDであると誤認しないように\"Is Modifier\"と標識されている。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.type",
+        "path": "Medication.manufacturer.identifier.assigner.identifier.type",
+        "short": "IDについての説明",
+        "definition": "特定の目的のために使用されるIDを指定することができるコード化された型。",
+        "comment": "このElementはIDの一般的な分類のみを扱う。Identifier.systemと1..1で対応するコードは扱うべきではない(SHOULD NOT)。IDの中には使い方によって複数の分類に該当するものもある。システムが把握していれば、型はシステム定義の一部であるためこの型は不要である。しかし、システムが把握していない場合でもIDを扱わなければならないこともある。\r\nいろいろなシステムで同じ型が使われているので、型とシステムは一対一の関係とはならない。",
+        "requirements": "IDシステムの内容について不明であってもをユーザーはそれを使うことができる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.type.coding",
+        "path": "Medication.manufacturer.identifier.assigner.identifier.type.coding",
+        "short": "用語集で規定されたコード",
+        "definition": "用語集で規定されたコードへの参照",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.type.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.type.coding.system",
+        "short": "コードシステムのID",
+        "definition": "その記号が何を意味するか規定しているコードシステムのIDである。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.type.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.type.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.type.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.type.coding.code",
+        "short": "用語集で定義された文法での記号",
+        "definition": "用語集で定義された文法での記号である。記号はあらかじめ決められたコードや用語集で定義された文法（たとえば、post-coordinationのような修飾語との組み合わせ)での表現である。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "用語集の中で特定のコードに参照する必要がある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.type.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.type.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "ユーザーにとってシステムで処理はされないが人間可読なコードの意味を提示することができる必要がある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.type.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.type.coding.userSelected",
+        "short": "このコードがユーザーが選択したものであるかどうか。",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.type.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.type.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.system",
+        "short": "ID値に対するネームスペース",
+        "definition": "値に対するネームスペースを確定する。つまり、値セットが一意に示されるURLのことを示す。",
+        "comment": "Identifier.systemは常に大文字小文字を判別する。",
+        "requirements": "IDとし提供される記号には多くの組み合わせがある。二つのIDをマッチさせるには、IDが何を扱っているのかを理解する必要がある。システムIDは個別のIDを示す集合である。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.value",
+        "short": "一意な値",
+        "definition": "一般的にIDはユーザーに関連しており、システムの中では一意である。",
+        "comment": "値がフル規格のURIである場合は、そのシステムは urn:ietf:rfc:3986 に準拠しなければならない(SHALL)。この値は原則として機械的にマッピングするためにある。結果として、比較のためにも正規化することができる（例えば、意味のない空白やダッシュなどの記号を省略するなど）。人間が読めるような形式で表示された値であっても、[Rendered Value extension](extension-rendered-value.html)を使って伝えることができる。Identifier.valueはIdentifier.systemが大文字小文字を同一視することを許していたとしても、大文字小文字を区別するとして扱われる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.period",
+        "path": "Medication.manufacturer.identifier.assigner.identifier.period",
+        "short": "IDの有効期間",
+        "definition": "IDが有効である（あった）期間",
+        "comment": "時間の範囲を示す期間。使用される文脈によっては、連続するすべての範囲が指定される（例えば「患者はこの時間の範囲に入院していた」）が、範囲内の一つの値として示されることもある（例えば「この2つの時間の間に患者に与えなさい」）\r\n\r\n期間(period)は存続する期間(duration, 経過時間)を意味するのではない。[Duration](datatypes.html#Duration)を参照"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.period.start",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.period.start",
+        "short": "境界を含む開始時刻",
+        "definition": "期間の開始時刻。境界も含む。",
+        "comment": "低い方のElementがない場合は低い方の境界がないことを示す。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.period.end",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.period.end",
+        "short": "継続中でなければ、境界を含む終了時刻",
+        "definition": "期間の終了を示す。終了時刻が示されない場合は、終了時刻がインスタンスが作成された時にはわかっていないか計画されていないことを示している。開始時刻は過去であり、終了時刻は未来を示すであろう。そして、それはその期間がその時刻で終了することが期待されていたあるいは予定されていたことを意味する。",
+        "comment": "高い方の値は該当する日付/時刻を含んでいる。すなわち、2012-02-03T10:00:00は2012-02-03で終了する期間に含まれる。",
+        "meaningWhenMissing": "期間の最後が示されていなければ、その期間は現在進行中であることを示す。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner",
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner",
+        "short": "IDを発行した組織・機関（単にテキストで表現されることもある）",
+        "definition": "IDを発行・管理する組織・機関",
+        "comment": "Identifier.assignerは.referrence elementを省略してもよく、.display elementだけが発行した組織・機関を示す名前やその他の情報であることもある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.reference",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.reference",
+        "short": "文字での参照、相対的、内部あるいは絶対的URL",
+        "definition": "他のResourceが存在する場所への参照。参照はサービスのベースURLに対する相対的なものや、リソースがある場所を示す絶対的URLであることもある。参照はバージョンを指定していることもあればそうでないこともある。もし参照が、FHIRのRESTfulサーバ以外を対象としていれば、それはバージョンが指定されているべきである。分割された内部参照('#'で始まる)の場合は内部に含まれるResourceへの参照である。",
+        "comment": "絶対URLを使えば安定してクラウドやWeb上にスケーラブルな対応をすることができる。一方で、相対・論理参照を使えば閉鎖されたエコシステム内部に適した柔軟な対応ができる。絶対URLをはFHIRリソースのRESTfulサーバを指定するために必要となるわけではないが、より推奨される方法である。もし、URLが\"/[type]/[id]\"で構成されていれば、FHIRのRESTfulサーバへの参照を想定していると推測することもできる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.type",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.type",
+        "short": "参照先の型(たとえば、\"Patient\")",
+        "definition": "参照の対象として予定される型。もし、Reference.typeとReference.referenceがともに指定されていて、Reference.referenceがFHIRのURLであればどちらも一致させるべきである(SHALL)。\n\r\n型はResouce Definitionに対するCanonical URLであってその型も参照の対象となる。Referenceはhttp://hl7.org/fhir/StructureDefinition/に対する相対URLである。たとえば、\"Patient\"はhttp://hl7.org/fhir/StructureDefinition/Patientへの参照である。絶対URLは論理モデルにおいて、論理モデル内部での参照として飲み使用可能であり、Resouceに対しては指定できない。",
+        "comment": "このelementは参照の対象の型を指定するためのものである。他のElementで指定されていた型であってもなくても指定することができる。場合によっては、対象の型は参照（たとえば、RESTful URL)についての調査により決定されることもあるし、参照の対象から決定されることもある。もし、参照と型のどちらもが指定されていたら、参照は指定された型を決定されるべきである(SHALL)。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier",
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier",
+        "short": "正確な参照がわからない場合の論理参照",
+        "definition": "対象となるresouceへのID。FHIRサーバを経由してこの参照が指定するEntityが指定できないか、実際の位置を示す既知のIDへとResourceを変換できない場合のように、ほかのresourceを直接参照することができない場合に使われる。Reference.identifireがFHIRインスタンスである何かを実際に示している必要はないが、FHIRインスタンスとして表現されると想定される業務概念を示されなくてはらならず(SHALL)、そのインスタンスは参照先のFHIRのResource型である必要がある。",
+        "comment": "IDが参照として与えられている場合には、参照を処理するシステムはIDをIDが利用される業務コンテキストがわかっているかどうか参照を解決するためにしか利用することができない。このIDはグローバル(たとえば国民ID）であることもあるが、そうでないこともある。そのため、この参照を利用する有効な機構（たとえば、データを連鎖させたり、包含させるなど）、サーバが参照を解決することができるとも期待できない。サーバは到達できなかったり、解決できないあるいは拒否されるような参照でもIDとして受け取ることができる。CapabilityStatement.rest.resource.referencePolicyを参照のこと。\r\n\r\nIDと正確な参照が共に提供されている場合は、正確な参照が優先される。Resourceを処理するアプリケーションも許容されるがIDが正確な参照と一致することを確認することは求められてない。\r\n\r\nアプリケーションは論理参照を正確な参照へとコンバートする際に、実際に示している論理参照を外したり、削除してもよい。\r\n\r\n参照はFHIRのResourceとして表現することができる構造となるように示されているが、アプリケーションが参照の対象について検索することを求めていない限り、実際にFHIR Resourceのインスタンスが存在していなくてもよい。IDを参照しているコンテンツは、どのリソースの型が限定的に許容されるか明示されていなくても論理的な制約を満たさなければならない。たとえば、薬剤処方を示すIDの型がReference(Observation|DIagnosticReport)であることは、正当化されないであろう。Reference.identifierのユースケースの一つは、FHIRの表現が存在しない場合に、(Any)を参照する型として利用するような場合である。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.use",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.use",
+        "definition": "このIDが使われる目的",
+        "comment": "アプリケーションはIDが永続的なものと想定することができる。ただし、一時的であると明示されている場合もある。.",
+        "requirements": "IDとして用意されたデータセットから特定のコンテキストに応じて適切なIDを付与することが許容される。",
+        "isModifierReason": "アプリケーションが永続的なものに対して一時的なIDであると誤認しないように\"Is Modifier\"と標識されている。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type",
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type",
+        "short": "IDについての説明",
+        "definition": "特定の目的のために使用されるIDを指定することができるコード化された型。",
+        "comment": "このElementはIDの一般的な分類のみを扱う。Identifier.systemと1..1で対応するコードは扱うべきではない(SHOULD NOT)。IDの中には使い方によって複数の分類に該当するものもある。システムが把握していれば、型はシステム定義の一部であるためこの型は不要である。しかし、システムが把握していない場合でもIDを扱わなければならないこともある。\r\nいろいろなシステムで同じ型が使われているので、型とシステムは一対一の関係とはならない。",
+        "requirements": "IDシステムの内容について不明であってもをユーザーはそれを使うことができる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding",
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding",
+        "short": "用語集で規定されたコード",
+        "definition": "用語集で規定されたコードへの参照",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.system",
+        "short": "コードシステムのID",
+        "definition": "その記号が何を意味するか規定しているコードシステムのIDである。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.code",
+        "short": "用語集で定義された文法での記号",
+        "definition": "用語集で定義された文法での記号である。記号はあらかじめ決められたコードや用語集で定義された文法（たとえば、post-coordinationのような修飾語との組み合わせ)での表現である。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "用語集の中で特定のコードに参照する必要がある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "ユーザーにとってシステムで処理はされないが人間可読なコードの意味を提示することができる必要がある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.coding.userSelected",
+        "short": "概念のプレインテキスト表現",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.type.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.system",
+        "short": "ID値に対するネームスペース",
+        "definition": "値に対するネームスペースを確定する。つまり、値セットが一意に示されるURLのことを示す。",
+        "comment": "Identifier.systemは常に大文字小文字を判別する。",
+        "requirements": "IDとし提供される記号には多くの組み合わせがある。二つのIDをマッチさせるには、IDが何を扱っているのかを理解する必要がある。システムIDは個別のIDを示す集合である。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.value",
+        "short": "一意な値",
+        "definition": "一般的にIDはユーザーに関連しており、システムの中では一意である。",
+        "comment": "値がフル規格のURIである場合は、そのシステムは urn:ietf:rfc:3986 に準拠しなければならない(SHALL)。この値は原則として機械的にマッピングするためにある。結果として、比較のためにも正規化することができる（例えば、意味のない空白やダッシュなどの記号を省略するなど）。人間が読めるような形式で表示された値であっても、[Rendered Value extension](extension-rendered-value.html)を使って伝えることができる。Identifier.valueはIdentifier.systemが大文字小文字を同一視することを許していたとしても、大文字小文字を区別するとして扱われる。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.period",
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.period",
+        "short": "IDの有効期間",
+        "definition": "IDが有効である（あった）期間",
+        "comment": "時間の範囲を示す期間。使用される文脈によっては、連続するすべての範囲が指定される（例えば「患者はこの時間の範囲に入院していた」）が、範囲内の一つの値として示されることもある（例えば「この2つの時間の間に患者に与えなさい」）\r\n\r\n期間(period)は存続する期間(duration, 経過時間)を意味するのではない。[Duration](datatypes.html#Duration)を参照"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.period.start",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.period.start",
+        "short": "境界を含む開始時刻",
+        "definition": "期間の開始時刻。境界も含む。",
+        "comment": "低い方のElementがない場合は低い方の境界がないことを示す。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.period.end",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.period.end",
+        "short": "継続中でなければ、境界を含む終了時刻",
+        "definition": "期間の終了を示す。終了時刻が示されない場合は、終了時刻がインスタンスが作成された時にはわかっていないか計画されていないことを示している。開始時刻は過去であり、終了時刻は未来を示すであろう。そして、それはその期間がその時刻で終了することが期待されていたあるいは予定されていたことを意味する。",
+        "comment": "高い方の値は該当する日付/時刻を含んでいる。すなわち、2012-02-03T10:00:00は2012-02-03で終了する期間に含まれる。",
+        "meaningWhenMissing": "期間の最後が示されていなければ、その期間は現在進行中であることを示す。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.assigner",
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.identifier.assigner",
+        "short": "IDを発行した組織・機関（単にテキストで表現されることもある）",
+        "definition": "IDを発行・管理する組織・機関",
+        "comment": "Identifier.assignerは.referrence elementを省略してもよく、.display elementだけが発行した組織・機関を示す名前やその他の情報であることもある。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.identifier.assigner.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.identifier.assigner.display",
+        "short": "Resourceを代替するテキスト",
+        "definition": "Resouceへの参照に加えて、Resourceを特定するプレインテキストでの説明",
+        "comment": "このエレメントは一般的にはResouce.textとは異なる。何が参照されているのかを示すためのものであって、詳しく解説するものではない。"
+      },
+      {
+        "id": "Medication.manufacturer.identifier.assigner.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.identifier.assigner.display",
+        "short": "Resourceを代替するテキスト",
+        "definition": "Resouceへの参照に加えて、Resourceを特定するプレインテキストでの説明",
+        "comment": "このエレメントは一般的にはResouce.textとは異なる。何が参照されているのかを示すためのものであって、詳しく解説するものではない。"
+      },
+      {
+        "id": "Medication.manufacturer.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.manufacturer.display",
+        "short": "Resourceを代替するテキスト",
+        "definition": "Resouceへの参照に加えて、Resourceを特定するプレインテキストでの説明",
+        "comment": "このエレメントは一般的にはResouce.textとは異なる。何が参照されているのかを示すためのものであって、詳しく解説するものではない。"
+      },
+      {
+        "id": "Medication.form",
+        "path": "Medication.form",
+        "definition": "製品の剤型についての説明。散剤(powder)、錠剤(tablets)、カプセル(capsule)など。",
+        "comment": "もし、Medication ResourceがMedicationRequest Resourceから参照された場合は、これはオーダーされた剤型である。Medication ResourceがMedicationDispense Resourceから参照された場合は、払い出された剤型である。MedicationAdministration ResourceからMedication Resourceが参照されていれば、投与された剤型である。"
+      },
+      {
+        "id": "Medication.form.coding",
+        "path": "Medication.form.coding",
+        "short": "用語集で定義されたコード",
+        "definition": "用語集を参照する際に定義されたコード。",
+        "comment": "剤型についてはFHIRではSNOMED CTの剤型に関するコードが用いられるが、日本ではMERIT-9の処方オーダ、剤型コードが用いられることがこれまでHL7 2.5Jでは行われてきた。\r\nコードは取り得る値を列挙したり、コードのリストを作ったりと臨時で作られることもあれば、SNOMED CTのように公的に定義されることもある。詳しい内容については HL7 v3 Core Principleを参照すること。オーダーについてのコーディングは定義されていないし、意味を推測するために利用してはならない(SHALL NOT)。一般的にはコーディングされた値はUserSelected = trueとして表示される。",
+        "requirements": "他のコードシステムでエンコードされたものや、他のコードシステムに変換されたコードでもよい。",
+        "binding": {
+          "strength": "preferred",
+          "description": "MERIT-9処方オーダ、表3剤型コード",
+          "valueSet": "http://hl7fhir.jp/medication/MR9PForm"
+        }
+      },
+      {
+        "id": "Medication.form.coding.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.form.coding.system",
+        "short": "用語集のID",
+        "definition": "コードの中の記号が何を意味するのかを規定している用語集のID。",
+        "comment": "URIはOIDやUUIDであることもある。OIDとUUIDはHL7 OIDレジストリへの参照でなくてはならない(SHALL)。\r\nそうでない場合は、URIはFHIRが定義しているHL7の表にある特定のURIか明確に一意に確定できるよう定義された参照であること。",
+        "requirements": "記号を定義する根拠は明示されていなくてはならない。"
+      },
+      {
+        "id": "Medication.form.coding.version",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.form.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "用語集がコードシステムのバージョンを指定するための文字列を明確に定義していない場合、そのバージョンが公式に発表された日付（FHIRのdateフォーマットで表現される）が使用される。"
+      },
+      {
+        "id": "Medication.form.coding.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.form.coding.code",
+        "short": "用語集で定義された文法での記号",
+        "definition": "用語集で定義された文法での記号である。記号はあらかじめ決められたコードや用語集で定義された文法（たとえば、post-coordinationのような修飾語との組み合わせ)での表現である。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "用語集の中で特定のコードに参照する必要がある。"
+      },
+      {
+        "id": "Medication.form.coding.display",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.form.coding.display",
+        "short": "システムで定義された表現",
+        "definition": "システム上のルールによるシステム内でのコードの意味表現",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "ユーザーにとってシステムで処理はされないが人間可読なコードの意味を提示することができる必要がある。"
+      },
+      {
+        "id": "Medication.form.coding.userSelected",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.form.coding.userSelected",
+        "short": "このコードがユーザーが選択したものであるかどうか。",
+        "definition": "このコードがユーザーによって直接選択されたものであるかどうかを示す。たとえば、（コードや表現が）利用できる項目のリストから選択されたものであるかどうか。",
+        "comment": "選択肢の中から直接選ばれたコードはコード変換で最も適切な始め方です。「直接選択」の意味については、曖昧なところがあり、データを交換する際にはこのエレメントの使われ方を明示することや、その重要性についてより完全な合意が必要となるだろう。",
+        "requirements": "この項目については臨床上の安全基準として認識されてきた。実在のシステムとコードの組み合わせは、テキスト処理や何らかのルールによって推測されたものよりも明示的に選択されたものである。"
+      },
+      {
+        "id": "Medication.form.text",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.form.text",
+        "short": "概念のプレインテキスト表現",
+        "definition": "データを入力したユーザー（および/または）ユーザーが意図した概念を参照/選択/完全な形での自然言語表現。",
+        "comment": "このテキスト表現はコーディングのdisplayNameとよく一致する。",
+        "requirements": "用語集から選ばれたコードは必ずしも人間が使っている用語の意味のすべてのニュアンスまでは正確に一致することはない。また、適切なコードがないような場合もある。そのような場合に大元の意味のすべてを伝えるためにこのテキストが使われる。"
+      },
+      {
+        "id": "Medication.amount",
+        "path": "Medication.amount",
+        "short": "パッケージ中の薬剤の量",
+        "definition": "パッケージされた製品に含まれる薬剤固有の量。たとえば、同じ力価の製品を指定すれば（たとえば、インスリングラルギン10単位/mL注射液）、この値はパッケージ内での薬剤量（たとえば、3mL, 10mLなど）を明示することになる。",
+        "comment": "比率（Ratio)を表すデータ型は、量(Quantity)と共通単位を使って適切に表現できないときのみに使われるべきである。分母が\"1\"に固定されているとわかっているような場合は、量(Quantity)を比率(Ratio)の代わりに使うべきである。"
+      },
+      {
+        "id": "Medication.amount.numerator",
+        "path": "Medication.amount.numerator",
+        "short": "分子の値",
+        "definition": "分子の値",
+        "comment": "使用されるコンテキストによってどのような量が扱われるか、つまりどのような単位で表されることができるかを定義している。使用されるコンテキストによっては、比較器(comparator)に対する値を制約することもある。"
+      },
+      {
+        "id": "Medication.amount.numerator.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.numerator.value",
+        "short": "数値（高精度であることを明示している）",
+        "definition": "計測された量。値の表現にその精度を明示している値。",
+        "comment": "値について精度を明示することが推奨される。金額についてはその取り扱いについて独自のルールもある。（会計の教科書を参照）",
+        "requirements": "精度についてはほぼすべての計測において明示的に扱われる。"
+      },
+      {
+        "id": "Medication.amount.numerator.comparator",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.numerator.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "値がどのように解釈され、表現されるかを示す。測定の問題で、実際の値が表示される数値よりも大きかったり小さかったりするような場合に用いられる。たとえば、comparatorが < であれば、実際の値は表示値よりも小さい。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "計測限界のため値が <5ug/L や >400mg/L となる場合でも扱うことのできるフレームワークが必要。",
+        "meaningWhenMissing": "もし、comparatorがなければ、値は修飾されることはない。",
+        "isModifierReason": "Comparatorは値の解釈にとって重要であり、それによって値そのものの意味が修飾（Modify）されるため、この項目は Is Modifier とラベルされる。もし、comparatorがなければ、値は修飾されることはない。"
+      },
+      {
+        "id": "Medication.amount.numerator.unit",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.numerator.unit",
+        "short": "単位表現",
+        "definition": "人間可読な単位の表現形式。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "測定単位のための表現は多い。さまざまなコンテキストに応じて特定の表現が指定されるか要求されている。たとえば、microgramの単位表現としてmcgがある。"
+      },
+      {
+        "id": "Medication.amount.numerator.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.numerator.system",
+        "short": "単位形式についてのコードを定義するシステム",
+        "definition": "単位のコード化された形式を提供するシステムに対するID。",
+        "requirements": "単位のコード形式を定義するシステムについては把握する必要がある。"
+      },
+      {
+        "id": "Medication.amount.numerator.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.numerator.code",
+        "short": "単位についてのコード化された形式",
+        "definition": "単位表現するコードシステムによる機械処理可能な形式での単位。",
+        "comment": "UCUMを推奨するが、SNOMED CTも(特定の単位のために）使用することができ、ISO 4217を通貨のために使うことができる。使用されるコンテキストによっては特定のシステムからのコードが追加的に求められることがある。",
+        "requirements": "すべての形式にわたって固定的に利用でき、機械処理ができる形式が求められる。UCUMは計量単位を提供し、SNOMED CTはその他の多くの単位を提供する。"
+      },
+      {
+        "id": "Medication.amount.denominator",
+        "path": "Medication.amount.denominator",
+        "short": "分母の値",
+        "definition": "分母の値。",
+        "comment": "使用されるコンテキストによってどのような量が扱われるか、つまりどのような単位で表されることができるかを定義している。使用されるコンテキストによっては、比較器(comparator)に対する値を制約することもある。"
+      },
+      {
+        "id": "Medication.amount.denominator.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.denominator.value",
+        "short": "数値（精度を明示している）",
+        "definition": "計測された量。値の表現にその精度を明示している値。",
+        "comment": "値について精度を明示することが推奨される。金額についてはその取り扱いについて独自のルールもある。（会計の教科書を参照）",
+        "requirements": "精度についてはほぼすべての計測において明示的に扱われる。"
+      },
+      {
+        "id": "Medication.amount.denominator.comparator",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.denominator.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "値がどのように解釈され、表現されるかを示す。測定の問題で、実際の値が表示される数値よりも大きかったり小さかったりするような場合に用いられる。たとえば、comparatorが < であれば、実際の値は表示値よりも小さい。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "計測限界のため値が <5ug/L や >400mg/L となる場合でも扱うことのできるフレームワークが必要。",
+        "meaningWhenMissing": "もし、comparatorがなければ、値は修飾されることはない。",
+        "isModifierReason": "Comparatorは値の解釈にとって重要であり、それによって値そのものの意味が修飾（Modify）されるため、この項目は Is Modifier とラベルされる。もし、comparatorがなければ、値は修飾されることはない。"
+      },
+      {
+        "id": "Medication.amount.denominator.unit",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.denominator.unit",
+        "short": "単位表現",
+        "definition": "人間可読な単位の表現形式。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "測定単位のための表現は多い。さまざまなコンテキストに応じて特定の表現が指定されるか要求されている。たとえば、microgramの単位表現としてmcgがある。"
+      },
+      {
+        "id": "Medication.amount.denominator.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.denominator.system",
+        "short": "単位形式についてのコードを定義するシステム",
+        "definition": "単位のコード化された形式を提供するシステムに対するID。",
+        "requirements": "単位のコード形式を定義するシステムについては把握する必要がある。"
+      },
+      {
+        "id": "Medication.amount.denominator.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.amount.denominator.code",
+        "short": "単位についてのコード化された形式",
+        "definition": "単位表現するコードシステムによる機械処理可能な形式での単位。",
+        "comment": "UCUMを推奨するが、SNOMED CTも(特定の単位のために）使用することができ、ISO 4217を通貨のために使うことができる。使用されるコンテキストによっては特定のシステムからのコードが追加的に求められることがある。",
+        "requirements": "すべての形式にわたって固定的に利用でき、機械処理ができる形式が求められる。UCUMは計量単位を提供し、SNOMED CTはその他の多くの単位を提供する。"
+      },
+      {
+        "id": "Medication.ingredient",
+        "path": "Medication.ingredient",
+        "short": "薬効がある、あるいは薬効を伴わない成分",
+        "definition": "この薬剤を構成する特定の重要成分を識別する",
+        "comment": "すべての成分を含む必要はない。もし、ある成分が記載されていなくてもその成分が含有されているかどうかを必ずしも意味しない。特定の成分が記載されていても、すべての成分が記載されていると言うことを意味しない。有効成分であるか、有効成分ではないかを指定することは可能である。"
+      },
+      {
+        "id": "Medication.ingredient.extension",
+        "path": "Medication.ingredient.extension",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "url"
+            }
+          ],
+          "rules": "open"
+        },
+        "min": 0
+      },
+      {
+        "id": "Medication.ingredient.extension:DrugNo",
+        "path": "Medication.ingredient.extension",
+        "sliceName": "DrugNo",
+        "min": 0,
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Medication_Ingredient_DrugNo"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Medication.ingredient.item[x]",
+        "path": "Medication.ingredient.item[x]",
+        "short": "有効な成分あるいは含有物",
+        "definition": "有効成分。物質(単純成分）あるいは他の薬剤や処方。",
+        "comment": "すべての用語集はこの一般的な様式を満たさない。場合によっては、情報モデルとしてCodeableConceptや直接Codingを使うべきではなく、テキストやコード、翻訳や事前条件と事後条件でのエレメントの関係などを示すことも適切ではない。",
+        "requirements": "成分は物質（たとえば、アモキシシリン）や、他の薬剤（たとえば、Glaxal Baseなどの合成製品）を参照されることもある。",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "mustSupport": true
+      },
+      {
+        "id": "Medication.ingredient.isActive",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.isActive",
+        "short": "有効成分の指標",
+        "definition": "この成分が薬剤の治療効果に影響するかどうかの指標\r\nI\r\nndication of whether this ingredient affects the therapeutic action of the drug.",
+        "requirements": "Trueであれば、この成分が薬剤の治療効果に影響がある（たとえば有効）ということを示す。\r\nFalseであれば、この成分が薬剤の治療効果に影響がない（たとえば無効）ということを示す。"
+      },
+      {
+        "id": "Medication.ingredient.strength",
+        "path": "Medication.ingredient.strength",
+        "short": "成分の活性量",
+        "definition": "この薬剤中にどの程度の物質が含まれているかを示す。たとえば、1錠あたり250mgなど。これは分子が250mgで分母が1錠である比率を表現している。",
+        "comment": "Ratioデータ型は2つの数字の関係で示され、Quantityや一般的な単位で適切に表現できない関係を表すときにのみ用いられる。分母の値が「1」で固定されているような値であれば、QuantityがRatioの代わりに用いられるべきである。",
+        "min": 1,
+        "mustSupport": true
+      },
+      {
+        "id": "Medication.ingredient.strength.extension",
+        "path": "Medication.ingredient.strength.extension",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "url"
+            }
+          ],
+          "rules": "open"
+        },
+        "min": 0
+      },
+      {
+        "id": "Medication.ingredient.strength.extension:StrenghtType",
+        "path": "Medication.ingredient.strength.extension",
+        "sliceName": "StrenghtType",
+        "definition": "投与量が製剤単位か成分単位かを格納する拡張",
+        "min": 0,
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Medication_IngredientStrength_StrengthType"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Medication.ingredient.strength.numerator",
+        "path": "Medication.ingredient.strength.numerator",
+        "short": "分子の値",
+        "definition": "分子の値",
+        "comment": "使用されるコンテキストによってどのような量が扱われるか、つまりどのような単位で表されることができるかを定義している。使用されるコンテキストによっては、比較器(comparator)に対する値を制約することもある。"
+      },
+      {
+        "id": "Medication.ingredient.strength.numerator.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.numerator.value",
+        "short": "数値（高精度であることを明示している）",
+        "definition": "計測された量。値の表現にその精度を明示している値。",
+        "comment": "値について精度を明示することが推奨される。金額についてはその取り扱いについて独自のルールもある。（会計の教科書を参照）",
+        "requirements": "精度についてはほぼすべての計測において明示的に扱われる。"
+      },
+      {
+        "id": "Medication.ingredient.strength.numerator.comparator",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.numerator.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "値がどのように解釈され、表現されるかを示す。測定の問題で、実際の値が表示される数値よりも大きかったり小さかったりするような場合に用いられる。たとえば、comparatorが < であれば、実際の値は表示値よりも小さい。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "計測限界のため値が <5ug/L や >400mg/L となる場合でも扱うことのできるフレームワークが必要。",
+        "meaningWhenMissing": "もし、comparatorがなければ、値は修飾されることはない。",
+        "isModifierReason": "Comparatorは値の解釈にとって重要であり、それによって値そのものの意味が修飾（Modify）されるため、この項目は Is Modifier とラベルされる。もし、comparatorがなければ、値は修飾されることはない。"
+      },
+      {
+        "id": "Medication.ingredient.strength.numerator.unit",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.numerator.unit",
+        "short": "単位表現",
+        "definition": "人間可読な単位の表現形式。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "測定単位のための表現は多い。さまざまなコンテキストに応じて特定の表現が指定されるか要求されている。たとえば、microgramの単位表現としてmcgがある。"
+      },
+      {
+        "id": "Medication.ingredient.strength.numerator.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.numerator.system",
+        "short": "単位形式についてのコードを定義するシステム",
+        "definition": "単位のコード化された形式を提供するシステムに対するID。",
+        "requirements": "単位のコード形式を定義するシステムについては把握する必要がある。"
+      },
+      {
+        "id": "Medication.ingredient.strength.numerator.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.numerator.code",
+        "short": "単位についてのコード化された形式",
+        "definition": "単位表現するコードシステムによる機械処理可能な形式での単位。",
+        "comment": "UCUMを推奨するが、SNOMED CTも(特定の単位のために）使用することができ、ISO 4217を通貨のために使うことができる。使用されるコンテキストによっては特定のシステムからのコードが追加的に求められることがある。",
+        "requirements": "すべての形式にわたって固定的に利用でき、機械処理ができる形式が求められる。UCUMは計量単位を提供し、SNOMED CTはその他の多くの単位を提供する。"
+      },
+      {
+        "id": "Medication.ingredient.strength.denominator",
+        "path": "Medication.ingredient.strength.denominator",
+        "short": "分母の値",
+        "definition": "分母の値。",
+        "comment": "使用されるコンテキストによってどのような量が扱われるか、つまりどのような単位で表されることができるかを定義している。使用されるコンテキストによっては、比較器(comparator)に対する値を制約することもある。"
+      },
+      {
+        "id": "Medication.ingredient.strength.denominator.value",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.denominator.value",
+        "short": "数値（精度を明示している）",
+        "definition": "JP Coreでは1に固定される。\r\n計測された量。値の表現にその精度を明示している値。",
+        "comment": "値について精度を明示することが推奨される。金額についてはその取り扱いについて独自のルールもある。（会計の教科書を参照）",
+        "requirements": "精度についてはほぼすべての計測において明示的に扱われる。",
+        "fixedDecimal": 1
+      },
+      {
+        "id": "Medication.ingredient.strength.denominator.comparator",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.denominator.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "値がどのように解釈され、表現されるかを示す。測定の問題で、実際の値が表示される数値よりも大きかったり小さかったりするような場合に用いられる。たとえば、comparatorが < であれば、実際の値は表示値よりも小さい。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "計測限界のため値が <5ug/L や >400mg/L となる場合でも扱うことのできるフレームワークが必要。",
+        "meaningWhenMissing": "もし、comparatorがなければ、値は修飾されることはない。",
+        "isModifierReason": "Comparatorは値の解釈にとって重要であり、それによって値そのものの意味が修飾（Modify）されるため、この項目は Is Modifier とラベルされる。もし、comparatorがなければ、値は修飾されることはない。"
+      },
+      {
+        "id": "Medication.ingredient.strength.denominator.unit",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.denominator.unit",
+        "short": "単位表現",
+        "definition": "JP Coreでは回に固定される。\r\n人間可読な単位の表現形式。",
+        "comment": "FHIRの文字列は1MBを越えてはならない(SHALL NOT)。",
+        "requirements": "測定単位のための表現は多い。さまざまなコンテキストに応じて特定の表現が指定されるか要求されている。たとえば、microgramの単位表現としてmcgがある。",
+        "fixedString": "回"
+      },
+      {
+        "id": "Medication.ingredient.strength.denominator.system",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.denominator.system",
+        "short": "単位形式についてのコードを定義するシステム",
+        "definition": "JP Coreでは urn:oid:1.2.392.100495.20.2.101に固定される\r\n単位のコード化された形式を提供するシステムに対するID。",
+        "requirements": "単位のコード形式を定義するシステムについては把握する必要がある。",
+        "fixedUri": "urn:oid:1.2.392.100495.20.2.101"
+      },
+      {
+        "id": "Medication.ingredient.strength.denominator.code",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.ingredient.strength.denominator.code",
+        "short": "単位についてのコード化された形式",
+        "definition": "JP Coreでは KAI に固定される。\r\n単位表現するコードシステムによる機械処理可能な形式での単位。",
+        "comment": "UCUMを推奨するが、SNOMED CTも(特定の単位のために）使用することができ、ISO 4217を通貨のために使うことができる。使用されるコンテキストによっては特定のシステムからのコードが追加的に求められることがある。",
+        "requirements": "すべての形式にわたって固定的に利用でき、機械処理ができる形式が求められる。UCUMは計量単位を提供し、SNOMED CTはその他の多くの単位を提供する。",
+        "fixedCode": "KAI"
+      },
+      {
+        "id": "Medication.batch",
+        "path": "Medication.batch",
+        "short": "分包された薬剤についての詳細な解説",
+        "definition": "薬剤のパッケージ（薬品そのものではない）についての情報。"
+      },
+      {
+        "id": "Medication.batch.lotNumber",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.batch.lotNumber",
+        "short": "バッチのID",
+        "definition": "特定の薬品を含むバッチに割り当てられたロット番号",
+        "comment": "FHIRの文字列は1MBを超えるサイズであってはならない(SHALL NOT)。"
+      },
+      {
+        "id": "Medication.batch.expirationDate",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "normative"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
+            "valueCode": "4.0.0"
+          }
+        ],
+        "path": "Medication.batch.expirationDate",
+        "short": "このバッチの期限が切れるとき",
+        "definition": "この特定のバッチの薬剤の期限が切れるとき"
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+- name: Index
+  filename: Index.guide.md
+- name: Patient
+  filename: Patient.guide.md
+- name: Coverage
+  filename: Coverage.guide.md
+- name: Encounter
+  filename: Encounter.guide.md
+- name: Location
+  filename: Location.guide.md
+- name: Organization
+  filename: Organization.guide.md
+- name: Practitioner
+  filename: Practitioner.guide.md
+- name: PractitionerRole
+  filename: PractitionerRole.guide.md

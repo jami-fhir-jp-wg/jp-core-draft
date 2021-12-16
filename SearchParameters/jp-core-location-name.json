@@ -1,0 +1,69 @@
+{
+  "resourceType": "SearchParameter",
+  "id": "jp-core-location-name",
+  "url": "http://jpfhir.jp/fhir/core/SearchParameter/StructureDefinition/jp-core-location-name",
+  "version": "1.0.0",
+  "name": "JPCoreLocationName",
+  "status": "active",
+  "experimental": false,
+  "date": "2021-12-01",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "Locationリソースのname(名称)に関する検索を定義します。",
+  "code": "name",
+  "base": [
+    "Location"
+  ],
+  "type": "string",
+  "expression": "Location.name",
+  "xpath": "f:Location/f:name",
+  "xpathUsage": "normal",
+  "multipleOr": true,
+  "_multipleOr": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+        "valueCode": "MAY"
+      }
+    ]
+  },
+  "multipleAnd": true,
+  "_multipleAnd": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+        "valueCode": "MAY"
+      }
+    ]
+  },
+  "modifier": [
+    "missing",
+    "exact",
+    "contains"
+  ],
+  "_modifier": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    }
+  ]
+}

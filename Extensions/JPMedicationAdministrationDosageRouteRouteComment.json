@@ -1,0 +1,50 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "7d2bd9f9-3e77-423c-be7f-8602a284fe0a",
+  "meta": {
+    "lastUpdated": "2021-12-04T09:31:10.517+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_DosageRoute_RouteComment",
+  "version": "1.0.0",
+  "name": "JP_MedicationAdministration_DosageRoute_RouteComment",
+  "title": "JP_MedicationAdministration_DosageRoute_RouteComment",
+  "status": "active",
+  "date": "2021-11-03T17:19:40.8495967+00:00",
+  "publisher": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "description": "投与経路コメントを格納するための拡張",
+  "purpose": "投与経路コメントを格納するための拡張",
+  "copyright": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationAdministration.dosage.route"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_DosageRoute_RouteComment"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "string"
+          },
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,682 @@
+{
+    "resourceType": "Bundle",
+    "type": "message",
+    "entry": [
+	{
+	    "resource": {
+		"resourceType": "MessageHeader",
+		"eventCoding": {
+		    "system": "http://www.hl7fhir.jp",
+		    "code": "RDE^O11^RDE_O11"
+		},
+		"destination": [
+		    {
+			"name": "HL7FHIR",
+			"endpoint": "http://h7fhir.jp/dest"
+		    }
+		],
+		"source": {
+		    "name": "HL7V2",
+		    "endpoint": "http://h7fhir.jp/src"
+		}
+	    }
+	},
+	{
+	    "resource": {
+		"resourceType": "Patient",
+		"identifier": [
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.51.11319999999",
+			"value": "1000000001"
+		    }
+		],
+		"name": [
+		    {
+			"use": "official",
+			"family": "患者",
+			"given": ["太郎"],
+			"extension": [
+			    {
+				"url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+				"valueCode": "IDE"
+			    }
+			]
+		    },
+		    {
+			"use": "official",
+			"family": "カンジャ",
+			"given": ["タロウ"],
+			"extension": [
+			    {
+				"url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+				"valueCode": "SYL"
+			    }
+			]
+		    }
+		],
+		"telecom": [
+		    {
+			"system": "phone",
+			"value": "03-1234-5678",
+			"use": "home"
+		    }
+		],
+		"gender": "male",
+		"birthDate": "1979-11-01",
+		"address": [
+		    {
+			"line": [
+			    "東京都渋谷区本町三丁目１２ー１"
+			],
+			"city": "渋谷区",
+			"state": "東京都",
+			"postalCode": "1510071",
+			"country": "JPN"
+		    }
+		]
+	    }
+	},
+	{
+	    "resource": {
+		"resourceType": "Practitioner",
+		"identifier": [
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.41.11319999999",
+			"value": "123456"
+		    }
+		],
+		"name": [
+		    {
+			"family": "医師",
+			"given": ["春子"],
+			"extension": [
+			    {
+				"url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+				"valueCode": "IDE"
+			    }
+			]
+		    },
+		    {
+			"family": "イシ",
+			"given": ["ハルコ"],
+			"extension": [
+			    {
+				"url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+				"valueCode": "SYL"
+			    }
+			]
+		    }
+		]
+	    }
+	},
+	{
+	    "resource": {
+		"resourceType": "PractitionerRole",
+		"identifier": [
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.41.11319999999",
+			"value": "123456"
+		    }
+		],
+		"specialty": [
+		    {
+			"coding": [
+			    {
+				"system": "urn:oid:1.2.392.200250.2.2.2",
+				"code": "01",
+				"display": "内科"
+			    }
+			]
+		    }
+		]
+	    }
+	},
+	{
+	    "resource": {
+		"resourceType": "Organization",
+		"identifier": [
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.21",
+			"value": "13"
+		    },
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.22",
+			"value": "1"
+		    },
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.23",
+			"value": "9999999"
+		    }
+		],
+		"name": "メドレークリニック",
+		"address": [
+		    {
+			"line": [
+			    "東京都港区六本木３−２−１"
+			],
+			"city": "港区",
+			"state": "東京都",
+			"country": "JPN"
+		    }
+		]
+	    }
+	},
+	{
+	    "resource": {
+		"resourceType": "MedicationRequest",
+		"status": "draft",
+		"intent": "order",
+		"subject": {
+		    "reference": "Patient/pat1",
+		    "display": "患者太郎"
+		},
+		"identifier": [
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.11",
+			"value": "12345678"
+		    }
+		],
+		"category": [
+		    {
+			"coding": [
+			    {
+				"system": "http://hl7fhir.jp/medication/JHSP0003",
+				"code": "21",
+				"display": "内服"
+			    }
+			]
+		    },
+		    {
+			"coding": [
+			    {
+				"system": "HL70482",
+				"code": "O",
+				"display": "外来患者オーダ"
+			    }
+			]
+		    },
+		    {
+			"coding": [
+			    {
+				"system": "MR9P",
+				"code": "OHP",
+				"display": "外来処方"
+			    }
+			]
+		    },
+		    {
+			"coding": [
+			    {
+				"system": "MR9P",
+				"code": "OHI",
+				"display": "院内処方"
+			    }
+			]
+		    },
+		    {
+			"coding": [
+			    {
+				"system": "JHSP0003",
+				"code": "21",
+				"display": "内服"
+			    }
+			]
+		    }
+		],
+		"medicationCodeableConcept": {
+		    "coding": [
+			{
+			    "system": "urn:oid:1.2.392.100495.20.2.74",
+			    "code": "103835401",
+			    "display": "ムコダイン錠２５０ｍｇ"
+			}
+		    ]
+		},
+		"authoredOn": "2016-08-25",
+		"requester": {
+		    "reference": "Practitioner/phys1",
+		    "type": "Practioner",
+		    "identifier": {
+			"system": "urn:oid:1.2.392.100495.20.3.41.11319999999",
+			"value": "123456"
+		    },
+		    "display": "医師春子"
+		},
+		"groupIdentifier": {
+		    "value": "1"
+		},
+		"dosageInstruction": [
+		    {
+			"timing": {
+			    "repeat": {
+				"period": 3,
+				"periodUnit": "d"
+			    },
+			    "code": [
+				{
+				    "coding": [
+					{
+					    "system": "urn:oid:1.2.392.200250.2.2.20",
+					    "code": "1013044400000000",
+					    "display": "内服・経口・１日３回朝昼夕食後"
+					}
+				    ]
+				}
+			    ]
+			},
+			"route": {
+			    "coding": [
+				{
+				    "system": "urn:oid:2.16.840.1.113883.3.1937.777.10.5.162",
+				    "code": "PO",
+				    "display": "経口"
+				}
+			    ]
+			},
+			"doseAndRate": [
+			    {
+				"type": {
+				    "coding": [
+					{
+					    "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+					    "code": "ordered",
+					    "display": "Ordered"
+					}
+				    ]
+				},
+				"doseQuantity": {
+				    "value": 1,
+				    "unit": "錠",
+				    "system": "http://hl7fhir.jp/medication/MR9PUnit",
+				    "code": "TAB"
+				}
+			    }
+			]
+		    }
+		]
+	    }
+	},
+	{
+	    "resource": {
+		"resourceType": "MedicationRequest",
+		"status": "draft",
+		"intent": "order",
+		"subject": {
+		    "reference": "Patient/pat1",
+		    "display": "患者太郎"
+		},
+		"identifier": [
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.11",
+			"value": "12345678"
+		    }
+		],
+		"category": [
+		    {
+			"coding": [
+			    {
+				"system": "http://hl7fhir.jp/medication/MR9PForm",
+				"code": "TAB",
+				"display": "錠"
+			    }
+			]
+		    },
+		    {
+			"coding": [
+			    {
+				"system": "http://hl7fhir.jp/medication/JHSP0003",
+				"code": "21",
+				"display": "内服"
+			    }
+			]
+		    }
+		],
+		"medicationCodeableConcept": {
+		    "coding": [
+			{
+			    "system": "urn:oid:1.2.392.100495.20.2.74",
+			    "code": "110626901",
+			    "display": "パンスポリンＴ錠１００ １００ｍｇ"
+			}
+		    ]
+		},
+		"authoredOn": "2016-08-25",
+		"requester": {
+		    "reference": "Practitioner",
+		    "type": "Practioner/phys1",
+		    "identifier": {
+			"system": "urn:oid:1.2.392.100495.20.3.41.11319999999",
+			"value": "123456"
+		    },
+		    "display": "医師春子"
+		},
+		"groupIdentifier": {
+		    "value": "1"
+		},
+		"dosageInstruction": [
+		    {
+			"timing": {
+			    "repeat": {
+				"period": 3,
+				"periodUnit": "d"
+			    },
+			    "code": [
+				{
+				    "coding": [
+					{
+					    "system": "urn:oid:1.2.392.200250.2.2.20",
+					    "code": "1013044400000000",
+					    "display": "内服・経口・１日３回朝昼夕食後"
+					}
+				    ]
+				}
+			    ]
+			},
+			"route": {
+			    "coding": [
+				{
+				    "system": "urn:oid:2.16.840.1.113883.3.1937.777.10.5.162",
+				    "code": "PO",
+				    "display": "経口"
+				}
+			    ]
+			},
+			"doseAndRate": [
+			    {
+				"type": {
+				    "coding": [
+					{
+					    "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+					    "code": "ordered",
+					    "display": "Ordered"
+					}
+				    ]
+				},
+				"doseQuantity": {
+				    "value": 2,
+				    "unit": "錠",
+				    "system": "http://hl7fhir.jp/medication/MR9PUnit",
+				    "code": "TAB"
+				}
+			    },
+			    {
+				"type": {
+				    "coding": [
+					{
+					    "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+					    "code": "ordered",
+					    "display": "Ordered"
+					}
+				    ]
+				},
+				"doseQuantity": {
+				    "value": 6,
+				    "unit": "錠",
+				    "system": "http://hl7fhir.jp/medication/MR9PUnit",
+				    "code": "TAB"
+				}
+			    }
+			]
+		    }
+		],
+		"dispenseRequest": {
+		    "quantity": {
+			"value": 18,
+			"unit": "錠",
+			"system": "http://hl7fhir.jp/medication/MR9PUnit",
+			"code": "TAB"
+		    }
+		}
+	    }
+	},
+	{
+	    "resource": {
+		"resourceType": "MedicationRequest",
+		"status": "draft",
+		"intent": "order",
+		"subject": {
+		    "reference": "Patient/pat1",
+		    "display": "患者太郎"
+		},
+		"identifier": [
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.11",
+			"value": "12345678"
+		    }
+		],
+		"category": [
+		    {
+			"coding": [
+			    {
+				"system": "http://hl7fhir.jp/medication/JHSP0003",
+				"code": "22",
+				"display": "頓用"
+			    }
+			]
+		    }
+		],
+		"medicationCodeableConcept": {
+		    "coding": [
+			{
+			    "system": "urn:oid:1.2.392.100495.20.2.74",
+			    "code": "100795402",
+			    "display": "ボルタレン錠２５ｍｇ"
+			}
+		    ]
+		},
+		"authoredOn": "2016-08-25",
+		"requester": {
+		    "reference": "Practitioner/phys1",
+		    "type": "Practioner",
+		    "identifier": {
+			"system": "urn:oid:1.2.392.100495.20.3.41.11319999999",
+			"value": "123456"
+		    },
+		    "display": "医師春子"
+		},
+		"groupIdentifier": {
+		    "value": "2"
+		},
+		"dosageInstruction": [
+		    {
+			"timing": {
+			    "code": [
+				{
+				    "coding": [
+					{
+					    "system": "urn:oid:1.2.392.200250.2.2.20",
+					    "code": "1050110020000000",
+					    "display": "内服・経口・疼痛時"
+					}
+				    ]
+				}
+			    ]
+			},
+			"asNeededBoolean": true,
+			"route": {
+			    "coding": [
+				{
+				    "system": "urn:oid:2.16.840.1.113883.3.1937.777.10.5.162",
+				    "code": "PO",
+				    "display": "経口"
+				}
+			    ]
+			},
+			"doseAndRate": [
+			    {
+				"type": {
+				    "coding": [
+					{
+					    "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+					    "code": "ordered",
+					    "display": "Ordered"
+					}
+				    ]
+				},
+				"doseQuantity": {
+				    "value": 1,
+				    "unit": "錠",
+				    "system": "http://hl7fhir.jp/medication/MR9PUnit",
+				    "code": "TAB"
+				}
+			    }
+			]
+		    }
+		],
+		"dispenseRequest": {
+		    "quantity": {
+			"value": 10,
+			"unit": "錠",
+			"system": "http://hl7fhir.jp/medication/MR9PUnit",
+			"code": "TAB"
+		    }
+		}
+	    }
+	},
+	{
+	    "resource": {
+		"resourceType": "MedicationRequest",
+		"status": "draft",
+		"intent": "order",
+		"subject": {
+		    "reference": "Patient/pat1",
+		    "display": "患者太郎"
+		},
+		"identifier": [
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.11",
+			"value": "12345678"
+		    }
+		],
+		"category": [
+		    {
+			"coding": [
+			    {
+				"system": "http://hl7fhir.jp/medication/MR9PForm",
+				"code": "OIT",
+				"display": "軟膏"
+			    }
+			]
+		    },
+		    {
+			"coding": [
+			    {
+				"system": "http://hl7fhir.jp/medication/JHSP0003",
+				"code": "23",
+				"display": "外用"
+			    }
+			]
+		    }
+		],
+		"medicationCodeableConcept": {
+		    "coding": [
+			{
+			    "system": "urn:oid:1.2.392.100495.20.2.74",
+			    "code": "106238001",
+			    "display": "ジフラール軟膏０．０５％"
+			}
+		    ]
+		},
+		"groupIdentifier": {
+		    "value": "3"
+		},
+		"authoredOn": "2016-08-25",
+		"requester": {
+		    "reference": "Practitioner/phys1",
+		    "type": "Practioner",
+		    "identifier": {
+			"system": "urn:oid:1.2.392.100495.20.3.41.11319999999",
+			"value": "123456"
+		    },
+		    "display": "医師春子"
+		},
+		"dosageInstruction": [
+		    {
+			"timing": {
+			    "code": [
+				{
+				    "coding": [
+					{
+					    "system": "urn:oid:1.2.392.200250.2.2.20",
+					    "code": "2B74000000000000",
+					    "display": "外用・塗布・１日４回"
+					}
+				    ]
+				}
+			    ]
+			},
+			"site": {
+			    "coding": [
+				{
+				    "system": "urn:oid:1.2.392.200250.2.2.20",
+				    "code": "77L",
+				    "display": "左手"
+				}
+			    ]
+			},
+			"route": {
+			    "coding": [
+				{
+				    "system": "urn:oid:2.16.840.1.113883.3.1937.777.10.5.162",
+				    "code": "AP",
+				    "display": "外用"
+				}
+			    ]
+			},
+			"doseAndRate": [
+			    {
+				"type": {
+				    "coding": [
+					{
+					    "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+					    "code": "ordered",
+					    "display": "Ordered"
+					}
+				    ]
+				}
+			    }
+			]
+		    }
+		],
+		"dispenseRequest": {
+		    "quantity": {
+			"value": 2,
+			"unit": "本",
+			"system": "http://hl7fhir.jp/medication/MR9PUnit",
+			"code": "HON"
+		    }
+		}
+	    }
+	},
+	{
+	    "resource": {
+		"resourceType": "Coverage",
+		"identifier": [
+		    {
+			"system": "urn:oid:1.2.392.100495.20.3.71",
+			"value": "15138092"
+		    }
+		],
+		"status": "active",
+		"type": {
+		    "coding": [
+			{
+			    "system": "1.2.392.100495.20.2.61",
+			    "code": "8",
+			    "display": "公費"
+			}
+		    ]
+		},
+		"beneficiary": {
+		    "reference": "Patient/pat1"
+		},
+		"payor": [
+		    {
+			"reference": "Organization/org1",
+			"display": "広域組合"
+		    }
+		]
+	    }
+	}
+    ]
+}

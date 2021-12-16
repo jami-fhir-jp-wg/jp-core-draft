@@ -1,0 +1,59 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "4b53c2de-7595-40da-9c04-bb912b394f27",
+  "meta": {
+    "lastUpdated": "2021-12-04T09:25:25.010+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Medication_Ingredient_DrugNo",
+  "version": "1.0.0",
+  "name": "JP_Medication_Ingredient_DrugNo",
+  "title": "JP_Medication_Ingredient_DrugNo",
+  "status": "active",
+  "date": "2021-12-03T15:25:07.4303514Z",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "投与量が製剤単位か成分単位かを格納する拡張",
+  "purpose": "投与量が製剤単位か成分単位かを格納する拡張",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "Medication.ingredient"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "RP内の薬剤の連番",
+        "definition": "RP内の薬剤の連番"
+      },
+      {
+        "id": "Extension.id",
+        "path": "Extension.id",
+        "short": "RP内の薬剤の連番",
+        "definition": "RP内の薬剤の連番"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Medication_Ingredient_DrugNo"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "integer"
+          }
+        ]
+      }
+    ]
+  }
+}

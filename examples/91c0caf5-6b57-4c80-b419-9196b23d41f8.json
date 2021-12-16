@@ -1,0 +1,187 @@
+{
+  "resourceType": "MedicationRequest",
+  "id": "91c0caf5-6b57-4c80-b419-9196b23d41f8",
+  "contained": [
+    {
+      "id": "91c0caf5-6b57-4c80-b419-9196b23d41f8",
+      "ingredient": [
+        {
+          "itemCodeableConcept": {
+            "coding": [
+              {
+                "system": "urn:oid:1.2.392.100495.20.2.74",
+                "code": "100558502",
+                "display": "ホリゾン注射液１０ｍｇ"
+              }
+            ]
+          },
+          "strength": {
+            "numerator": {
+              "value": 1,
+              "unit": "アンプル",
+              "system": "urn:oid:1.2.392.100495.20.2.101",
+              "code": "AMP"
+            },
+            "denominator": {
+              "value": 1,
+              "unit": "回",
+              "system": "urn:oid:1.2.392.100495.20.2.101",
+              "code": "KAI"
+            }
+          }
+        }
+      ],
+      "resourceType": "Medication"
+    },
+    {
+      "id": "0cdd1de5-d48f-4cf4-9238-2dba48fbbc39",
+      "location": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0550",
+            "code": "ARM",
+            "display": "腕"
+          }
+        ]
+      },
+      "locationQualifier": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0495",
+              "code": "L",
+              "display": "左"
+            }
+          ]
+        }
+      ],
+      "patient": {
+        "reference": "urn:uuid:79965040-5c95-4ce5-b8f7-efe606c364b4",
+        "type": "Patient"
+      },
+      "resourceType": "BodyStructure"
+    }
+  ],
+  "identifier": [
+    {
+      "system": "urn:oid:1.2.392.100495.20.3.11",
+      "value": "123456789012345"
+    },
+    {
+      "system": "urn:oid:1.2.392.100495.20.3.81",
+      "value": "123456789012345_01_001"
+    }
+  ],
+  "status": "active",
+  "intent": "order",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v2-0482",
+          "code": "I",
+          "display": "入院患者オーダ"
+        }
+      ]
+    },
+    {
+      "coding": [
+        {
+          "system": "http://hl7fhir.jp/medication/MR9PCategory",
+          "code": "IHP",
+          "display": "入院処方"
+        }
+      ]
+    },
+    {
+      "coding": [
+        {
+          "system": "http://hl7fhir.jp/medication/JHSI0001",
+          "code": "FTP",
+          "display": "定時処方"
+        }
+      ]
+    }
+  ],
+  "medicationReference": {
+    "reference": "urn:uuid:91c0caf5-6b57-4c80-b419-9196b23d41f8",
+    "type": "Medication"
+  },
+  "subject": {
+    "reference": "urn:uuid:79965040-5c95-4ce5-b8f7-efe606c364b4",
+    "type": "Patient"
+  },
+  "authoredOn": "2016-07-01",
+  "requester": {
+    "reference": "urn:uuid:b598aedf-28fb-406a-b38e-250d3e92ac60",
+    "type": "PractitionerRole"
+  },
+  "insurance": [
+    {
+      "reference": "urn:uuid:df0ebf6d-e527-49d4-bce2-0885045a7afd",
+      "type": "Coverage"
+    }
+  ],
+  "dosageInstruction": [
+    {
+      "extension": [
+        {
+          "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_MedicationRequestDevice",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7fhir.jp/medication/99ILL",
+                "code": "01",
+                "display": "シリンジ"
+              }
+            ]
+          }
+        }
+      ],
+      "timing": {
+        "repeat": {
+          "boundsPeriod": {
+            "start": "2016-07-01T10:00:00+09:00"
+          }
+        }
+      },
+      "site": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/bodySite",
+            "valueReference": {
+              "reference": "urn:uuid:0cdd1de5-d48f-4cf4-9238-2dba48fbbc39",
+              "type": "BodyStructure"
+            }
+          }
+        ]
+      },
+      "route": {
+        "coding": [
+          {
+            "system": "urn:oid:1.2.392.100495.20.2.35",
+            "code": "30",
+            "display": "静脈注射"
+          }
+        ]
+      },
+      "method": {
+        "coding": [
+          {
+            "system": "urn:oid:1.2.392.100495.20.2.34",
+            "code": "3",
+            "display": "注射"
+          }
+        ]
+      },
+      "doseAndRate": [
+        {
+          "doseQuantity": {
+            "value": 2,
+            "unit": "ミリリッター"
+          }
+        }
+      ]
+    }
+  ]
+}

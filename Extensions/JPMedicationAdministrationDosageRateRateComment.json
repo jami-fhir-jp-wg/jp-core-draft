@@ -1,0 +1,56 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "5f45be03-73b5-425d-94fb-ff7dac12b87c",
+  "meta": {
+    "lastUpdated": "2021-12-04T09:30:41.643+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_DosageRate_RateComment",
+  "version": "1.0.0",
+  "name": "JP_MedicationAdministration_DosageRate_RateComment",
+  "title": "JP_MedicationAdministration_DosageRate_RateComment",
+  "status": "active",
+  "date": "2021-12-03T00:00:00+09:00",
+  "publisher": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "description": "投与速度コメントを格納するための拡張",
+  "purpose": "投与速度コメントを格納するための拡張",
+  "copyright": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationAdministration.dosage.rate[x]"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "投与速度コメント",
+        "definition": "投与速度コメントを格納するための拡張"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_DosageRate_RateComment"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "string"
+          },
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "resourceType": "StructureDefinition",
+  "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_DiagnosticReport_Radiology",
+  "version": "1.0.0",
+  "name": "JP_DiagnosticReport_Radiology",
+  "status": "active",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "このプロファイルはDiagnosticReportリソースに対して、放射線検査のデータを送受信するための制約と拡張を定めたものである。",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "workflow",
+      "uri": "http://hl7.org/fhir/workflow",
+      "name": "Workflow Pattern"
+    },
+    {
+      "identity": "v2",
+      "uri": "http://hl7.org/v2",
+      "name": "HL7 v2 Mapping"
+    },
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    },
+    {
+      "identity": "w5",
+      "uri": "http://hl7.org/fhir/fivews",
+      "name": "FiveWs Pattern Mapping"
+    }
+  ],
+  "kind": "resource",
+  "abstract": false,
+  "type": "DiagnosticReport",
+  "baseDefinition": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_DiagnosticReport_Common",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "DiagnosticReport",
+        "path": "DiagnosticReport",
+        "short": "A Diagnostic report - a combination of request information, atomic results, images, interpretation, as well as formatted reports 診断レポート-依頼情報、１項目単位の結果、画像、解釈、およびフォーマットされたレポートの組み合わせ　【JP_CORE】画像結果レポートのプロフィール",
+        "definition": "The findings and interpretation of diagnostic  tests performed on patients, groups of patients, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic reports.\r\n\r\n患者、患者のグループ、デバイス、場所、これらから派生した検体に対して実行された診断的検査の結果と解釈。レポートには、依頼情報や依頼者情報などの臨床コンテキスト（文脈）、および１項目単位の結果、画像、テキストとコード化された解釈、および診断レポートのフォーマットされた表現のいくつかの組み合わせが含まれる。\r\n\r\n【JP_CORE】\r\n画像結果レポートのプロフィール"
+      },
+      {
+        "id": "DiagnosticReport.identifier",
+        "path": "DiagnosticReport.identifier",
+        "definition": "実行者または他のシステムによってこのレポートに割り当てられた識別子。",
+        "comment": "通常は診断サービスプロバイダの情報システムにより設定される。\r\n\r\n【JP-CORE】\r\nレポート番号<br/>\r\n（放射線情報システム(RIS)による発番が想定されるが、施設によって電子カルテ等のオーダ番号を使う場合もあり得る）\r\n<br/><br/>",
+        "requirements": "このレポートについてクエリを実行するとき、およびFHIRコンテキスト外のレポートにリンクするときにどの識別子を使用するかを知る必要がある"
+      },
+      {
+        "id": "DiagnosticReport.basedOn",
+        "path": "DiagnosticReport.basedOn",
+        "definition": "レポート作成サービスに対する要求の詳細",
+        "comment": "通常は１つのリクエストに対し１つの検査結果となるが、状況によって１つのリクエストに対し複数の検査結果が要求され、複数のレポートが作成される場合もあるので注意すること。\r\n\r\n【JP-CORE】\r\nオーダ発生元の ServiceRequest または CarePlan への参照（多くの場合はServiceRequest（オーダ）が存在するが、オーダが発生しない検査も想定される。）\r\n<br/><br/>",
+        "requirements": "このエレメントによりレポートの認可をトレースしたり、レポート作成サービスに対する提案や推奨事項を追跡することができる。"
+      },
+      {
+        "id": "DiagnosticReport.status",
+        "path": "DiagnosticReport.status",
+        "definition": "診断レポートの状態",
+        "comment": "FHIRのstringsは1MBを越えてはならない（SHALL NOT）ことに留意すること。\r\n\r\n【JP-CORE】\r\n・診断レポートのステータス<br/>\r\n・定義通りの選択肢（例：preliminary 一次読影, final 二次読影（完了）等）を利用。\r\n<br/><br/>",
+        "requirements": "診断サービスではルーチンに仮確定あるいは不完全なレポートが発生することがある。また、しばしば前に発行されたレポートが取り消されることもある。"
+      },
+      {
+        "id": "DiagnosticReport.category",
+        "path": "DiagnosticReport.category",
+        "definition": "レポートを作成した臨床分野・部門、または診断サービス（CT, US, MRIなど）を分類するコード。 これは、検索、並べ替え、および表示の目的で使用される。",
+        "comment": "様々なカテゴリのシェーマを用いて複数のカテゴリを設定できる。 カテゴリの情報粒度はvalue setに定義されている。より詳細なフィルタリングの粒度が必要な場合はDiagnosticReport.codeのmetadata等を用いることで対応できる。\r\n\r\n【JP-CORE】\r\n放射線レポートは ”RAD” をデフォルトとして設定。追加の情報については任意。\r\n<br/><br/>"
+      },
+      {
+        "id": "DiagnosticReport.code",
+        "path": "DiagnosticReport.code",
+        "definition": "この診断レポートを表現するコードや名称",
+        "comment": "すべての用語の使用がこの一般的なパターンに適合するわけではない。 場合によっては、モデルにcodeableConceptを使用せず、コーディングを直接使用して、テキスト、コーディング、翻訳、および要素間の関係と事前調整および事後調整を管理するための独自の構造を提供する必要がある。 \r\n\r\n【JP-CORE】\r\n<a href=\"https://www.jira-net.or.jp/publishing/files/jesra/JESRA_TR-0042_2018.pdf\">画像診断レポート交換手順ガイドライン</a>「5.1 レポート種別コード」に記載されているLOINCコード <a href=\"https://loinc.org/18748-4/\">\"Diagnostic imaging study\"</a> を指定\r\n<br/><br/>>"
+      },
+      {
+        "id": "DiagnosticReport.subject",
+        "path": "DiagnosticReport.subject",
+        "definition": "レポートの対象。 必ずでは無いが、通常、これには「患者」が該当する。",
+        "comment": "参照は実際のFHIRリソースへの参照であり、解決可能である必要がある。解決はURLから取得するか、または、リソースタイプが利用できる場合は絶対参照を正規URLとして扱い、ローカルレジストリ/リポジトリで検索する。\r\n\r\n【JP-CORE】\r\nPatient リソースを参照\r\n<br/><br/>",
+        "requirements": "対象のコンテキストが必要である。"
+      },
+      {
+        "id": "DiagnosticReport.encounter",
+        "path": "DiagnosticReport.encounter",
+        "definition": "この診断レポートが関するヘルスケアイベント。",
+        "comment": "これは通常、レポートの作成が発生するエンカウンターだが、一部のイベントはエンカウンターの正式な完了の前または後に開始される場合がある（例えば入院前の検査）。その場合でも（入院に関連して検査が行われる場合など）、エンカウンターのコンテキストに関連付けられる。\r\n\r\n【JP-CORE】\r\nこのレポートを書く切っ掛けとなる Encounterリソース（例：術前検査の場合、術前訪問） を参照\r\n<br/><br/>",
+        "requirements": "Enconterコンテキストへのリンクが必要である"
+      },
+      {
+        "id": "DiagnosticReport.effective[x]",
+        "path": "DiagnosticReport.effective[x]",
+        "definition": "観測値が関連する時間または期間。レポートの対象が患者である場合、これは通常、読影開始の時間であり、日付/時刻自体のみが提供される。",
+        "comment": "診断手順が患者に対して実行された場合、これは実行された時間を示す。\r\n\r\n【JP-CORE】\r\nレポート作成日時<br/>\r\n（DateTimeを採用し、Periodは不使用）\r\n<br/><br/>",
+        "type": [
+          {
+            "code": "dateTime"
+          }
+        ]
+      },
+      {
+        "id": "DiagnosticReport.issued",
+        "path": "DiagnosticReport.issued",
+        "definition": "このバージョンのレポートがプロバイダーに提供された日時。通常、レポートがレビューおよび検証された後になる。",
+        "comment": "リソース自体の更新時間とは異なる場合がある。これは、レポートの実際のリリース時間ではなく、レコード（場合によってはセカンダリコピー）のステータスであるため。\r\n\r\n【JP-CORE】\r\nレポート確定日時\r\n<br/><br/>",
+        "requirements": "臨床医は、レポートがリリースされた日付を確認できる必要がある。"
+      },
+      {
+        "id": "DiagnosticReport.performer",
+        "path": "DiagnosticReport.performer",
+        "definition": "レポートの発行を担当するもの。",
+        "comment": "臨床診断レポートに対して責任を持つもの.\r\n\r\n【JP-CORE】\r\nレポート確定者<br/>\r\n（責任としては performaer > resultsInterpreter という関係性）\r\n<br/><br/>",
+        "requirements": "結果に関する問い合わせがある場合は、誰に連絡を取るべきかを知る必要がある。また、データ二次分析のためにレポートの発生源を追跡する必要が生じる場合もある。"
+      },
+      {
+        "id": "DiagnosticReport.resultsInterpreter",
+        "path": "DiagnosticReport.resultsInterpreter",
+        "definition": "レポートの結論や読影に関わる医師や組織",
+        "comment": "必ずしも診断レポートに対して責任を持つものを示すわけでは無い。\r\n\r\n【JP-CORE】\r\nレポートの関係者（作成者、読影者、確定者など）を列挙\r\n<br/><br/>\r\n【議論】<br/>\r\n但し、一次読影や二次読影などの役割 (Practioner Roll) の指定方法はペンディング\r\n<br/><br/>",
+        "requirements": "結果に関する問い合わせがある場合は、誰に連絡を取るべきかを知る必要がある。また、データ二次分析のためにレポートの発生源を追跡する必要が生じる場合もある。"
+      },
+      {
+        "id": "DiagnosticReport.specimen",
+        "path": "DiagnosticReport.specimen",
+        "definition": "診断レポートの対象となる検体",
+        "comment": "【JP-CORE】\r\n・未使用<br/>\r\n・画像ガイド下生検で得られる検体の可能性は有り得るが、本項目は病理レポートで利用されることを想定し、放射線レポートでは特には規定しない\r\n<br/><br/>",
+        "requirements": "レポートの対象となる取集された検体についての情報をレポートできる必要がある。"
+      },
+      {
+        "id": "DiagnosticReport.result",
+        "path": "DiagnosticReport.result",
+        "definition": "診断レポートの一部となるObservationリソース",
+        "comment": "Observationはさらにobservationを含むことができる。\r\n\r\n【JP-CORE】\r\n計測情報などの付随所見をObservationリソースとして定義できるが、該当するコードが定義できないため放射線レポートでは未定義とする。関連する検体検査結果（腎機能や感染症情報等）を保持することは可能。\r\n<br/><br/>",
+        "requirements": "結果のグループ化が任意だが、意味のある個別の結果または結果のグループをサポートする必要がある。"
+      },
+      {
+        "id": "DiagnosticReport.imagingStudy",
+        "path": "DiagnosticReport.imagingStudy",
+        "definition": "実行された画像検査の完全な詳細に関する1つあるいは複数のリンク。通常、これは DICOM対応モダリティによって実行されるイメージングだが、DICOMであることが必須ではない。完全に有効な PACS ビューアは、この情報を使用してソース イメージのビューを提供できる。",
+        "comment": "【JP-CORE】\r\n・対象となるImagingStudyリソースを参照<br/>\r\n・放射線レポートでは検査実施後には必須（複数もあり得る）\r\n<br/><br/>"
+      },
+      {
+        "id": "DiagnosticReport.media",
+        "path": "DiagnosticReport.media",
+        "definition": "このレポートに関連付けられているキーイメージの一覧。",
+        "comment": "【JP仕様】<br/>\r\nキーイメージを設定\r\n<br/><br/>",
+        "requirements": "多くの診断サービスには、サービスの一部としてレポートに画像が含まれている。"
+      },
+      {
+        "id": "DiagnosticReport.media.comment",
+        "path": "DiagnosticReport.media.comment",
+        "definition": "イメージに関するコメント。通常、これは画像が含まれる理由を説明したり、依頼者の注意を重要な内容に引き付けるために使用される。",
+        "comment": "コメントは、画像と共に表示される。レポートでは画像の内容に関する追加の議論が、DiagnosticReport.textやDiagnosticReport.conclusionなどの他のセクションに含まれるのが一般的です。\r\n<br/><br/>\r\n【JP仕様】<br/>\r\nキーイメージの説明\r\n<br/><br/>",
+        "requirements": "レポート作成者は、レポートに含まれる各画像についてコメントを付け加える"
+      },
+      {
+        "id": "DiagnosticReport.media.link",
+        "path": "DiagnosticReport.media.link",
+        "definition": "イメージ ソースへの参照。",
+        "comment": "参照は実際のFHIRリソースへの参照であり、解決可能である必要がある。解決はURLから取得するか、または、リソースタイプが利用できる場合は絶対参照を正規URLとして扱い、ローカルレジストリ/リポジトリで検索する。\r\n<br/><br/>\r\n【JP仕様】<br/>\r\nキーイメージの参照先\r\n<br/><br/>"
+      },
+      {
+        "id": "DiagnosticReport.conclusion",
+        "path": "DiagnosticReport.conclusion",
+        "definition": "診断報告書の簡潔かつ臨床的に文脈化された要約結論(interpretation/impression)",
+        "comment": "FHIRのstringsは1MBを越えてはならない（SHALL NOT）ことに留意すること。\r\n\r\n【JP-CORE】\r\n放射線レポートの結果/結論/インプレッションの文章を記載\r\n<br/><br/>",
+        "requirements": "基本的な結果で、失われない結論を提供する必要がある。"
+      },
+      {
+        "id": "DiagnosticReport.conclusionCode",
+        "path": "DiagnosticReport.conclusionCode",
+        "definition": "診断レポートの要約の結論 (interpretation/impression) を表す 1 つ以上のコード。",
+        "comment": "すべての用語の使用がこの一般的なパターンに適合するわけではない。 場合によっては、モデルにcodeableConceptを使用せず、コーディングを直接使用して、テキスト、コーディング、翻訳、および要素間の関係と事前調整および事後調整を管理するための独自の構造を提供する必要がある。 \r\n\r\n【JP-CORE】\r\n・放射線レポートの所見の結論となるコードを設定。<br/>\r\n・例えば、ICD 病名コード\r\n<br/><br/>"
+      },
+      {
+        "id": "DiagnosticReport.presentedForm",
+        "path": "DiagnosticReport.presentedForm",
+        "definition": "診断サービスによって発行された結果全体のリッチ テキスト表現。複数の形式は許可されるが、意味的に等価である必要がある。",
+        "comment": "\"application/pdf\" がこのコンテキストで最も信頼性が高く、相互運用可能なアプリケーションとして推奨される。\r\n\r\n【JP-CORE】\r\n添付するXHTMLやPDFなどの文書\r\n<br/><br/>",
+        "requirements": "臨床での再現性を担保するために、独自の完全にフォーマットされたレポートを提供可能である。"
+      }
+    ]
+  }
+}

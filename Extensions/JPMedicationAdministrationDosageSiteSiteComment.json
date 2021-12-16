@@ -1,0 +1,50 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "cb26a2d4-7cfc-47c9-b3ef-0bc2cfb8aeb7",
+  "meta": {
+    "lastUpdated": "2021-12-04T09:31:39.314+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_DosageSite_SiteComment",
+  "version": "1.0.0",
+  "name": "JP_MedicationAdministration_DosageSite_SiteComment",
+  "title": "JP_MedicationAdministration_DosageSite_SiteComment",
+  "status": "active",
+  "date": "2021-12-03T00:00:00+09:00",
+  "publisher": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "description": "投与部位コメントを格納するための拡張",
+  "purpose": "投与部位コメントを格納するための拡張",
+  "copyright": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationAdministration.dosage.site"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_DosageSite_SiteComment"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "string"
+          },
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      }
+    ]
+  }
+}

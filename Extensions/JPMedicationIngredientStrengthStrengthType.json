@@ -1,0 +1,53 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "88c8b7c4-fbfa-4a42-814d-071dc8acb4eb",
+  "meta": {
+    "lastUpdated": "2021-12-04T09:25:08.404+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Medication_IngredientStrength_StrengthType",
+  "version": "1.0.0",
+  "name": "JP_Medication_IngredientStrength_StrengthType",
+  "title": "JP_Medication_IngredientStrength_StrengthType",
+  "status": "active",
+  "date": "2021-12-03T16:15:47.6343111+00:00",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "投与量が製剤単位か成分単位かを格納する拡張",
+  "purpose": "投与量が製剤単位か成分単位かを格納する拡張",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "Medication.ingredient.strength"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "力価区分",
+        "definition": "投与量が製剤単位か成分単位かを格納する"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Medication_IngredientStrength_StrengthType"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      }
+    ]
+  }
+}

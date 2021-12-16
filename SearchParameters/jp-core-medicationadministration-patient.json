@@ -1,0 +1,73 @@
+{
+  "resourceType": "SearchParameter",
+  "id": "jp-core-medicationadministration-patient",
+  "url": "http://jpfhir.jp/fhir/core/SearchParameter/StructureDefinition/jp-core-medicationadministration-patient",
+  "version": "1.0.0",
+  "name": "JPCoreMedicationAdministrationPatient",
+  "status": "active",
+  "experimental": false,
+  "date": "2021-12-01",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "MedicationAdministrationリソースのpatient(患者)に関する検索を定義します。",
+  "code": "patient",
+  "base": [
+    "MedicationAdministration"
+  ],
+  "type": "reference",
+  "expression": "MedicationAdministration.subject.where(resolve() is Patient)",
+  "xpath": "f:MedicationAdministration/f:subject",
+  "xpathUsage": "normal",
+  "target": [
+    "Patient",
+    "Group"
+  ],
+  "multipleOr": true,
+  "_multipleOr": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+        "valueCode": "MAY"
+      }
+    ]
+  },
+  "multipleAnd": true,
+  "_multipleAnd": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+        "valueCode": "MAY"
+      }
+    ]
+  },
+  "modifier": [
+    "missing",
+    "type",
+    "identifier"
+  ],
+  "_modifier": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    }
+  ]
+}

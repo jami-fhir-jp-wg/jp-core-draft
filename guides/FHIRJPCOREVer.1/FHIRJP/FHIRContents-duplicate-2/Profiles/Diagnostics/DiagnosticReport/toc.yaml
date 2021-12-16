@@ -1,0 +1,14 @@
+- name: Index
+  filename: Index.guide.md
+- name: DiagnosticReportCommon
+  filename: DiagnosticReportCommon-duplicate-2.guide.md
+- name: DiagnosticReportLabResult
+  filename: DiagnosticReportLabResult.guide.md
+- name: DiagnosticReportRadiology
+  filename: DiagnosticReportRadiology-duplicate-2.guide.md
+- name: DiagnosticReportMicroBiology
+  filename: DiagnosticReportMicroBiology.guide.md
+- name: DiagnosticReportPathology
+  filename: DiagnosticReportPathology.guide.md
+- name: DiagnosticReportDentist_XX
+  filename: DiagnosticReportDentistXX.guide.md

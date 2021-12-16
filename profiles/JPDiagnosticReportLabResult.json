@@ -1,0 +1,154 @@
+{
+  "resourceType": "StructureDefinition",
+  "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_DiagnosticReport_LabResult",
+  "version": "1.0.0",
+  "name": "JP_DiagnosticReport_LabResult",
+  "status": "active",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "このプロファイルはDiagnosticReportリソースに対して、検体検査結果のデータを送受信するための制約と拡張を定めたものである。",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "workflow",
+      "uri": "http://hl7.org/fhir/workflow",
+      "name": "Workflow Pattern"
+    },
+    {
+      "identity": "v2",
+      "uri": "http://hl7.org/v2",
+      "name": "HL7 v2 Mapping"
+    },
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    },
+    {
+      "identity": "w5",
+      "uri": "http://hl7.org/fhir/fivews",
+      "name": "FiveWs Pattern Mapping"
+    }
+  ],
+  "kind": "resource",
+  "abstract": false,
+  "type": "DiagnosticReport",
+  "baseDefinition": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_DiagnosticReport_Common",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "DiagnosticReport",
+        "path": "DiagnosticReport",
+        "short": "A Diagnostic report - a combination of request information, atomic results, images, interpretation, as well as formatted reports　診断レポート-依頼情報、１項目単位の結果、画像、解釈、およびフォーマットされたレポートの組み合わせ　【JP_CORE】検体検査結果レポートのプロフィール",
+        "definition": "The findings and interpretation of diagnostic  tests performed on patients, groups of patients, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic reports.\r\n\r\n患者、患者のグループ、デバイス、場所、これらから派生した検体に対して実行された診断的検査の結果と解釈。レポートには、依頼情報や依頼者情報などの臨床コンテキスト（文脈）、および１項目単位の結果、画像、テキストとコード化された解釈、および診断レポートのフォーマットされた表現のいくつかの組み合わせが含まれる。\r\nわせ　\r\n【JP_CORE】\r\n検体検査結果レポートのプロフィール"
+      },
+      {
+        "id": "DiagnosticReport.identifier",
+        "path": "DiagnosticReport.identifier",
+        "short": "Business identifier for report　レポートを識別するビジネス識別子",
+        "definition": "Identifiers assigned to this report by the performer or other systems.\r\n実施者または他のシステムによってこのレポートに割り当てられた識別子。",
+        "comment": "Usually assigned by the Information System of the diagnostic service provider (filler id).\r\n発生源の検査室からこのレポートについてクエリを作成するとき、およびFHIRコンテキスト外のレポートにリンクするときに使用する識別子を知る必要がある。\r\n\r\n【JP-CORE】\r\n検体検査結果の場合、「依頼者オーダ番号(ORC-2)」だけで十分<br>\r\n・複数の容器で1つの結果のまとまり<br>\r\n・容器ごとに結果が出るタイミングはずれる<br>\r\n・オーダ側でオーダ番号が1つにまとまるか別になるかは有り得る<br>"
+      },
+      {
+        "id": "DiagnosticReport.basedOn",
+        "path": "DiagnosticReport.basedOn",
+        "comment": "Note: Usually there is one test request for each result, however in some circumstances multiple test requests may be represented using a single test result resource. Note that there are also cases where one request leads to multiple reports.\r\n通常、１結果ごとに１つの検査依頼があるが、状況によっては、複数の検査要求に対して１レポートがある場合がある。また 1つの検査依頼に対して複数のレポートが作成される場合もあることに注意。\r\n\r\n【JP-CORE】\r\nServiceRequestリソースを参照(ObservationLabresultと同様）<br>"
+      },
+      {
+        "id": "DiagnosticReport.status",
+        "path": "DiagnosticReport.status",
+        "definition": "The status of the diagnostic report.　診断レポートのステータス。",
+        "comment": "Note that FHIR strings SHALL NOT exceed 1MB in size\r\n\r\n【JP-CORE】\r\n有れば：ORC-5<br>\r\nもしくは<br>\r\n無ければ：OBR-25(\"F\")のAND結果<br>\r\n　例：全部\"F\"なら\"F\"、それ以外の場合は要検討<br>\r\n設定する値は、DiagnosticReportStatus（コード）から1つ選ぶ<br>\r\nコード体系：HL7 Table 0038のコードと定義<br>"
+      },
+      {
+        "id": "DiagnosticReport.category",
+        "path": "DiagnosticReport.category",
+        "comment": "Multiple categories are allowed using various categorization schemes.   The level of granularity is defined by the category concepts in the value set. More fine-grained filtering can be performed using the metadata and/or terminology hierarchy in DiagnosticReport.code.\r\nさまざまなカテゴリ化スキームを使用して、複数のカテゴリを使用できます。粒度のレベルは、それぞれの値セットのカテゴリの概念によって定義されます。 DiagnosticReport.codeのメタデータや用語の階層を使用して、よりきめ細かいフィルタリングを実行できる。\r\n\r\n【JP-CORE】\r\nDiagnostic Service Section Codesの\"LAB\"を使用<br>"
+      },
+      {
+        "id": "DiagnosticReport.code",
+        "path": "DiagnosticReport.code",
+        "comment": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.\r\nすべてのターミのロジーの使用がこの一般的なパターンに適合するわけではありません。場合によっては、モデルはCodeableConceptを使用せず、コーディングを直接使用して、テキスト、コーディング、翻訳、および要素と事前・事後の用語作成（pre- and post-coordination）との関係を管理するための独自の構造を提供する必要がある。\r\n\r\n【JP-CORE】\r\nLOINCの臨床検査の分類コードを割り当てる。<br>\r\n検査レポートの利用用途に合わせて、JLAC10のコードを振っても良い。<br>"
+      },
+      {
+        "id": "DiagnosticReport.subject",
+        "path": "DiagnosticReport.subject",
+        "short": "The subject of the report - usually, but not always, the patient　レポートの対象、常にではないが、通常は患者",
+        "comment": "References SHALL be a reference to an actual FHIR resource, and SHALL be resolveable (allowing for access control, temporary unavailability, etc.). Resolution can be either by retrieval from the URL, or, where applicable by resource type, by treating an absolute reference as a canonical URL and looking it up in a local registry/repository.\r\n参照は、実際のFHIRリソースへの参照である必要があり、内容に辿り着ける（解決できる）必要があります（アクセス制御、一時的な使用不可などを考慮に入れる）。解決は、URLから取得するか、リソースタイプによって該当する場合は、絶対参照を正規URLとして扱い、ローカルレジストリ/リポジトリで検索することによって行うことができる。\r\n\r\n【JP-CORE】\r\nPatientリソースを参照<br>"
+      },
+      {
+        "id": "DiagnosticReport.encounter",
+        "path": "DiagnosticReport.encounter",
+        "comment": "This will typically be the encounter the event occurred within, but some events may be initiated prior to or after the official completion of an encounter  but still be tied to the context of the encounter  (e.g. pre-admission laboratory tests).\r\n通常、イベントが発生したEncounterですが、一部のイベントは、エンEncounterの正式な完了の前または後に開始される場合があり、その場合でもEncounterのコンテキストに関連付けられている（例：入院前の臨床検査）。\r\n\r\n【JP-CORE】\r\nEncounterリソースを参照<br>\r\n<br>\r\n【議論】<br>\r\n入院の場合には、ラベル印刷日時とは限らない。<br>"
+      },
+      {
+        "id": "DiagnosticReport.effective[x]",
+        "path": "DiagnosticReport.effective[x]",
+        "comment": "If the diagnostic procedure was performed on the patient, this is the time it was performed. If there are specimens, the diagnostically relevant time can be derived from the specimen collection times, but the specimen information is not always available, and the exact relationship between the specimens and the diagnostically relevant time is not always automatic.\r\n診断手順が患者に対して実行された場合、これは実施された時刻。対象が検体である場合は、検体採取時間から診断関連時刻を導き出すことができるが、検体情報が常に入手できるとは限らず、検体と診断関連時刻の正確な関係は必ずしも自明ではない。\r\n\r\n【JP-CORE】\r\n検体採取時間<br>"
+      },
+      {
+        "id": "DiagnosticReport.issued",
+        "path": "DiagnosticReport.issued",
+        "comment": "May be different from the update time of the resource itself, because that is the status of the record (potentially a secondary copy), not the actual release time of the report.\r\nリソース自体の更新時刻とは異なる場合がある。これは、レポートの実際の提供時刻ではなく、リソース自体の更新時刻はレコード（場合によってはセカンダリコピー）のステータスの更新時刻となるため。\r\n\r\n【JP-CORE】\r\nこのデータが出来た時間<br>"
+      },
+      {
+        "id": "DiagnosticReport.performer",
+        "path": "DiagnosticReport.performer",
+        "comment": "This is not necessarily the source of the atomic data items or the entity that interpreted the results. It is the entity that takes responsibility for the clinical report.\r\n必ずしも１項目データ単位のデータソースまたは結果を解釈した主体でなない。臨床レポートに責任をもつ主体のこと。\r\n\r\n【JP-CORE】\r\n検査に関わった人もしくは組織<br>"
+      },
+      {
+        "id": "DiagnosticReport.resultsInterpreter",
+        "path": "DiagnosticReport.resultsInterpreter",
+        "comment": "Might not be the same entity that takes responsibility for the clinical report.\r\nレポートに責任を持つ主体とは異なる場合がある。\r\n\r\n【JP-CORE】\r\n検査責任者<br>"
+      },
+      {
+        "id": "DiagnosticReport.specimen",
+        "path": "DiagnosticReport.specimen",
+        "comment": "If the specimen is sufficiently specified with a code in the test result name, then this additional data may be redundant. If there are multiple specimens, these may be represented per observation or group.\r\n検査結果名称のコードを見れば検体情報が十分に判明するような場合には、この検体情報は冗長になる。複数の検体が関与する場合には、検査や検査グループごとに検体情報が記述されることがある。\r\n\r\n\r\n【JP-CORE】\r\n該当するspecimenを設定<br>"
+      },
+      {
+        "id": "DiagnosticReport.result",
+        "path": "DiagnosticReport.result",
+        "definition": "[Observations](observation.html)  that are part of this diagnostic report.\r\n診断レポートの一部",
+        "comment": "Observations can contain observations.\r\nObservationはobservationを含みうる。\r\n\r\n【JP-CORE】\r\n該当するObservationを設定<br>"
+      },
+      {
+        "id": "DiagnosticReport.imagingStudy",
+        "path": "DiagnosticReport.imagingStudy",
+        "comment": "ImagingStudy and the image element are somewhat overlapping - typically, the list of image references in the image element will also be found in one of the imaging study resources. However, each caters to different types of displays for different types of purposes. Neither, either, or both may be provided.\r\nImagingStudyと画像要素は多少重複する。通常、画像要素内の画像参照のリストは、画像検査リソースのひとつにも存在する。。ただし、それぞれがさまざまなタイプの目的のためにさまざまなタイプのディスプレイに対応している。どちらも、どちらか、または両方を提供することはできない。\r\n\r\n【JP-CORE】\r\n使わない<br>"
+      },
+      {
+        "id": "DiagnosticReport.media",
+        "path": "DiagnosticReport.media",
+        "comment": "【JP仕様】<br>\r\nレポート1つに対して、複数の画像・コメントがぶら下がる<br>"
+      },
+      {
+        "id": "DiagnosticReport.media.comment",
+        "path": "DiagnosticReport.media.comment",
+        "comment": "The comment should be displayed with the image. It would be common for the report to include additional discussion of the image contents in other sections such as the conclusion.\r\n\r\n【JP仕様】<br>\r\n画像に対するコメント<br>"
+      },
+      {
+        "id": "DiagnosticReport.media.link",
+        "path": "DiagnosticReport.media.link",
+        "comment": "References SHALL be a reference to an actual FHIR resource, and SHALL be resolveable (allowing for access control, temporary unavailability, etc.). Resolution can be either by retrieval from the URL, or, where applicable by resource type, by treating an absolute reference as a canonical URL and looking it up in a local registry/repository.\r\n\r\n【JP仕様】<br>\r\n画像に対するリンク<br>"
+      },
+      {
+        "id": "DiagnosticReport.conclusion",
+        "path": "DiagnosticReport.conclusion",
+        "definition": "Concise and clinically contextualized summary conclusion (interpretation/impression) of the diagnostic report.\r\n 診断レポートの簡潔で臨床的に文脈化された要約結論（解釈/印象）。",
+        "comment": "Note that FHIR strings SHALL NOT exceed 1MB in size\r\n\r\n【JP仕様】<br>\r\n原則使わない<br>"
+      },
+      {
+        "id": "DiagnosticReport.conclusionCode",
+        "path": "DiagnosticReport.conclusionCode",
+        "comment": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.\r\nすべてのターミのロジーの使用がこの一般的なパターンに適合するわけではありません。場合によっては、モデルはCodeableConceptを使用せず、コーディングを直接使用して、テキスト、コーディング、翻訳、および要素と事前・事後の用語作成（pre- and post-coordination）との関係を管理するための独自の構造を提供する必要がある。\r\n\r\n【JP仕様】<br>\r\n原則使わない<br>"
+      },
+      {
+        "id": "DiagnosticReport.presentedForm",
+        "path": "DiagnosticReport.presentedForm",
+        "comment": "\"application/pdf\" is recommended as the most reliable and interoperable in this context.\r\napplication / pdf」がこのコンテキストで最も信頼でき相互運用可能なものとして推奨される。\r\n\r\n【JP仕様】<br>\r\n原則使わない<br>"
+      }
+    ]
+  }
+}

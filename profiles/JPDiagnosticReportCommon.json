@@ -1,0 +1,151 @@
+{
+  "resourceType": "StructureDefinition",
+  "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_DiagnosticReport_Common",
+  "version": "1.0.0",
+  "name": "JP_DiagnosticReport_Common",
+  "status": "active",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "このプロファイルはDiagnosticReportリソースに対して、データを送受信するための共通の制約と拡張を定めたものである。",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "DiagnosticReport",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "DiagnosticReport",
+        "path": "DiagnosticReport",
+        "short": "A Diagnostic report - a combination of request information, atomic results, images, interpretation, as well as formatted reports 診断レポート-依頼情報、１項目単位の結果、画像、解釈、およびフォーマットされたレポートの組み合わせ",
+        "definition": "The findings and interpretation of diagnostic  tests performed on patients, groups of patients, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic reports.\r\n\r\n患者、患者のグループ、デバイス、場所、これらから派生した検体に対して実行された診断的検査の結果と解釈。レポートには、依頼情報や依頼者情報などの臨床コンテキスト（文脈）、および１項目単位の結果、画像、テキストとコード化された解釈、および診断レポートのフォーマットされた表現のいくつかの組み合わせが含まれる。",
+        "comment": "This is intended to capture a single report and is not suitable for use in displaying summary information that covers multiple reports.  For example, this resource has not been designed for laboratory cumulative reporting formats nor detailed structured reports for sequencing.\r\n\r\nこれは単一のレポートをキャプチャすることを目的としており、複数のレポートをカバーする要約情報の表示に使用するのには適していない。たとえば、このリソースは、検査結果の累積レポート形式やシーケンスの詳細な構造化レポート用に作られていない。\r\n\r\n【JP-CORE】\r\nDIagnosticReportリソースの共通プロフィール"
+      },
+      {
+        "id": "DiagnosticReport.identifier",
+        "path": "DiagnosticReport.identifier",
+        "short": "Business identifier for report レポートを識別するビジネス識別子",
+        "definition": "Identifiers assigned to this report by the performer or other systems.\r\n\r\n実行者または他のシステムによってこのレポートに割り当てられた識別子。",
+        "comment": "Usually assigned by the Information System of the diagnostic service provider (filler id).\r\n\r\n通常、診断サービスプロバイダーの情報システム（フィラーID）によって割り当てられる。",
+        "requirements": "Need to know what identifier to use when making queries about this report from the source laboratory, and for linking to the report outside FHIR context.\r\n\r\n発生源の検査室からこのレポートについてクエリを作成するとき、およびFHIRコンテキスト外のレポートにリンクするときに使用する識別子を知る必要がある。"
+      },
+      {
+        "id": "DiagnosticReport.basedOn",
+        "path": "DiagnosticReport.basedOn",
+        "short": "What was requested　元になった検査や診断の依頼",
+        "definition": "Details concerning a service requested.\r\n\r\n依頼されたサービス（検査や診断など）に関する詳細情報",
+        "comment": "Note: Usually there is one test request for each result, however in some circumstances multiple test requests may be represented using a single test result resource. Note that there are also cases where one request leads to multiple reports.\r\n\r\n通常、１結果ごとに１つの検査依頼があるが、状況によっては、複数の検査要求に対して１レポートがある場合がある。また 1つの検査依頼に対して複数のレポートが作成される場合もあることに注意。"
+      },
+      {
+        "id": "DiagnosticReport.status",
+        "path": "DiagnosticReport.status",
+        "definition": "The status of the diagnostic report.\r\n\r\n診断レポートのステータス。"
+      },
+      {
+        "id": "DiagnosticReport.category",
+        "path": "DiagnosticReport.category",
+        "short": "Service category　サービスカテゴリー",
+        "definition": "A code that classifies the clinical discipline, department or diagnostic service that created the report (e.g. cardiology, biochemistry, hematology, MRI). This is used for searching, sorting and display purposes.\r\n\r\nレポートを作成した臨床分野、部門、または診断サービス（心臓病学、生化学、血液学、MRIなど）を分類するコード。これは、検索、並べ替え、および表示の目的で使用される。",
+        "comment": "Multiple categories are allowed using various categorization schemes.   The level of granularity is defined by the category concepts in the value set. More fine-grained filtering can be performed using the metadata and/or terminology hierarchy in DiagnosticReport.code.\r\nさまざまなカテゴリ化スキームを使用して、複数のカテゴリを使用できます。粒度のレベルは、それぞれの値セットのカテゴリの概念によって定義されます。 DiagnosticReport.codeのメタデータや用語の階層を使用して、よりきめ細かいフィルタリングを実行できる。"
+      },
+      {
+        "id": "DiagnosticReport.code",
+        "path": "DiagnosticReport.code",
+        "short": "Name/Code for this diagnostic report　この診断レポートの名前/コード",
+        "definition": "A code or name that describes this diagnostic report.\r\n\r\nこの診断レポートを説明するコードまたは名前。",
+        "comment": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.\r\n\r\nすべてのターミのロジーの使用がこの一般的なパターンに適合するわけではありません。場合によっては、モデルはCodeableConceptを使用せず、コーディングを直接使用して、テキスト、コーディング、翻訳、および要素と事前・事後の用語作成（pre- and post-coordination）との関係を管理するための独自の構造を提供する必要がある。"
+      },
+      {
+        "id": "DiagnosticReport.subject",
+        "path": "DiagnosticReport.subject",
+        "short": "The subject of the report - usually, but not always, the patient 　レポートの対象、常にではありませんが、通常は患者",
+        "definition": "The subject of the report. Usually, but not always, this is a patient. However, diagnostic services also perform analyses on specimens collected from a variety of other sources.\r\n\r\nレポートの対象、常にではありませんが、通常、患者。ただし、診断サービスは、他のさまざまなソースから収集された検体を対象とすることもある。",
+        "comment": "References SHALL be a reference to an actual FHIR resource, and SHALL be resolveable (allowing for access control, temporary unavailability, etc.). Resolution can be either by retrieval from the URL, or, where applicable by resource type, by treating an absolute reference as a canonical URL and looking it up in a local registry/repository.\r\n\r\n参照は、実際のFHIRリソースへの参照である必要があり、内容に辿り着ける（解決できる）必要があります（アクセス制御、一時的な使用不可などを考慮に入れる）。解決は、URLから取得するか、リソースタイプによって該当する場合は、絶対参照を正規URLとして扱い、ローカルレジストリ/リポジトリで検索することによって行うことができる。"
+      },
+      {
+        "id": "DiagnosticReport.encounter",
+        "path": "DiagnosticReport.encounter",
+        "short": "Health care event when test ordered　依頼時におけるヘルスケアイベント（受診など）",
+        "definition": "The healthcare event  (e.g. a patient and healthcare provider interaction) which this DiagnosticReport is about.\r\n\r\nこのDiagnosticReportが対象とするヘルスケアイベント（患者とヘルスケアプロバイダーの相互関係など）。受診、入院、診察など。",
+        "comment": "This will typically be the encounter the event occurred within, but some events may be initiated prior to or after the official completion of an encounter  but still be tied to the context of the encounter  (e.g. pre-admission laboratory tests).\r\n\r\n通常、イベントが発生したEncounterですが、一部のイベントは、エンEncounterの正式な完了の前または後に開始される場合があり、その場合でもEncounterのコンテキストに関連付けられている（例：入院前の臨床検査）。"
+      },
+      {
+        "id": "DiagnosticReport.effective[x]",
+        "path": "DiagnosticReport.effective[x]",
+        "short": "Clinically relevant time/time-period for report　臨床的に関連する時刻または時間",
+        "definition": "The time or time-period the observed values are related to. When the subject of the report is a patient, this is usually either the time of the procedure or of specimen collection(s), but very often the source of the date/time is not known, only the date/time itself.\r\n\r\n観測値が関連する時間または期間。レポートの対象が患者である場合、これは通常、処置や検体採取の時刻のいずれかですが、日付/時刻の出処は不明であり、日付/時刻自体のみのことがある。",
+        "comment": "If the diagnostic procedure was performed on the patient, this is the time it was performed. If there are specimens, the diagnostically relevant time can be derived from the specimen collection times, but the specimen information is not always available, and the exact relationship between the specimens and the diagnostically relevant time is not always automatic.\r\n\r\n診断手順が患者に対して実行された場合、これは実施された時間です。対象が検体である場合は、検体採取時間から診断関連時刻を導き出すことができますが、検体情報が常に入手できるとは限らず、検体と診断関連時刻の正確な関係は必ずしも自明ではない。"
+      },
+      {
+        "id": "DiagnosticReport.issued",
+        "path": "DiagnosticReport.issued",
+        "short": "DateTime this version was made　このバージョンが作成された日時",
+        "definition": "The date and time that this version of the report was made available to providers, typically after the report was reviewed and verified.\r\n\r\nこのバージョンのレポートが医療者に提供された日時。通常、レポートがレビューおよび検証された後となる。",
+        "comment": "May be different from the update time of the resource itself, because that is the status of the record (potentially a secondary copy), not the actual release time of the report.\r\n\r\nリソース自体の更新時刻とは異なる場合がある。これは、レポートの実際の提供時刻ではなく、リソース自体の更新時刻はレコード（場合によってはセカンダリコピー）のステータスの更新時刻となるため。"
+      },
+      {
+        "id": "DiagnosticReport.performer",
+        "path": "DiagnosticReport.performer",
+        "short": "Responsible Diagnostic Service　レポート内容に責任をもつ診断的サービス",
+        "definition": "The diagnostic service that is responsible for issuing the report.\r\n\r\nレポートの作成発行に責任をもつ診断サービス。",
+        "comment": "This is not necessarily the source of the atomic data items or the entity that interpreted the results. It is the entity that takes responsibility for the clinical report.\r\n\r\n必ずしも１項目データ単位のデータソースまたは結果を解釈した主体でなない。臨床レポートに責任をもつ主体のこと。"
+      },
+      {
+        "id": "DiagnosticReport.resultsInterpreter",
+        "path": "DiagnosticReport.resultsInterpreter",
+        "short": "Primary result interpreter　結果の一次解釈者",
+        "definition": "The practitioner or organization that is responsible for the report's conclusions and interpretations.\r\n\r\nレポートの結論と解釈に責任を持つ医療者あるいは組織。",
+        "comment": "Might not be the same entity that takes responsibility for the clinical report.\r\n\r\nレポートに責任を持つ主体とは異なる場合がある。"
+      },
+      {
+        "id": "DiagnosticReport.specimen",
+        "path": "DiagnosticReport.specimen",
+        "short": "Specimens this report is based on　レポートのもとになった検体",
+        "definition": "Details about the specimens on which this diagnostic report is based.\r\n\r\nこの診断レポートのもとになった検体に関する詳細情報。",
+        "comment": "If the specimen is sufficiently specified with a code in the test result name, then this additional data may be redundant. If there are multiple specimens, these may be represented per observation or group.\r\n\r\n検査結果名称のコードを見れば検体情報が十分に判明するような場合には、この検体情報は冗長になる。複数の検体が関与する場合には、検査や検査グループごとに検体情報が記述されることがある。"
+      },
+      {
+        "id": "DiagnosticReport.result",
+        "path": "DiagnosticReport.result",
+        "short": "Observations　検査結果",
+        "definition": "[Observations](observation.html)  that are part of this diagnostic report.\r\n\r\n診断レポートの一部。",
+        "comment": "Observations can contain observation\r\nObservationはobservationを含みうる。",
+        "requirements": "Need to support individual results, or  groups of results, where the result grouping is arbitrary, but meaningful.\r\n\r\n個々の結果または結果のグループをサポートする必要がある。結果のグループ化は任意だが、意味がある場合にグループ化される。"
+      },
+      {
+        "id": "DiagnosticReport.imagingStudy",
+        "path": "DiagnosticReport.imagingStudy",
+        "short": "Reference to full details of imaging associated with the diagnostic report　診断レポートに関連づけれらた画像検査の詳細情報への参照",
+        "definition": "One or more links to full details of any imaging performed during the diagnostic investigation. Typically, this is imaging performed by DICOM enabled modalities, but this is not required. A fully enabled PACS viewer can use this information to provide views of the source images.\r\n\r\n診断的精査中に実施されたなんらかの画像検査の詳細情報へのひとつ以上のリンク。通常は、DICOM対応のモダリティーによって実施される画像検査であるが、必須ではない。完全対応のPACSビューワはこの情報を使用して原画像の一覧を提供できる。",
+        "comment": "ImagingStudy and the image element are somewhat overlapping - typically, the list of image references in the image element will also be found in one of the imaging study resources. However, each caters to different types of displays for different types of purposes. Neither, either, or both may be provided.\r\n\r\nImagingStudyと画像要素は多少重複する。通常、画像要素内の画像参照のリストは、画像検査リソースのひとつにも存在する。ただし、それぞれがさまざまなタイプの目的のためにさまざまなタイプのディスプレイに対応する。どちらも、どちらか、または両方を提供することはできない。"
+      },
+      {
+        "id": "DiagnosticReport.media",
+        "path": "DiagnosticReport.media",
+        "short": "Key images associated with this report　このレポートに関連づけられたキー画像",
+        "definition": "A list of key images associated with this report. The images are generally created during the diagnostic process, and may be directly of the patient, or of treated specimens (i.e. slides of interest).\r\n\r\nこのレポートに関連する主要な画像のリスト。画像は通常、診断プロセス中に作成され、患者から直接か、調製された検体標本（つまり、関心のあるスライド）のこともある。"
+      },
+      {
+        "id": "DiagnosticReport.conclusion",
+        "path": "DiagnosticReport.conclusion",
+        "short": "Clinical conclusion (interpretation) of test results　検査結果の臨床的結論（解釈）",
+        "definition": "Concise and clinically contextualized summary conclusion (interpretation/impression) of the diagnostic report.\r\n\r\n診断レポートの簡潔で臨床的に文脈化された要約結論（解釈/印象）。"
+      },
+      {
+        "id": "DiagnosticReport.conclusionCode",
+        "path": "DiagnosticReport.conclusionCode",
+        "short": "Codes for the clinical conclusion of test results　検査結果の臨床的結論（解釈）用のコード",
+        "definition": "One or more codes that represent the summary conclusion (interpretation/impression) of the diagnostic report.\r\n\r\n診断レポートの要約的な結論（解釈/印象）を表す1つ以上のコード。",
+        "comment": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.\r\n\r\nすべてのターミノロジーの使用がこの一般的なパターンに適合するわけではない。場合によっては、モデルはCodeableConceptを使用せず、コーディングを直接使用して、テキスト、コーディング、翻訳、および要素間の関係とpre-coordinationとpost-coordinationの用語関係を管理するための独自の構造を提供する必要がある。"
+      },
+      {
+        "id": "DiagnosticReport.presentedForm",
+        "path": "DiagnosticReport.presentedForm",
+        "short": "Entire report as issued　発行されたレポート全体",
+        "definition": "Rich text representation of the entire result as issued by the diagnostic service. Multiple formats are allowed but they SHALL be semantically equivalent.\r\n\r\n診断サービスによって発行された結果全体のリッチテキスト表現。複数のフォーマットが許可されるが、それらは意味的に同等である必要がある。",
+        "comment": "\"application/pdf\" is recommended as the most reliable and interoperable in this context.\r\n\r\n「application / pdf」がこのコンテキストで最も信頼でき相互運用可能なものとして推奨される。"
+      }
+    ]
+  }
+}
