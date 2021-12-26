@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "642ffff0-f762-4b2c-bf5d-8962a2e53f9b",
-  "meta": {
-    "lastUpdated": "2021-10-25T09:20:35.25+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Location",
   "version": "1.0.0",
   "name": "JP_Location",

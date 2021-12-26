@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "7b842da3-66eb-43fc-8bb5-e23dacc9b4cb",
-  "meta": {
-    "lastUpdated": "2021-11-30T07:28:35.638+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner",
   "version": "1.0.0",
   "name": "JP_Practitioner",

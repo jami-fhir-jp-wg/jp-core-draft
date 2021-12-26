@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "ba5e36a6-ea06-4a71-a825-132595910cb4",
-  "meta": {
-    "lastUpdated": "2021-10-25T09:18:51.032+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter",
   "version": "1.0.0",
   "name": "JP_Encounter",

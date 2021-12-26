@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "a9b018d6-e66a-4ce6-ae5f-caeed3fe81d1",
-  "meta": {
-    "lastUpdated": "2021-12-04T23:02:20.253+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_MedicationDispense",
   "version": "1.0.0",
   "name": "JP_MedicationDispense",

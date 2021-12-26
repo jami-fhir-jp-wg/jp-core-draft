@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "7b9b2b37-cbab-4dca-96ff-6073d77e929a",
-  "meta": {
-    "lastUpdated": "2021-12-01T04:24:38.122+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Coverage",
   "version": "1.0.0",
   "name": "JP_Coverage",

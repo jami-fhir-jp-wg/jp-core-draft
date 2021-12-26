@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "98f6b570-4345-474c-b631-8a0b09ec6312",
-  "meta": {
-    "lastUpdated": "2021-12-04T23:06:36.873+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Medication",
   "version": "1.0.0",
   "name": "JP_Medication",

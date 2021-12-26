@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "ea8b7fcd-c18b-4fbf-b385-5d16b2a0dcea",
-  "meta": {
-    "lastUpdated": "2021-10-25T10:38:27.708+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_PractitionerRole",
   "version": "1.0.0",
   "name": "JP_PractitionerRole",

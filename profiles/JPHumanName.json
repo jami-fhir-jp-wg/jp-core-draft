@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "d0cb6543-57b0-4493-9350-f6a8589d4c35",
-  "meta": {
-    "lastUpdated": "2021-10-25T07:26:54.502+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_HumanName",
   "version": "0.0.1",
   "name": "JP_HumanName",

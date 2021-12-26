@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "c131cd47-1549-4872-bd91-0e56e9bb3196",
-  "meta": {
-    "lastUpdated": "2021-12-01T06:35:30.625+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Organization",
   "version": "1.0.0",
   "name": "JP_Organization",

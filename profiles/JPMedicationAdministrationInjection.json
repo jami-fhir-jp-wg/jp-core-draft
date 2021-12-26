@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "13fa6823-c9de-45b9-a8fa-b820544b2fae",
-  "meta": {
-    "lastUpdated": "2021-12-25T14:32:12.4448275+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_MedicationAdministration_Injection",
   "version": "1.0.0",
   "name": "JP_MedicationAdministration_Injection",

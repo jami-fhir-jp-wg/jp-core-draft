@@ -1,9 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "c0505cbf-fa92-48a4-8530-2723ad79b11f",
-  "meta": {
-    "lastUpdated": "2021-12-03T06:03:58.894+00:00"
-  },
   "language": "Japanese",
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance",
   "version": "1.0.0",
