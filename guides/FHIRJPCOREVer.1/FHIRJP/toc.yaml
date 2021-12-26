@@ -6,5 +6,3 @@
   filename: FHIRContents-duplicate-2
 - name: Security
   filename: Security.guide.md
-- name: misc
-  filename: misc

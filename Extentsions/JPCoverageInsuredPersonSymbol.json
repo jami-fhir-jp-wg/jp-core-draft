@@ -1,0 +1,49 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "73958ac3-9a9d-4c07-8c35-3b277923492e",
+  "meta": {
+    "lastUpdated": "2021-12-01T04:19:21.721+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Coverage_InsuredPersonSymbol",
+  "version": "1.0.0",
+  "name": "JP_Coverage_InsuredPersonSymbol",
+  "status": "active",
+  "date": "2021-12-01T04:18:22.6866878+00:00",
+  "description": "健康保険における被保険者証記号を示す拡張",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "Coverage"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "健康保険における被保険者証記号",
+        "comment": "健康保険における被保険者証記号を示す拡張"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Coverage_InsuredPersonSymbol"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      }
+    ]
+  }
+}

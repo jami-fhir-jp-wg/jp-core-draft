@@ -5,6 +5,7 @@
     "lastUpdated": "2021-10-25T09:18:51.032+00:00"
   },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter",
+  "version": "1.0.0",
   "name": "JP_Encounter",
   "status": "active",
   "date": "2021-10-25T09:18:10.8987264+00:00",

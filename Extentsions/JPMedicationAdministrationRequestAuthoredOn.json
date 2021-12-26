@@ -1,0 +1,47 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "dd47eb40-6be1-479f-9902-e03defe748bf",
+  "meta": {
+    "lastUpdated": "2021-12-03T17:06:41.554+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_RequestAuthoredOn",
+  "version": "1.0.0",
+  "name": "JP_MedicationAdministration_RequestAuthoredOn",
+  "title": "JP_MedicationAdministration_RequestAuthoredOn",
+  "status": "active",
+  "date": "2021-12-03T16:56:22.6010227+00:00",
+  "publisher": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "description": "依頼日時を格納するための拡張",
+  "purpose": "依頼日時を格納するための拡張",
+  "copyright": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationAdministration"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_RequestAuthoredOn"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "dateTime"
+          }
+        ]
+      }
+    ]
+  }
+}

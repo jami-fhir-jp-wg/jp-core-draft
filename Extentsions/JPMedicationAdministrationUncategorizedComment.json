@@ -1,0 +1,54 @@
+{
+  "resourceType": "StructureDefinition",
+  "meta": {
+    "lastUpdated": "2021-12-03T17:36:52.360+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_UncategorizedComment",
+  "version": "1.0.0",
+  "name": "JP_MedicationAdministration_UncategorizedComment",
+  "title": "JP_MedicationAdministration_UncategorizedComment",
+  "status": "active",
+  "date": "2021-12-03",
+  "publisher": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "description": "未分類コメントを格納するための拡張",
+  "purpose": "未分類コメントを格納するための拡張",
+  "copyright": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationAdministration"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "未分類コメント"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_UncategorizedComment"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "string"
+          },
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      }
+    ]
+  }
+}

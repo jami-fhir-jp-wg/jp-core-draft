@@ -1,0 +1,61 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "b14aa99c-ab14-403f-8efd-4a9de985514d",
+  "meta": {
+    "lastUpdated": "2021-11-30T10:09:36.662+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Patient_Race",
+  "version": "1.0.0",
+  "name": "JP_Patient_Race",
+  "status": "active",
+  "date": "2021-11-30T09:57:31.0583757+00:00",
+  "description": "人種(Race)に関する情報を格納するためのExtension。",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "Patient"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "人種に関する情報",
+        "comment": "人種に関する情報を表現する拡張。\r\nValueSetとして\r\nhttp://terminology.hl7.org/CodeSystem/v3-Race\r\nを使用する。\r\n例：\r\nCode : Description\r\n2103-3 : White\r\n2039-6 : Japanese\r\n2040-4 : Korean\r\n等"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Patient_Race"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "Coding"
+          }
+        ]
+      },
+      {
+        "id": "Extension.value[x].system",
+        "path": "Extension.value[x].system",
+        "fixedUri": "urn:oid:2.16.840.1.113883.5.104"
+      }
+    ]
+  }
+}

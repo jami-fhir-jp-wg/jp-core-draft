@@ -1,0 +1,61 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "3c153c8f-bc10-4109-8552-0a8ad65498d9",
+  "meta": {
+    "lastUpdated": "2021-12-03T16:23:26.879+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_Line",
+  "version": "1.0.0",
+  "name": "JP_MedicationRequest_DosageInstruction_Line",
+  "title": "JP_MedicationRequest_DosageInstruction_Line",
+  "status": "active",
+  "date": "2021-12-03T14:07:12.5634947+00:00",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "指示ラインを格納するための拡張",
+  "purpose": "指示ラインを格納するための拡張",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationRequest.dosageInstruction"
+    },
+    {
+      "type": "element",
+      "expression": "MedicationDispense.dosageInstruction"
+    },
+    {
+      "type": "element",
+      "expression": "MedicationAdministration.dosage"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "指示ライン",
+        "definition": "指示ラインを格納する拡張"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_Line"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      }
+    ]
+  }
+}

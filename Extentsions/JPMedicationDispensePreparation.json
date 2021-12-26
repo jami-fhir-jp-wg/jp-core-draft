@@ -1,0 +1,65 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "41bcb8d5-3940-4baf-8b00-9b8fbaa8ae5d",
+  "meta": {
+    "lastUpdated": "2021-12-03T16:26:48.533+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationDispense_Preparation",
+  "version": "1.0.0",
+  "name": "JP_MedicationDispense_Preparation",
+  "title": "JP_MedicationDispense_Preparation",
+  "status": "active",
+  "date": "2021-12-03T16:26:12.6876987+00:00",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "薬剤単位の調剤結果",
+  "purpose": "薬剤単位の調剤結果",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationDispense"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "調剤についてのExtension",
+        "definition": "一包化、粉砕などの処理を行った際に記載する。"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationDispense_Preparation"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "short": "調剤結果",
+        "definition": "薬剤単位の調剤結果",
+        "type": [
+          {
+            "code": "string"
+          },
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      }
+    ]
+  }
+}

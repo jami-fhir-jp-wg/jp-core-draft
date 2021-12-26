@@ -1,4 +1,3 @@
-
 # 1.1. 総合ガイダンス
 ---
 このセクションでは、このImplementation Guideで使用されるすべてに共通する重要な定義、解釈、および要件の概要を説明する．
@@ -35,4 +34,4 @@ FHIRの各メジャーバージョンでは、コアデータモデルが変更�
 ---
 NeXEHRS研究会 HL7FHIR日本実装検討WG
 
-https://hl7fhir.jp/
+https://jpfhir.jp/

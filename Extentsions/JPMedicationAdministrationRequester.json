@@ -1,0 +1,47 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "531d2d2b-2c3d-4f42-99f4-bebc6b26e674",
+  "meta": {
+    "lastUpdated": "2021-12-03T16:42:21.589+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_Requester",
+  "version": "1.0.0",
+  "name": "JP_MedicationAdministration_Requester",
+  "title": "JP_MedicationAdministration_Requester",
+  "status": "active",
+  "date": "2021-11-05T08:16:18.3721014+00:00",
+  "publisher": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "description": "依頼医を格納するための拡張",
+  "purpose": "依頼医を格納するための拡張",
+  "copyright": "FHIR® Japanese implementation research workaing group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationAdministration"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_Requester"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "Reference"
+          }
+        ]
+      }
+    ]
+  }
+}

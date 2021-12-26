@@ -1,0 +1,20 @@
+{
+  "resourceType": "ValueSet",
+  "id": "jp-core-work-valueset-ProcedureCodes",
+  "meta": {
+    "versionId": "8",
+    "lastUpdated": "2021-08-17T03:38:15.455+00:00",
+    "source": "#mVE3UPRA1oq1NxrP"
+  },
+  "url": "https://hl7fhir.jp/fhir/ImplementationGuide/jp-core-work-valueset-ProcedureCodes",
+  "name": "ProcedureCodes",
+  "title": "Procedureコード",
+  "status": "draft",
+  "compose": {
+    "include": [
+      {
+        "system": "https://hl7fhir.jp/fhir/ImplementationGuide/jp-core-work-codesystem-ProcedureCodes"
+      }
+    ]
+  }
+}

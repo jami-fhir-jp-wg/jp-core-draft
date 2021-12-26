@@ -5,8 +5,8 @@
     "lastUpdated": "2021-11-30T07:28:35.638+00:00"
   },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner",
+  "version": "1.0.0",
   "name": "JP_Practitioner",
-  "title": "JP_Practitioner",
   "status": "active",
   "date": "2021-11-02T06:37:21.1308929Z",
   "description": "このプロファイルはPractitionerリソースに対して、医療従事者のデータを送受信するための基礎となる制約と拡張を定めたものである。",
@@ -201,24 +201,24 @@
         "comment": "References SHALL be a reference to an actual FHIR resource, and SHALL be resolveable (allowing for access control, temporary unavailability, etc.). Resolution can be either by retrieval from the URL, or, where applicable by resource type, by treating an absolute reference as a canonical URL and looking it up in a local registry/repository.\r\n\r\n\r\n参照は実際のFHIRリソースへの参照でなければならず、解決可能でなければなりません。解決は URL からの検索、またはリソースタイプによって、絶対参照を正規の URL として扱い、ローカルのレジストリ/リポジトリで検索することで行うことができます。"
       },
       {
-        "id": "Practitioner.qualification:DrugUserQualification",
+        "id": "Practitioner.qualification:narcoticPrescriptionLicenseNumber",
         "path": "Practitioner.qualification",
-        "sliceName": "DrugUserQualification",
+        "sliceName": "narcoticPrescriptionLicenseNumber",
         "comment": "【JP-CORE】\r\n麻薬施用者免許番号に関する情報を格納するためのQualification/Slicing定義。\r\n\r\nsystemはFixed Valueの urn:oid:1.2.392.100495.20.3.32.1[都道府県番号] を使用する。\r\n( 頭に1をつけて末尾3桁で表現する。これは北海道などの場合、都道府県番号は01になるが、OID\r\nでは先頭が0は許可されていないため、頭に1をつけて3桁で表現する)\r\nつまり麻薬施用者免許番号を発行した都道府県ごとにsystemも異なる値となる。\r\nこのプロファイルのidentifier.systemには例として北海道の番号「urn:oid:1.2.392.100495.20.3.32.101」を設定している"
       },
       {
-        "id": "Practitioner.qualification:DrugUserQualification.identifier.system",
+        "id": "Practitioner.qualification:narcoticPrescriptionLicenseNumber.identifier.system",
         "path": "Practitioner.qualification.identifier.system",
         "fixedUri": "urn:oid:1.2.392.100495.20.3.32.101"
       },
       {
-        "id": "Practitioner.qualification:MedicalRegistrationNumber",
+        "id": "Practitioner.qualification:medicalRegistrationNumber",
         "path": "Practitioner.qualification",
-        "sliceName": "MedicalRegistrationNumber",
+        "sliceName": "medicalRegistrationNumber",
         "comment": "【JP-CORE】\r\n\r\n医籍登録番号を格納するためのIdentifer/Slicing定義。\r\n\r\nsystemはFixed Valueの urn:oid:1.2.392.100495.20.3.31 を使用する。"
       },
       {
-        "id": "Practitioner.qualification:MedicalRegistrationNumber.identifier.system",
+        "id": "Practitioner.qualification:medicalRegistrationNumber.identifier.system",
         "path": "Practitioner.qualification.identifier.system",
         "comment": "Identifier.system is always case sensitive.\r\n\r\n\r\n--------SWG3 コメント-----------\r\n\r\n医籍登録番号を格納するためのqualification/IdentiferのSlicing定義。\r\n\r\nsystemはFixed Valueの urn:oid:1.2.392.100495.20.3.31を使用する。",
         "fixedUri": "urn:oid:1.2.392.100495.20.3.31"

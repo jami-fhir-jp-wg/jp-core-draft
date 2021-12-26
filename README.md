@@ -5,7 +5,7 @@ Implementation Guideは、HL7®FHIR®標準を元に日本国内で患者デー�
 日本国内の医療情報相互運用性規格としてはHL7v2.5規格があるが、FHIRはHL7v2.5への後方互換性を有していないことから、JP Coreも完全な後方互換性は備えていない。
 JP Coreは「JAMI NeXEHRS課題研究会（正式名：次世代健康医療記録システム共通プラットホーム研究会）」に設置された「HL7 FHIR日本実装検討WG」において検討を行っているものである。
 
-Thie Implementation Guide is for defining minimum requirement and constrains of comformance based on HL7 FHIR specification to access health and healthcare information in Japan. This is named as "JP Core Implementation Guide" ( JP Core). JP Core is created and described through a lot of considerations and discussions in FHIR® Japanese implementation research working group under the Japan Association of Medical Informatics (JAMI).
+おn
 
 Copyright(C)2021-2021 by FHIR<sup>&reg;</sup> Japanese implementation research working group in Japan Association of Medical Informatics (JAMI). All rights reserved.
 FHIR® is the registered trademark of HL7 and both FHIR and jpfhir.jp are used with the permission of HL7. Use of the FHIR trademark does not constitute endorsement of this product by HL7.

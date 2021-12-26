@@ -5,6 +5,7 @@
     "lastUpdated": "2021-10-25T09:20:35.25+00:00"
   },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Location",
+  "version": "1.0.0",
   "name": "JP_Location",
   "status": "active",
   "date": "2020-09-15T06:54:22.4695992+00:00",

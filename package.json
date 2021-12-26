@@ -1,0 +1,12 @@
+{
+  "name": "jp-core.draft",
+  "version": "1.0.0-v",
+  "description": "JP-CORE Draft V1  2021.12.26\r\nThis Project id for Releasing  JP-CORE Draft V1.\r\nThis site is for resources except Implementation Guide.\r\nImplementation Guide for  JP-CORE Draft V1 is on another project site called \"JP-CORE\".\r\n",
+  "author": "JAMI NeXEHRS FHIR IGWG",
+  "fhirVersions": [
+    "4.0.1"
+  ],
+  "dependencies": {
+    "hl7.fhir.r4.core": "4.0.1"
+  }
+}

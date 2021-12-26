@@ -2,12 +2,12 @@
   "resourceType": "StructureDefinition",
   "id": "JP-Procedure",
   "meta": {
-    "versionId": "222",
+    "versionId": "223",
     "lastUpdated": "2021-08-24T09:04:56.096+00:00",
     "source": "#FtKTGgpCsDt3jzdz"
   },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Procedure",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "name": "JP_Procedure",
   "title": "JP_Procedure",
   "status": "active",

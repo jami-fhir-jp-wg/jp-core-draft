@@ -1,0 +1,60 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "91cc41f3-a701-4cbe-b9bc-7d810bb7e9e5",
+  "meta": {
+    "lastUpdated": "2021-12-03T14:50:05.953+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DispenseRequest_InstructionForDispense",
+  "version": "1.0.0",
+  "name": "JP_MedicationRequest_DispenseRequest_InstructionForDispense",
+  "title": "JP_MedicationRequest_DispenseRequest_InstructionForDispense",
+  "status": "active",
+  "date": "2021-12-03T14:48:42.1477777+00:00",
+  "description": "調剤指示。薬剤単位の調剤指示を表現するための拡張",
+  "purpose": "薬剤単位の調剤指示を表現するための拡張",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationRequest.dispenseRequest"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension.id",
+        "path": "Extension.id",
+        "max": "0"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DispenseRequest_InstructionForDispense"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "string"
+          },
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      }
+    ]
+  }
+}

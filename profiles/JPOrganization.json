@@ -5,8 +5,8 @@
     "lastUpdated": "2021-12-01T06:35:30.625+00:00"
   },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Organization",
+  "version": "1.0.0",
   "name": "JP_Organization",
-  "title": "JP_Organization",
   "status": "active",
   "date": "2021-11-09T07:38:42.4698842+00:00",
   "description": "このプロファイルはOrganizationリソースに対して、組織情報のデータを送受信するための基礎となる制約と拡張を定めたものである。",

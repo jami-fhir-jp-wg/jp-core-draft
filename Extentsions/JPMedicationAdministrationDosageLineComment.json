@@ -1,0 +1,48 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "7a1b4824-7464-47b1-ba4d-dad4dd006663",
+  "meta": {
+    "lastUpdated": "2021-12-04T09:29:44.656+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_Dosage_LineComment",
+  "version": "1.0.0",
+  "name": "JP_MedicationAdministration_Dosage_LineComment",
+  "title": "JP_MedicationAdministration_atDosage_LineComment",
+  "status": "active",
+  "date": "2021-12-03T00:00:00+09:00",
+  "description": "ラインコメントを格納する",
+  "purpose": "ラインコメントを格納する",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationAdministration.dosage"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationAdministration_Dosage_LineComment"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "string"
+          },
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      }
+    ]
+  }
+}

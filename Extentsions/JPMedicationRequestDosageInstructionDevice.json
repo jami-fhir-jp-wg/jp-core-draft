@@ -1,0 +1,57 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "6d3333b3-d0f9-4b48-bd78-abfcbaad19fe",
+  "meta": {
+    "lastUpdated": "2021-12-03T16:24:50.287+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_Device",
+  "version": "1.0.0",
+  "name": "JP_MedicationRequest_DosageInstruction_Device",
+  "title": "JP_MedicationRequest_DosageInstruction_Device",
+  "status": "active",
+  "date": "2021-12-03T14:07:29.3849157+00:00",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "投与装置を格納する拡張",
+  "purpose": "投与装置を格納する拡張",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationRequest.dosageInstruction"
+    },
+    {
+      "type": "element",
+      "expression": "MedicationDispense.dosageInstruction"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "投与装置",
+        "definition": "投与装置を格納する拡張"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_Device"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "Reference"
+          }
+        ]
+      }
+    ]
+  }
+}

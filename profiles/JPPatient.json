@@ -5,7 +5,7 @@
     "lastUpdated": "2021-12-01T06:35:09.817+00:00"
   },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Patient",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "name": "JP_Patient",
   "title": "JP_Patient",
   "status": "active",

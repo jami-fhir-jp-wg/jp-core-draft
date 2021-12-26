@@ -1,0 +1,14 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "jp-core-work-codesystem-ProcedureCodes",
+  "meta": {
+    "versionId": "4",
+    "lastUpdated": "2021-08-17T03:35:50.014+00:00",
+    "source": "#CFQmDnsfigCEj9JP"
+  },
+  "url": "https://hl7fhir.jp/fhir/ImplementationGuide/jp-core-work-codesystem-ProcedureCodes",
+  "name": "ProcedureCodes",
+  "title": "Procedureコード",
+  "status": "draft",
+  "content": "complete"
+}

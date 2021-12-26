@@ -1,0 +1,62 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "996ef0bf-8b22-46e5-bc34-46c7bd6c6926",
+  "meta": {
+    "lastUpdated": "2021-12-03T12:47:27.169+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DispenseRequest_ExpectedRepeatCount",
+  "version": "1.0.0",
+  "name": "JP_MedicationRequest_DispenseRequest_ExpectedRepeatCount",
+  "title": "JP_MedicationRequest_DispenseRequest_ExpectedRepeatCount",
+  "status": "active",
+  "date": "2021-12-03T12:42:41.6873441+00:00",
+  "description": "頓用回数",
+  "purpose": "頓用の場合など調剤量を錠数ではなく回数で表現したい場合の回数を格納する拡張",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationRequest.dispenseRequest"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "頓⽤回数を表現する拡張",
+        "definition": "頓⽤回数を表現する拡張",
+        "max": "1"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DispenseRequest_ExpectedRepeatCount"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "short": "頓用回数",
+        "definition": "頓用回数",
+        "min": 1,
+        "type": [
+          {
+            "code": "integer"
+          }
+        ]
+      }
+    ]
+  }
+}

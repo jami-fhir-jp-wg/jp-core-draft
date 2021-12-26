@@ -1,0 +1,74 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "a6ce827d-1083-49c4-b538-201c18de518d",
+  "meta": {
+    "lastUpdated": "2021-12-03T16:16:39.185+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_PeriodOfUse",
+  "version": "1.0.0",
+  "name": "JP_MedicationRequest_DosageInstruction_PeriodOfUse",
+  "title": "JP_MedicationRequest_DosageInstruction_PeriodOfUse",
+  "status": "active",
+  "date": "2021-12-03T12:19:21.8091949Z",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "投与開始日を格納する拡張",
+  "purpose": "処方日とは別に明示的に投与・内服開始日を指定するため。",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationRequest.dosageInstruction"
+    },
+    {
+      "type": "element",
+      "expression": "MedicationDispense.dosageInstruction"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "投与期間の開始日を明示するための拡張",
+        "definition": "MedcationRequestの投与期間の開始日を明示するための拡張",
+        "max": "1"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_PeriodOfUse"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "short": "投与期間を表す",
+        "definition": "MedicationRequestに投与期間の開始日を明示するための拡張",
+        "type": [
+          {
+            "code": "Period"
+          }
+        ]
+      },
+      {
+        "id": "Extension.value[x].start",
+        "path": "Extension.value[x].start",
+        "short": "投与期間の開始日",
+        "definition": "明示された投与期間の開始日",
+        "min": 1
+      }
+    ]
+  }
+}

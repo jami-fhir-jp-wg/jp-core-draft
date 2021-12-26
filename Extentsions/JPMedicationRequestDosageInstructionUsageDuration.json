@@ -1,0 +1,110 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "d2a74cc1-3928-4f1d-afe8-e7b49a2b4b04",
+  "meta": {
+    "lastUpdated": "2021-12-03T16:20:07.109+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_UsageDuration",
+  "version": "1.0.0",
+  "name": "JP_MedicationRequest_DosageInstruction_UsageDuration",
+  "title": "JP_MedicationRequest_DosageInstruction_UsageDuration",
+  "status": "active",
+  "date": "2021-12-03T12:07:57.3669816Z",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "隔⽇投与など、服⽤開始⽇から終了⽇までの⽇数と実投与⽇数が異なる場合に、実投与⽇数を明⽰したい場合に使⽤する拡張",
+  "purpose": "隔⽇投与など、服⽤開始⽇から終了⽇までの⽇数と実投与⽇数が異なる場合に、実投与⽇数を明⽰したい場合に使⽤する拡張",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "MedicationRequest.dosageInstruction"
+    },
+    {
+      "type": "element",
+      "expression": "MedicationDispense.dosageInstruction"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension.id",
+        "path": "Extension.id",
+        "short": "エレメント間参照のためのID",
+        "definition": "JP Coreでは使用されない。",
+        "max": "0"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_UsageDuration"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "short": "実投与⽇数",
+        "definition": "隔日投与などで実投与日数と処方期間が異なる場合に用いられる。",
+        "type": [
+          {
+            "code": "Duration"
+          }
+        ]
+      },
+      {
+        "id": "Extension.value[x].id",
+        "path": "Extension.value[x].id",
+        "short": "エレメント間参照のためのID",
+        "definition": "JP Coreでは使用されない。",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].value",
+        "path": "Extension.value[x].value",
+        "short": "実投与日数",
+        "definition": "隔日投与などで実投与日数と処方期間が異なる場合に用いられる。",
+        "min": 1
+      },
+      {
+        "id": "Extension.value[x].comparator",
+        "path": "Extension.value[x].comparator",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].unit",
+        "path": "Extension.value[x].unit",
+        "short": "実投与日数単位",
+        "definition": "「日」で固定される",
+        "min": 1,
+        "fixedString": "日"
+      },
+      {
+        "id": "Extension.value[x].system",
+        "path": "Extension.value[x].system",
+        "short": "UCUM",
+        "definition": "単位コード UCUMを識別するURI。固定値。",
+        "min": 1,
+        "fixedUri": "http://unitsofmeasure.org"
+      },
+      {
+        "id": "Extension.value[x].code",
+        "path": "Extension.value[x].code",
+        "short": "単位コードUCUMにおける実投与⽇数の単位",
+        "definition": "単位コードUCUMにおける実投与⽇数の単位。dで固定される",
+        "min": 1,
+        "fixedCode": "d"
+      }
+    ]
+  }
+}
