@@ -1,4 +1,4 @@
-# HL7 FHIR JP Core 実装ガイド ＜Draft Ver.1＞　　2021.12.16
+# HL7 FHIR JP Core 実装ガイド ＜Draft Ver.1＞　　2021.12.26
 
 ---
 Implementation Guideは、HL7®FHIR®標準を元に日本国内で患者データにアクセスするための最小限の適合性要件を定めたものである。日本国内での基底Implementation Guideとなることから、「JP Core Implementation Guide」(以下JP Core)と命名する。
