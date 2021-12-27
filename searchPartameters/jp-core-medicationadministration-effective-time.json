@@ -1,21 +1,21 @@
 {
   "resourceType": "SearchParameter",
-  "id": "jp-core-medicationadministration-effectivedatetime",
-  "url": "http://jpfhir.jp/fhir/core/SearchParameter/StructureDefinition/jp-core-medicationadministration-effectivedatetime",
+  "id": "jp-core-medicationadministration-effective-time",
+  "url": "http://jpfhir.jp/fhir/core/SearchParameter/StructureDefinition/jp-core-medicationadministration-effective-time",
   "version": "1.0.0",
-  "name": "JPCoreMedicationAdministrationEffectiveDatetime",
+  "name": "JPCoreMedicationAdministrationEffectiveTime",
   "status": "active",
   "experimental": false,
   "date": "2021-12-01",
   "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
-  "description": "MedicationAdministrationのEffectiveDatetime(投与実施日時)に関する検索を定義します。",
-  "code": "EffectiveDatetime",
+  "description": "MedicationAdministrationのEffective Time(投与実施日時)に関する検索を定義します。",
+  "code": "effective-time",
   "base": [
     "MedicationAdministration"
   ],
   "type": "date",
-  "expression": "MedicationAdministration.effective.EffectiveDatetime",
-  "xpath": "f:MedicationAdministration/f:effective/f:EffectiveDatetime",
+  "expression": "MedicationAdministration.effective",
+  "xpath": "f:MedicationAdministration/f:effective",
   "xpathUsage": "normal",
   "multipleOr": true,
   "_multipleOr": {
