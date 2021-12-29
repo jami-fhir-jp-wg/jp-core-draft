@@ -166,16 +166,6 @@
       },
       {
         "id": "Medication.ingredient.isActive",
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
-            "valueCode": "normative"
-          },
-          {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
-            "valueCode": "4.0.0"
-          }
-        ],
         "path": "Medication.ingredient.isActive",
         "short": "有効成分の指標",
         "definition": "この成分が薬剤の治療効果に影響するかどうかの指標\r\nI\r\nndication of whether this ingredient affects the therapeutic action of the drug.",
@@ -227,16 +217,6 @@
       },
       {
         "id": "Medication.batch.lotNumber",
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
-            "valueCode": "normative"
-          },
-          {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
-            "valueCode": "4.0.0"
-          }
-        ],
         "path": "Medication.batch.lotNumber",
         "short": "バッチのID",
         "definition": "特定の薬品を含むバッチに割り当てられたロット番号",
@@ -244,16 +224,6 @@
       },
       {
         "id": "Medication.batch.expirationDate",
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
-            "valueCode": "normative"
-          },
-          {
-            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-normative-version",
-            "valueCode": "4.0.0"
-          }
-        ],
         "path": "Medication.batch.expirationDate",
         "short": "このバッチの期限が切れるとき",
         "definition": "この特定のバッチの薬剤の期限が切れるとき"

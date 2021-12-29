@@ -324,32 +324,6 @@
         "definition": "Describes the medication dosage information details e.g. dose, rate, site, route, etc.\r\n投薬量情報の詳細を説明する。線量、率、場所、ルートなど。"
       },
       {
-        "id": "MedicationAdministration.dosage.id",
-        "path": "MedicationAdministration.dosage.id",
-        "short": "Unique id for inter-element referencing　要素間参照用の一意のID",
-        "definition": "Unique id for the element within a resource (for internal references). This may be any string value that does not contain spaces.\r\n\r\nリソース内の要素の一意のID（内部参照用）。これは、スペースを含まない任意の文字列値にすることができる。",
-        "type": [
-          {
-            "_code": {
-              "extension": [
-                {
-                  "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-json-type",
-                  "valueString": "string"
-                },
-                {
-                  "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-xml-type",
-                  "valueString": "xsd:string"
-                },
-                {
-                  "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-rdf-type",
-                  "valueString": "xsd:string"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      {
         "id": "MedicationAdministration.dosage.text",
         "path": "MedicationAdministration.dosage.text",
         "short": "Free text dosage instructions e.g. SIG　フリーテキストの投与方法の説明　SIG:用法",
@@ -374,15 +348,7 @@
         "path": "MedicationAdministration.dosage.method",
         "short": "How drug was administered　投与方法",
         "definition": "A coded value indicating the method by which the medication is intended to be or was introduced into or on the body.  This attribute will most often NOT be populated.  It is most commonly used for injections.  For example, Slow Push, Deep IV.\r\n\r\n薬物が体内に導入されることを意図している、または体内に導入された方法を示すコード化された値。ほとんどの場合、この属性は入力されないが、注射では最も一般的に使用される。たとえば、スロープッシュ（ゆっくり注射）、ディープIV（深部静脈注射）。",
-        "comment": "One of the reasons this attribute is not used often, is that the method is often pre-coordinated with the route and/or form of administration.  This means the codes used in route or form may pre-coordinate the method in the route code or the form code.  The implementation decision about what coding system to use for route or form code will determine how frequently the method code will be populated e.g. if route or form code pre-coordinate method code, then this attribute will not be populated often; if there is no pre-coordination then method code may  be used frequently.\r\n\r\nこの属性がふつう使用されない理由の1つは、メソッドが管理のルートや形式と事前に調整されていることが多いためである。これは、ルートまたはフォーム（剤型）で使用されるコードが、ルートコードまたは剤型コードによってメソッドが事前に決まる可能性があることを意味している。ルートコードまたは剤型コードに使用するコーディングシステムに関する実装の決定により、メソッドコードが入力される頻度が決まります。ルートコードまたは剤型コードによってメソッドコードが事前に決まる場合、この属性はふつう入力されない。決まらない場合は、メソッドコードが使用される可能性があります。",
-        "constraint": [
-          {
-            "key": "ele-1",
-            "severity": "error",
-            "human": "All FHIR elements must have a @value or children",
-            "source": "Element"
-          }
-        ]
+        "comment": "One of the reasons this attribute is not used often, is that the method is often pre-coordinated with the route and/or form of administration.  This means the codes used in route or form may pre-coordinate the method in the route code or the form code.  The implementation decision about what coding system to use for route or form code will determine how frequently the method code will be populated e.g. if route or form code pre-coordinate method code, then this attribute will not be populated often; if there is no pre-coordination then method code may  be used frequently.\r\n\r\nこの属性がふつう使用されない理由の1つは、メソッドが管理のルートや形式と事前に調整されていることが多いためである。これは、ルートまたはフォーム（剤型）で使用されるコードが、ルートコードまたは剤型コードによってメソッドが事前に決まる可能性があることを意味している。ルートコードまたは剤型コードに使用するコーディングシステムに関する実装の決定により、メソッドコードが入力される頻度が決まります。ルートコードまたは剤型コードによってメソッドコードが事前に決まる場合、この属性はふつう入力されない。決まらない場合は、メソッドコードが使用される可能性があります。"
       },
       {
         "id": "MedicationAdministration.dosage.dose",

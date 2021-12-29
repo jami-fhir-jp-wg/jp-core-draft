@@ -422,94 +422,33 @@
         "path": "MedicationDispense.substitution.type",
         "short": "Code signifying whether a different drug was dispensed from what was prescribed　処方されたものとは異なる薬が調剤されたかどうかを示すコード",
         "definition": "A code signifying whether a different drug was dispensed from what was prescribed.\r\n\r\n処方されたものとは異なる薬が調剤されたかどうかを示すコード。\r\n【JP-CORE】\r\nHL7 v3 Value Set ActSubstanceAdminSubstitutionCode　から以下のコードが使用できる。 \r\nE: 別の生物学的同等および治療的に同等の製品で置換が行われたか、許可された。\r\nEC: 代替品が発生したか、次のような別の製品で許可されています：同じ有効成分を含むが異なる塩で処方された代替医薬品、同じ有効成分を持つエステル医薬品同等物、強度、剤形、投与経路.\r\nBC: 代替が発生したか、同等のブランド間で許可されていますが、ジェネリックでは許可されない。\r\nG: 代替が発生したか、同等のジェネリック間で許可されていますが、ブランド間では許可されていません。\r\nTE:同じ治療目的と安全性プロファイルを持つ別の製品で代替が発生したか、許可された。\r\nTB:ジェネリック医薬品ではなく、治療的に同等のブランド間で代替品が発生したか、許可されています\r\nTG:治療的に同等のジェネリック間で置換が発生したか、許可されていますが、ブランドは許可されない。\r\nF:処方ガイドラインに準拠。\r\nN:置換は発生しなかったか、許可されていない。",
-        "comment": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.",
-        "constraint": [
-          {
-            "key": "ele-1",
-            "severity": "error",
-            "human": "All FHIR elements must have a @value or children",
-            "source": "Element"
-          }
-        ]
+        "comment": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination."
       },
       {
         "id": "MedicationDispense.substitution.reason",
         "path": "MedicationDispense.substitution.reason",
         "short": "Why was substitution made　置換が実施された理由",
         "definition": "Indicates the reason for the substitution (or lack of substitution) from what was prescribed.\r\n\r\n処方されたものからの置換（または置換の欠如）の理由を示します。\r\nHL7 v3 Value Set SubstanceAdminSubstitutionReason　では以下のコードが定義されている。\r\nCT:治療継続性確保のため、FP:処方方針、 OS: 在庫欠品、  RR:代替えを義務付けまたは禁止する規制要件に従った",
-        "comment": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.\r\n\r\nすべてのターミノロジーの使用がこの一般的なパターンに適合するわけではない。場合によっては、モデルはCodeableConceptを使用せず、コーディングを直接使用して、テキスト、コーディング、翻訳、および要素間の関係とpre-coordinationとpost-coordinationの用語関係を管理するための独自の構造を提供する必要がある。",
-        "constraint": [
-          {
-            "key": "ele-1",
-            "severity": "error",
-            "human": "All FHIR elements must have a @value or children",
-            "source": "Element"
-          }
-        ]
+        "comment": "Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.\r\n\r\nすべてのターミノロジーの使用がこの一般的なパターンに適合するわけではない。場合によっては、モデルはCodeableConceptを使用せず、コーディングを直接使用して、テキスト、コーディング、翻訳、および要素間の関係とpre-coordinationとpost-coordinationの用語関係を管理するための独自の構造を提供する必要がある。"
       },
       {
         "id": "MedicationDispense.substitution.responsibleParty",
         "path": "MedicationDispense.substitution.responsibleParty",
         "short": "Who is responsible for the substitution　置換責任者",
         "definition": "The person or organization that has primary responsibility for the substitution.\r\n\r\n置換の主な責任を負う個人または組織。Practitioner   PractitionerRole リソースへの参照。",
-        "comment": "References SHALL be a reference to an actual FHIR resource, and SHALL be resolveable (allowing for access control, temporary unavailability, etc.). Resolution can be either by retrieval from the URL, or, where applicable by resource type, by treating an absolute reference as a canonical URL and looking it up in a local registry/repository.\r\n\r\n参照は、実際のFHIRリソースへの参照である必要があり、解決可能（内容に到達可能）である必要がある（アクセス制御、一時的な使用不可などを考慮に入れる）。解決は、URLから取得するか、リソースタイプによって該当する場合は、絶対参照を正規URLとして扱い、ローカルレジストリ/リポジトリで検索することによって行うことができる。",
-        "constraint": [
-          {
-            "key": "ele-1",
-            "severity": "error",
-            "human": "All FHIR elements must have a @value or children",
-            "source": "Element"
-          },
-          {
-            "key": "ref-1",
-            "severity": "error",
-            "human": "SHALL have a contained resource if a local reference is provided",
-            "expression": "reference.startsWith('#').not() or (reference.substring(1).trace('url') in %resource.contained.id.trace('ids'))",
-            "source": "Reference"
-          }
-        ]
+        "comment": "References SHALL be a reference to an actual FHIR resource, and SHALL be resolveable (allowing for access control, temporary unavailability, etc.). Resolution can be either by retrieval from the URL, or, where applicable by resource type, by treating an absolute reference as a canonical URL and looking it up in a local registry/repository.\r\n\r\n参照は、実際のFHIRリソースへの参照である必要があり、解決可能（内容に到達可能）である必要がある（アクセス制御、一時的な使用不可などを考慮に入れる）。解決は、URLから取得するか、リソースタイプによって該当する場合は、絶対参照を正規URLとして扱い、ローカルレジストリ/リポジトリで検索することによって行うことができる。"
       },
       {
         "id": "MedicationDispense.detectedIssue",
         "path": "MedicationDispense.detectedIssue",
         "short": "Clinical issue with action アクションを伴う臨床的問題",
-        "definition": "Indicates an actual or potential clinical issue with or between one or more active or proposed clinical actions for a patient; e.g. drug-drug interaction, duplicate therapy, dosage alert etc.\r\n\r\n患者に対する1つまたは複数のアクティブまたは提案された臨床アクションを伴う、またはそれらの間の実際のまたは潜在的な臨床問題を示す。例えば薬物間相互作用、重複治療、投与量アラートなど。\r\nDetectedIssue リソースへの参照。",
-        "constraint": [
-          {
-            "key": "ele-1",
-            "severity": "error",
-            "human": "All FHIR elements must have a @value or children",
-            "source": "Element"
-          },
-          {
-            "key": "ref-1",
-            "severity": "error",
-            "human": "SHALL have a contained resource if a local reference is provided",
-            "expression": "reference.startsWith('#').not() or (reference.substring(1).trace('url') in %resource.contained.id.trace('ids'))",
-            "source": "Reference"
-          }
-        ]
+        "definition": "Indicates an actual or potential clinical issue with or between one or more active or proposed clinical actions for a patient; e.g. drug-drug interaction, duplicate therapy, dosage alert etc.\r\n\r\n患者に対する1つまたは複数のアクティブまたは提案された臨床アクションを伴う、またはそれらの間の実際のまたは潜在的な臨床問題を示す。例えば薬物間相互作用、重複治療、投与量アラートなど。\r\nDetectedIssue リソースへの参照。"
       },
       {
         "id": "MedicationDispense.eventHistory",
         "path": "MedicationDispense.eventHistory",
         "short": "A list of relevant lifecycle events　関連するライフサイクルイベントのリスト",
-        "definition": "A summary of the events of interest that have occurred, such as when the dispense was verified.\r\n\r\n\r\n調剤が確認されたときなど、発生した対象のイベントのサマリー。",
-        "constraint": [
-          {
-            "key": "ele-1",
-            "severity": "error",
-            "human": "All FHIR elements must have a @value or children",
-            "source": "Element"
-          },
-          {
-            "key": "ref-1",
-            "severity": "error",
-            "human": "SHALL have a contained resource if a local reference is provided",
-            "expression": "reference.startsWith('#').not() or (reference.substring(1).trace('url') in %resource.contained.id.trace('ids'))",
-            "source": "Reference"
-          }
-        ]
+        "definition": "A summary of the events of interest that have occurred, such as when the dispense was verified.\r\n\r\n\r\n調剤が確認されたときなど、発生した対象のイベントのサマリー。"
       }
     ]
   }

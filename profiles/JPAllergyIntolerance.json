@@ -1,6 +1,6 @@
 {
   "resourceType": "StructureDefinition",
-  "language": "Japanese",
+  "language": "ja",
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance",
   "version": "1.0.0",
   "name": "JP_AllergyIntolerance",
@@ -92,7 +92,7 @@
         "path": "AllergyIntolerance.code",
         "code": [
           {
-            "system": "JFAGY"
+            "system": "http://jpfhir.jp/fhir/Common/CodeSystem/allergyintolerance-code"
           }
         ],
         "short": "アレルギーまたは不耐性を識別するコード",
@@ -103,7 +103,7 @@
       {
         "id": "AllergyIntolerance.code.coding.system",
         "path": "AllergyIntolerance.code.coding.system",
-        "fixedUri": "JFAGY"
+        "fixedUri": "http://jpfhir.jp/fhir/Common/CodeSystem/allergyintolerance-code"
       },
       {
         "id": "AllergyIntolerance.patient",
