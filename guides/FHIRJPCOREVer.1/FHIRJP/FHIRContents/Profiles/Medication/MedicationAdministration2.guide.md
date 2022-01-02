@@ -403,7 +403,7 @@ HTTP/1.1 200 OK
       "type": {
         "coding": [
           {
-            "system": "http://hl7fhir.jp/medication/99ILL",
+            "system": "http://jpfhir.jp/medication/99ILL",
             "code": "01",
             "display": "シリンジ"
           }
@@ -544,7 +544,7 @@ HTTP/1.1 200 OK
       ],
       "coding": [
         {
-          "system": "http://hl7fhir.jp/99ILL",
+          "system": "http://jpfhir.jp/medication/99ILL",
           "code": "101",
           "display": "静注(末梢)"
         }
@@ -779,7 +779,7 @@ HTTP/1.1 200 OK
         "valueCodeableConcept": {
           "coding": [
             {
-              "system": "http://hl7fhir.jp/medication/99ILL",
+              "system": "http://jpfhir.jp/medication/99ILL",
               "code": "01",
               "display": "主管"
             }
@@ -882,14 +882,14 @@ dosage.dose要素には、情報が得られる場合には全体の容量をUCU
 ### 2.1.2.7.5.5. 実施者
 投与を実施した医療従事者（自己管理の場合は患者）をperformer要素に記述する。
 
-performer.functionには、FHIR標準のValueSetである `http://hl7.org/fhir/ValueSet/med-admin-perform-function` から、実施者を表す `performer` を固定で記述する。
+performer.functionには、FHIR標準のValueSetである `http://terminology.hl7.org/CodeSystem/med-admin-perform-function` から、実施者を表す `performer` を固定で記述する。
 performer.actorには、医療従事者(Practitioner)、または患者(Patient)リソースの参照を記述する。
 ```json
 "performer": {
   "function": {
     "coding": [
       {
-        "system": "http://hl7.org/fhir/ValueSet/med-admin-perform-function",
+        "system": "http://terminology.hl7.org/CodeSystem/med-admin-perform-function",
         "code": "performer",
         "display": "Performer"
       }
@@ -929,7 +929,7 @@ performer.actorには、医療従事者(Practitioner)、または患者(Patient)
       "valueCodeableConcept": {
         "coding": [
           {
-            "system": "http://hl7fhir.jp/medication/99ILL",
+            "system": "http://jpfhir.jp/medication/99ILL",
             "code": "01",
             "display": "主管"
           }
@@ -1153,7 +1153,7 @@ Medication.ingredientに記述される薬剤の合計容量(mL)を dosage.dose 
   ],
   "coding": [
     {
-      "system": "http://hl7fhir.jp/99ILL",
+      "system": "http://jpfhir.jp/medication/99ILL",
       "code": "101",
       "display": "静注(末梢)"
     }
@@ -1176,7 +1176,7 @@ Medication.ingredientに記述される薬剤の合計容量(mL)を dosage.dose 
       "valueCodeableConcept": {
         "coding": [
           {
-            "system": "http://hl7fhir.jp/medication/99ILL",
+            "system": "http://jpfhir.jp/medication/99ILL",
             "code": "01",
             "display": "主管"
           }
