@@ -1,7 +1,7 @@
 {
   "resourceType": "CapabilityStatement",
-  "id": "jp-core-server",
-  "url": "http://jpfhir.jp/fhir/core/CapabilityStatement/StructureDefinition/JP_ServerCapabilityStatement",
+  "id": "jpcoreservercapabilitystatement",
+  "url": "http://jpfhir.jp/fhir/core/CapabilityStatement/StructureDefinition/jpcoreservercapabilitystatement",
   "version": "1.0.0",
   "name": "JPCoreServerCapabilityStatement",
   "title": "JP Core Server CapabilityStatement",

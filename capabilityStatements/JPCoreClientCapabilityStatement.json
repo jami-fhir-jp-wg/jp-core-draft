@@ -1,6 +1,6 @@
 {
   "resourceType": "CapabilityStatement",
-  "id": "jp-core-client",
+  "id": "jpcoreclientcapabilitystatement",
   "url": "http://jpfhir.jp/fhir/core/CapabilityStatement/StructureDefinition/jpcoreclientcapabilitystatement",
   "version": "1.0.0",
   "name": "JPCoreClientCapabilityStatement",
