@@ -9,9 +9,8 @@ JP Coreは「JAMI NeXEHRS課題研究会（正式名：次世代健康医療記�
 Copyright(C)2021-2021 by FHIR<sup>&reg;</sup> Japanese implementation research working group in Japan Association of Medical Informatics (JAMI). All rights reserved.
 FHIR® is the registered trademark of HL7 and both FHIR and jpfhir.jp are used with the permission of HL7. Use of the FHIR trademark does not constitute endorsement of this product by HL7.
 
-### V1.0.4:  2022.2.26
+### V1.0.5:  2022.2.26
 MedicationRequest,MedicationDispense、MedicationRequestInjection、MedicationDispenseInjectionを共通のProfile であるMedicationRequestBase、MedicationDispenseBaseを新たに作成し、それからの派生profileに変更した。
 そのほか細かい修正、SearchParameterの追加、同じ内容で異なりファイル名ファイルの削除など。
 
-forSUHIフォルダ、guideフォルダは一時的に削除。
 ### V1.0.0:   最初のリリース 2021.12.26

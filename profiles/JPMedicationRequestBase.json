@@ -1,10 +1,5 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "956bd805-ea14-4e99-923e-a5154bb3c56b",
-  "meta": {
-    "versionId": "1",
-    "lastUpdated": "2022-01-05T07:41:37.927+00:00"
-  },
   "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_MedicationRequestBase",
   "version": "1.0.0",
   "name": "JP_MedicationRequestBase",
