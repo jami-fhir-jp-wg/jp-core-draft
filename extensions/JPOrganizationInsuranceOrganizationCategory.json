@@ -1,0 +1,92 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "01530641-bc1b-4c76-a182-40fae3251e98",
+  "meta": {
+    "lastUpdated": "2021-12-02T03:45:35.138+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_InsuranceOrganizationCategory",
+  "version": "1.0.0",
+  "name": "JP_Organization_InsuranceOrganizationCategory",
+  "status": "active",
+  "date": "2021-12-01T06:35:56.7665609+00:00",
+  "description": "点数表コード１桁（医科１、歯科３）表現するためのExtension。 JP Core Organizationプロファイルで利用されることを想定しているが、他のリソースでも利用可能である",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "Organization"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "点数表コード１桁（医科1、歯科３）",
+        "comment": "点数表コード１桁（医科1、歯科３）。Identifier型の拡張\r\n「InsuranceOrganizationCategory」を使用する。systemには点数表番号\r\nを表すOID「1.2.392.100495.20.3.22」を指定する。"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_InsuranceOrganizationCategory"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "Identifier"
+          }
+        ]
+      },
+      {
+        "id": "Extension.value[x].id",
+        "path": "Extension.value[x].id",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].use",
+        "path": "Extension.value[x].use",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].type",
+        "path": "Extension.value[x].type",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].system",
+        "path": "Extension.value[x].system",
+        "fixedUri": "urn:oid:1.2.392.100495.20.3.22",
+        "definition": "点数表番号の名前空間を識別するURIを指定。固定値。"
+      },
+      {
+        "id": "Extension.value[x].value",
+        "path": "Extension.value[x].value",
+        "definition": "点数表コード１桁「1：医科」、「3：歯科」。"
+      },
+      {
+        "id": "Extension.value[x].period",
+        "path": "Extension.value[x].period",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].assigner",
+        "path": "Extension.value[x].assigner",
+        "max": "0"
+      }
+    ]
+  }
+}

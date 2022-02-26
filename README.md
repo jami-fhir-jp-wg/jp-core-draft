@@ -9,5 +9,9 @@ JP Coreは「JAMI NeXEHRS課題研究会（正式名：次世代健康医療記�
 Copyright(C)2021-2021 by FHIR<sup>&reg;</sup> Japanese implementation research working group in Japan Association of Medical Informatics (JAMI). All rights reserved.
 FHIR® is the registered trademark of HL7 and both FHIR and jpfhir.jp are used with the permission of HL7. Use of the FHIR trademark does not constitute endorsement of this product by HL7.
 
-forSUSHIフォルダ内のinput.zipは、IGpublisherで作成するためのマークダウンファイルと、sushiコマンドで処理するためのFSHファイルである。sushiコマンドを実行するディレクトリのinputフォルダ内のFSHフォルダをこのファイルの内容と置き換えることでsushiコマンドはerrorなく実行できるはずである。ただし、ネーミングルールとの整合性から、warningは多数出るが実害はない。
-マークダウンファイルの階層はまだ未整理で、このままではIGpublisher（_genonceスクリプト）で処理できるようにはなっていない。
+### V1.0.4:  2022.2.26
+MedicationRequest,MedicationDispense、MedicationRequestInjection、MedicationDispenseInjectionを共通のProfile であるMedicationRequestBase、MedicationDispenseBaseを新たに作成し、それからの派生profileに変更した。
+そのほか細かい修正、SearchParameterの追加、同じ内容で異なりファイル名ファイルの削除など。
+
+forSUHIフォルダ、guideフォルダは一時的に削除。
+### V1.0.0:   最初のリリース 2021.12.26

@@ -1,0 +1,69 @@
+{
+  "resourceType": "SearchParameter",
+  "id": "jp-core-coverage-class-value",
+  "url": "http://jpfhir.jp/fhir/core/SearchParameter/StructureDefinition/jp-core-coverage-class-value",
+  "version": "1.0.0",
+  "name": "JPCoreCoverageClassValue",
+  "status": "active",
+  "experimental": false,
+  "date": "2021-12-01",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "CoverageリソースのClassValueに関する検索を定義します。",
+  "code": "class-value",
+  "base": [
+    "Coverage"
+  ],
+  "type": "string",
+  "expression": "Coverage.class.value",
+  "xpath": "f:Coverage/f:class/f:value",
+  "xpathUsage": "normal",
+  "multipleOr": true,
+  "_multipleOr": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+        "valueCode": "MAY"
+      }
+    ]
+  },
+  "multipleAnd": true,
+  "_multipleAnd": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+        "valueCode": "MAY"
+      }
+    ]
+  },
+  "modifier": [
+    "missing",
+    "exact",
+    "contains"
+  ],
+  "_modifier": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    }
+  ]
+}

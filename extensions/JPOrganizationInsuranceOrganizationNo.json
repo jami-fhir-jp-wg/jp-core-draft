@@ -1,0 +1,92 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "0951c1d5-7a75-488e-9e00-b2807dba71e5",
+  "meta": {
+    "lastUpdated": "2021-12-01T06:35:51.467+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_InsuranceOrganizationNo",
+  "version": "1.0.0",
+  "name": "JP_Organization_InsuranceOrganizationNo",
+  "status": "active",
+  "date": "2021-11-30T06:46:39.7818895Z",
+  "description": "保険医療機関番号７桁を表現するためのExtension。 JP Core Organizationプロファイルで利用されることを想定しているが、他のリソースでも利用可能である",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "Organization"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "保険医療機関番号７桁",
+        "comment": "保険医療機関番号７桁。Identifier型の拡張\r\n「InsuranceOrganizationNo」を使用する。systemには医療機関コードを\r\n表すOID「1.2.392.100495.20.3.23」を指定する。\r\n\r\n電子処方箋 H7FHIR記述仕様書案の定義をベースにしているが、URLを以下に変更している \r\nhttp://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_InsuranceOrganizationNo"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_InsuranceOrganizationNo"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "Identifier"
+          }
+        ]
+      },
+      {
+        "id": "Extension.value[x].id",
+        "path": "Extension.value[x].id",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].use",
+        "path": "Extension.value[x].use",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].type",
+        "path": "Extension.value[x].type",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].system",
+        "path": "Extension.value[x].system",
+        "fixedUri": "urn:oid:1.2.392.100495.20.3.23",
+        "definition": "保険医療機関コードの名前空間を識別するURIを指定。固定値。"
+      },
+      {
+        "id": "Extension.value[x].value",
+        "path": "Extension.value[x].value",
+        "definition": "保険医療機関番号７桁。半角数字で７桁固定。"
+      },
+      {
+        "id": "Extension.value[x].period",
+        "path": "Extension.value[x].period",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].assigner",
+        "path": "Extension.value[x].assigner",
+        "max": "0"
+      }
+    ]
+  }
+}

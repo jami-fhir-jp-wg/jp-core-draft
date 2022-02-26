@@ -1,0 +1,92 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "147dd0ac-e43c-45c7-b994-7494b7cb0848",
+  "meta": {
+    "lastUpdated": "2021-12-01T06:35:42.702+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_PrefectureNo",
+  "version": "1.0.0",
+  "name": "JP_Organization_PrefectureNo",
+  "status": "active",
+  "date": "2021-11-30T06:32:24.0070401Z",
+  "description": "都道府県番号２桁を表現するためのExtension。\r\nJP Core Organizationプロファイルで利用されることを想定しているが、他のリソースでも利用可能である",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "Organization"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "都道府県番号2桁",
+        "comment": "都道府県番号２桁。Identifier型の拡張を使用する。\r\nvalueには都道府県番号2桁の値を格納し、systemには都道府県番号を表すOID「1.2.392.100495.20.3.21」を指定する。"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_PrefectureNo"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "Identifier"
+          }
+        ]
+      },
+      {
+        "id": "Extension.value[x].id",
+        "path": "Extension.value[x].id",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].use",
+        "path": "Extension.value[x].use",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].type",
+        "path": "Extension.value[x].type",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].system",
+        "path": "Extension.value[x].system",
+        "fixedUri": "urn:oid:1.2.392.100495.20.3.21",
+        "definition": "都道府県番号の名前空間を識別するURIを指定"
+      },
+      {
+        "id": "Extension.value[x].value",
+        "path": "Extension.value[x].value",
+        "definition": "2桁にゼロパディングされた都道府県番号。 例）北海道　 \"01\""
+      },
+      {
+        "id": "Extension.value[x].period",
+        "path": "Extension.value[x].period",
+        "max": "0"
+      },
+      {
+        "id": "Extension.value[x].assigner",
+        "path": "Extension.value[x].assigner",
+        "max": "0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1988 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "956bd805-ea14-4e99-923e-a5154bb3c56b",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2022-01-05T07:41:37.927+00:00"
+  },
+  "url": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_MedicationRequestBase",
+  "version": "1.0.0",
+  "name": "JP_MedicationRequestBase",
+  "title": "JP_MedicationRequestBase",
+  "status": "active",
+  "date": "2022-01-05T07:41:36.2383032+00:00",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "このプロファイルはユーザは直接適用するものではなく、JP_MedicationRequestとJP_MedicationRequestInjectionの共通の親となる抽象プロファイルである。MedicationRequestリソースに対して、内服・外用薬剤処方、注射・点滴などのデータを送受信するため、JP_MedicationRequestとJP_MedicationRequestInjectionの各プロファイルの基礎となる制約と拡張のうち共通部分を定めている。",
+  "purpose": "このプロファイルはユーザは直接適用するものではなく、JP_MedicationRequestとJP_MedicationRequestInjectionの共通の親となる抽象プロファイルである。MedicationRequestリソースに対して、内服・外用薬剤処方、注射・点滴などのデータを送受信するため、JP_MedicationRequestとJP_MedicationRequestInjectionの各プロファイルの基礎となる制約と拡張のうち共通部分を定めている。",
+  "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "workflow",
+      "uri": "http://hl7.org/fhir/workflow",
+      "name": "Workflow Pattern"
+    },
+    {
+      "identity": "script10.6",
+      "uri": "http://ncpdp.org/SCRIPT10_6",
+      "name": "Mapping to NCPDP SCRIPT 10.6"
+    },
+    {
+      "identity": "rim",
+      "uri": "http://hl7.org/v3",
+      "name": "RIM Mapping"
+    },
+    {
+      "identity": "w5",
+      "uri": "http://hl7.org/fhir/fivews",
+      "name": "FiveWs Pattern Mapping"
+    },
+    {
+      "identity": "v2",
+      "uri": "http://hl7.org/v2",
+      "name": "HL7 v2 Mapping"
+    }
+  ],
+  "kind": "resource",
+  "abstract": false,
+  "type": "MedicationRequest",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "MedicationRequest",
+        "path": "MedicationRequest",
+        "short": "患者あるいはグループに対しての薬剤処方オーダ",
+        "definition": "患者への薬の供給と内服指示を共に提供するオーダ。ケアプランやワークフローパターンとハーモナイズし、入院や外来でも使えるようにするため、このリソースは\"MedicationPrescription\"や\"MedicationOrder\"ではなく、\"MedicationRequest\"と呼ばれる。"
+      },
+      {
+        "id": "MedicationRequest.identifier",
+        "path": "MedicationRequest.identifier",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "system"
+            }
+          ],
+          "rules": "open"
+        },
+        "short": "外部から参照されるID",
+        "definition": "このインスタンスが外部から参照されるために使われるIDである。処方箋全体としてのIDとしては使用しない。\r\n処方箋内で同一の用法をまとめて表記されるRp番号はこのIdentifier elementの別スライスで表現する。それ以外に任意のIDを付与してもよい。\r\nこのIDは業務手順によって定められた処方オーダーに対して、直接的なURL参照が適切でない場合も含めて関連付けるために使われる。この業務手順のIDは実施者によって割り当てられたものであり、リソースが更新されたりサーバからサーバに転送されたとしても固定のものとして存続する。",
+        "comment": "これは業務IDであって、リソースに対するIDではない。",
+        "min": 2
+      },
+      {
+        "id": "MedicationRequest.identifier:RpNumber",
+        "path": "MedicationRequest.identifier",
+        "sliceName": "RpNumber",
+        "short": "処方箋内部の剤グループとしてのRp番号",
+        "definition": "処方箋内で同一用法の薬剤を慣用的にまとめて、Rpに番号をつけて剤グループとして一括指定されることがある。このスライスでは剤グループに対して割り振られたRp番号を記録する。",
+        "comment": "剤グループに複数の薬剤が含まれる場合、このグループ内の薬剤には同じRp番号が割り振られる。",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "MedicationRequest.identifier:RpNumber.use",
+        "path": "MedicationRequest.identifier.use",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.identifier:RpNumber.type",
+        "path": "MedicationRequest.identifier.type",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.identifier:RpNumber.system",
+        "path": "MedicationRequest.identifier.system",
+        "short": "【JP-CORE】Rp番号(剤グループ番号)についてのsystem値",
+        "definition": "【JP-CORE】ここで付番されたIDがRp番号であることを明示するためにOIDとして定義された。urn:oid:1.2.392.100495.20.3.81で固定される。",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.100495.20.3.81"
+      },
+      {
+        "id": "MedicationRequest.identifier:RpNumber.value",
+        "path": "MedicationRequest.identifier.value",
+        "short": "【JP-CORE】Rp番号(剤グループ番号)",
+        "definition": "【JP-CORE】Rp番号(剤グループ番号)。\"1\"など。",
+        "comment": "【JP-CORE】value は string型であり、数値はゼロサプレス、つまり、'01'でなく'1'と指定すること。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.identifier:RpNumber.period",
+        "path": "MedicationRequest.identifier.period",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.identifier:RpNumber.assigner",
+        "path": "MedicationRequest.identifier.assigner",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.identifier:OrderInRp",
+        "path": "MedicationRequest.identifier",
+        "sliceName": "OrderInRp",
+        "short": "【JP-CORE】同一RP番号（剤グループ）での薬剤の表記順",
+        "definition": "【JP-CORE】同一剤グループでの薬剤を表記する際の順番。XML形式と異なりJSON形式の場合、表記順は項目の順序を意味しない。したがって、薬剤の記載順を別に規定する必要があるためIDを用いて表現する。",
+        "comment": "【JP-CORE】同一剤グループ内での薬剤の順番を1から順の番号で示す。",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "MedicationRequest.identifier:OrderInRp.use",
+        "path": "MedicationRequest.identifier.use",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.identifier:OrderInRp.type",
+        "path": "MedicationRequest.identifier.type",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.identifier:OrderInRp.system",
+        "path": "MedicationRequest.identifier.system",
+        "short": "【JP-CORE】RP番号内（剤グループ内）の連番を示すsystem値",
+        "definition": "剤グループ内番号の名前空間を識別するURI。固定値urn:oid:1.2.392.100495.20.3.82",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.100495.20.3.82"
+      },
+      {
+        "id": "MedicationRequest.identifier:OrderInRp.value",
+        "path": "MedicationRequest.identifier.value",
+        "short": "【JP-CORE】RP番号内（剤グループ内）の連番",
+        "definition": "剤グループ内連番。",
+        "comment": "【JP-CORE】value は string型であり、数値はゼロサプレス、つまり、'01'でなく'1'と指定すること。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.identifier:OrderInRp.period",
+        "path": "MedicationRequest.identifier.period",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.identifier:OrderInRp.assigner",
+        "path": "MedicationRequest.identifier.assigner",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.identifier:RequestIdentifier",
+        "path": "MedicationRequest.identifier",
+        "sliceName": "RequestIdentifier",
+        "short": "処方オーダーに対するID",
+        "definition": "薬剤をオーダーする単位としての処方箋に対するID。MedicationRequestは単一の薬剤でインスタンスが作成されるが、それの集合としての処方箋のID。",
+        "min": 0
+      },
+      {
+        "id": "MedicationRequest.identifier:RequestIdentifier.system",
+        "path": "MedicationRequest.identifier.system",
+        "min": 1,
+        "fixedUri": "http://jpfhir.jp/fhir/Common/IdSystem/resourceInstance-identifier"
+      },
+      {
+        "id": "MedicationRequest.status",
+        "path": "MedicationRequest.status",
+        "definition": "JP coreでは\"active\"に固定される。\r\nオーダーの現在の状態を示すコード。一般的には active か completed の状態であるだろう。",
+        "comment": "このエレメントはmodifierとされている。StatusとはこのResourceが現在妥当な状態ではないことも示すからである。",
+        "fixedCode": "active",
+        "isModifierReason": "このエレメントは modifier である。Statusエレメントが entered-in-error という正当な情報として扱うべきではない状態の値も取り得るからである。"
+      },
+      {
+        "id": "MedicationRequest.statusReason",
+        "path": "MedicationRequest.statusReason",
+        "short": "現状の理由",
+        "definition": "現在のステータスの理由",
+        "comment": "一般的には「保留(suspended)」や「中止(cancelled)」といった例外的状態を示すために持ちいられる。MedicationRequestオーダーが発生した理由についてはreaseonCodeに記載され、この項目は用いられない。"
+      },
+      {
+        "id": "MedicationRequest.intent",
+        "path": "MedicationRequest.intent",
+        "definition": "JP coreでは \"order\" に固定される。\r\n投薬リクエストの意図 が提案(proposal)、計画(plan)、あるいは他の要求によるものかを示す。",
+        "comment": "処方をオーダーする場合、MedicationRequestのどの段階でオーダーしたのかについて、この項目を指定することが期待される。たとえば、proposalであれば患者、関係者、医師あるいは機器からの提案として作成される。\"plan\"であれば、医師、患者、関係者そして機器からの提案として生成される。\"original-order\"は医師にしか作成できない。\r\n\r\ninstance-orderはリクエストあるいはオーダーをインスタンス化する段階であり、MedicationAdministrationレコードにも使われる。\r\r\nintentはこのresourceが実際に適応される時に変化するため、このエレメントはmodifierとしてラベルされる。",
+        "fixedCode": "order",
+        "isModifierReason": "このエレメントは全ての記述的な属性の解釈を変える。たとえば、「リクエストすることが推奨される時間」と「リクエストすることが承認された時間」、あるいは「リクエストすることが推奨される人」と「リクエストすることが承認された人」など"
+      },
+      {
+        "id": "MedicationRequest.category",
+        "path": "MedicationRequest.category",
+        "short": "薬剤使用区分",
+        "definition": "このMedicationRequest Resourceが使用される区分を示す。日本では「院外」「院内」「入院」「外来」などの区分を想定する。\r\n一般的には、外来や入院などどこでこの薬剤が投与、内服されるかを想定した区分である。\r\n処方病棟や処方した診療科をOrganization resourceで表現することが冗長である場合にはこの区分が用いられることもある。\r\n\r\nHL7 FHIRではvalue setとして http://terminology.hl7.org/CodeSystem/medicationrequest-category がデフォルトで用いられるが、日本での使用の場合持参薬をカバーする必要があり、JAHIS処方データ規約V3.0Cに記載されているMERIT-9処方オーダ表7とJHSP0007表を組み合わせて持ちいることとする。",
+        "comment": "薬剤が投与あるいはその他の用途で利用されると想定される場面についての区分である。",
+        "binding": {
+          "strength": "example",
+          "description": "MedicationRequest Resourceの区分を示すコード化された概念。たとえば、どこで服薬あるいは投与されるか、治療の種別はどうかについて。FHIRでは"
+        }
+      },
+      {
+        "id": "MedicationRequest.priority",
+        "path": "MedicationRequest.priority",
+        "definition": "このMedicatinRequestオーダーの優先度。他のオーダーと比較して表現される。",
+        "comment": "FHIRでは文字列の大きさが1MBを超えてはならない(SHALL NOT)。"
+      },
+      {
+        "id": "MedicationRequest.doNotPerform",
+        "path": "MedicationRequest.doNotPerform",
+        "short": "要求が禁止された行為であればTrue",
+        "definition": "このオーダーが実施していけないものであればTrueを表示される",
+        "comment": "もし、doNotPerformに指定がなければ、オーダーは実施してもよいものである。(たとえば、「実施せよ」)",
+        "isModifierReason": "このエレメントは実施すべきオーダーを否定するものであるため、このエレメントはmodifierとされている。（たとえば、この薬剤オーダーが不適切なものであったり初歩宇部着物ではない場合)"
+      },
+      {
+        "id": "MedicationRequest.reported[x]",
+        "path": "MedicationRequest.reported[x]",
+        "short": "初期記録にはない報告",
+        "definition": "このレコードは元々の一次記録から報告されたものか、二次的に「報告された」資料から取り込まれたものかを示す。報告の情報源についても示される。"
+      },
+      {
+        "id": "MedicationRequest.medication[x]",
+        "path": "MedicationRequest.medication[x]",
+        "short": "投与される薬剤",
+        "definition": "医薬品コードと医薬品名称。coding要素を繰り返すことでHOT9 やYJコードなど複数のコード体系で医薬品コード並記することが可能。\r\n薬される薬剤についてのID。JP Coreでは内服処方箋で使用されるMedicationRequestではcodeableConceptのみを使用する。",
+        "comment": "日本での運用を検討した場合に、煩雑ではあるがMedication resourceを参照するのではなくcodeableConceptとして1薬剤ごとにMedicationRequestインスタンスを生成する方針とした。\r\n\r\nコードだけが指定されていても、製品を特定できる必要がある。もし、多くの情報が必要であれば、Medication Resourceを利用することが推奨される。たとえば、もし、薬剤の剤型や、ロット番号を知る必要があったり、薬剤の成分や臨時で調整されたものであったりする場合には、Medication Resourceを参照しなくてはならない。\r\n 【JP-CORE】 ひとつのtext要素と、複数のcoding 要素を記述できる。処方オーダ時に選択または入力し、実際に処方箋に印字される文字列を必ずtext要素に格納した上で、それをコード化した情報を1個以上のcoding 要素に記述する。\r\n厚生労働省標準であるHOT9コード（販社指定が不要な場合にはHOT7コード）または広く流通しているYJコードを用いるか、一般名処方の場合には厚生労働省保険局一般名処方マスタのコードを使用して、Coding要素（コードsystemを識別するURI、医薬品のコード、そのコード表における医薬品の名称の3つからなる）で記述する。\r\nなお、上記のいずれの標準的コードも付番されていない医薬品や医療材料の場合には、薬機法の下で使用されているGS1標準の識別コードであるGTIN(Global Trade Item Number)の調剤包装単位（最少包装単位、個別包装単位）14桁を使用する。\r\nひとつの処方薬、医療材料を複数のコード体系のコードで記述してもよく、その場合にcoding 要素を繰り返して記述する。 ただし、ひとつの処方薬を複数のコードで繰り返し記述する場合には、それらのコードが指し示す処方薬、医療材料は当然同一でなければならない。 また、処方を発行した医療機関内でのデータ利用のために、医療機関固有コード体系によるコード（ハウスコード、ローカルコード）の記述を含めてもよいが、その場合でも上述したいずれかの標準コードを同時に記述することが必要である。",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "mustSupport": true,
+        "binding": {
+          "strength": "preferred",
+          "description": "処方する製剤を表すコード。"
+        }
+      },
+      {
+        "id": "MedicationRequest.medication[x].id",
+        "path": "MedicationRequest.medication[x].id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.medication[x].coding",
+        "path": "MedicationRequest.medication[x].coding",
+        "short": "医薬品を表すコード",
+        "definition": "医薬品を表すコード。JP Coreでは最低1個のコードを記録しなければならない。\r\n利用できるコードは下記の通りである。\r\n医薬品コード（医薬品マスター）\r\n薬価基準収載医薬品コード\r\nYJコード\r\nHOT コード（9 桁）\r\n⼀般名処⽅マスター",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。\r\n【JP-CORE】Medication要素の説明を参照のこと。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.medication[x].coding.userSelected",
+        "path": "MedicationRequest.medication[x].coding.userSelected",
+        "short": "このコードが直接ユーザーが指定したものであるかどうか",
+        "definition": "ユーザーが直接コーディングしたかどうかを示す。たとえば、有効な項目のリスト（コードか表現）から選択したかどうか。",
+        "comment": "ユーザーが直接コーディングしたかどうかを示す。たとえば、有効な項目のリスト（コードか表現）から選択したかどうか。"
+      },
+      {
+        "id": "MedicationRequest.medication[x].text",
+        "path": "MedicationRequest.medication[x].text",
+        "short": "この概念のプレーンテキスト表現",
+        "definition": "入力したユーザーが見た/選択した/発したとおりの概念および・またはユーザーが意図した概念を自然言語で表現したもの。",
+        "comment": "textエレメントはcodingのdisplayNameエレメントと一致することがよくある。"
+      },
+      {
+        "id": "MedicationRequest.subject",
+        "path": "MedicationRequest.subject",
+        "short": "処方箋が発行された対象(個人あるいはグループ)",
+        "definition": "JP Coreでは患者を表すPatientリソースへの参照。\r\n一般には薬剤が投与される対象となる人（あるいはグループ)を表現するResourceに対するリンク。",
+        "comment": "処方オーダーの対象は必須項目である。\r\n二次利用のためにどこに実際の対象がいるのかについての情報は提供されない。特定の対象に対して匿名化することも必要である。",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://hl7.org/fhir/StructureDefinition/Patient"
+            ]
+          }
+        ],
+        "mustSupport": true
+      },
+      {
+        "id": "MedicationRequest.subject.id",
+        "path": "MedicationRequest.subject.id",
+        "short": "内部エレメントを参照するためのユニークID",
+        "definition": "リソース内のエレメントを参照（内部参照）するためのユニークなID。空白を含まなければどのような文字列であってもよい。"
+      },
+      {
+        "id": "MedicationRequest.subject.reference",
+        "path": "MedicationRequest.subject.reference",
+        "short": "文字列による参照、関係、内部あるいは絶対URL",
+        "definition": "対象となる患者を表すPatient resourceへの参照である。PatientリソースのfullUrl要素に指定されるUUID を指定すること\r\n一般には他のResourceが存在する場所への参照。参照はサービスのベースURLに対する相対的なものや、リソースがある場所を示す絶対的URLであることもある。参照はバージョンを指定していることもあればそうでないこともある。もし参照が、FHIRのRESTfulサーバ以外を対象としていれば、それはバージョンが指定されているべきである。分割された内部参照('#'で始まる)の場合は内部に含まれるResourceへの参照である。",
+        "comment": "絶対URLを使えば安定してクラウドやWeb上にスケーラブルな対応をすることができる。一方で、相対・論理参照を使えば閉鎖されたエコシステム内部に適した柔軟な対応ができる。絶対URLをはFHIRリソースのRESTfulサーバを指定するために必要となるわけではないが、より推奨される方法である。もし、URLが\"/[type]/[id]\"で構成されていれば、FHIRのRESTfulサーバへの参照を想定していると推測することもできる。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.subject.type",
+        "path": "MedicationRequest.subject.type",
+        "short": "参照先の型(Patient)",
+        "definition": "参照されるPatientが型として示される。\r\n一般的には参照の対象として予定される型。もし、Reference.typeとReference.referenceがともに指定されていて、Reference.referenceがFHIRのURLであればどちらも一致させるべきである(SHALL)。\n\r\n型はResouce Definitionに対するCanonical URLであってその型も参照の対象となる。Referenceはhttp://hl7.org/fhir/StructureDefinition/に対する相対URLである。たとえば、\"Patient\"はhttp://hl7.org/fhir/StructureDefinition/Patientへの参照である。絶対URLは論理モデルにおいて、論理モデル内部での参照として飲み使用可能であり、Resouceに対しては指定できない。",
+        "comment": "このelementは参照の対象の型を指定するためのものである。他のElementで指定されていた型であってもなくても指定することができる。場合によっては、対象の型は参照（たとえば、RESTful URL)についての調査により決定されることもあるし、参照の対象から決定されることもある。もし、参照と型のどちらもが指定されていたら、参照は指定された型を決定されるべきである(SHALL)。"
+      },
+      {
+        "id": "MedicationRequest.subject.identifier",
+        "path": "MedicationRequest.subject.identifier",
+        "short": "文字列による参照が不明な場合の論理参照",
+        "definition": "対象となるresouceへのID。FHIRサーバを経由してこの参照が指定するEntityが指定できないか、実際の位置を示す既知のIDへとResourceを変換できない場合のように、ほかのresourceを直接参照することができない場合に使われる。Reference.identifireがFHIRインスタンスである何かを実際に示している必要はないが、FHIRインスタンスとして表現されると想定される業務概念を示されなくてはらならず(SHALL)、そのインスタンスは参照先のFHIRのResource型である必要がある。",
+        "comment": "IDが参照として与えられている場合には、参照を処理するシステムはIDをIDが利用される業務コンテキストがわかっているかどうか参照を解決するためにしか利用することができない。このIDはグローバル(たとえば国民ID）であることもあるが、そうでないこともある。そのため、この参照を利用する有効な機構（たとえば、データを連鎖させたり、包含させるなど）、サーバが参照を解決することができるとも期待できない。サーバは到達できなかったり、解決できないあるいは拒否されるような参照でもIDとして受け取ることができる。CapabilityStatement.rest.resource.referencePolicyを参照のこと。\r\n\r\nIDと正確な参照が共に提供されている場合は、正確な参照が優先される。Resourceを処理するアプリケーションも許容されるがIDが正確な参照と一致することを確認することは求められてない。\r\n\r\nアプリケーションは論理参照を正確な参照へとコンバートする際に、実際に示している論理参照を外したり、削除してもよい。\r\n\r\n参照はFHIRのResourceとして表現することができる構造となるように示されているが、アプリケーションが参照の対象について検索することを求めていない限り、実際にFHIR Resourceのインスタンスが存在していなくてもよい。IDを参照しているコンテンツは、どのリソースの型が限定的に許容されるか明示されていなくても論理的な制約を満たさなければならない。たとえば、薬剤処方を示すIDの型がReference(Observation|DIagnosticReport)であることは、正当化されないであろう。Reference.identifierのユースケースの一つは、FHIRの表現が存在しない場合に、(Any)を参照する型として利用するような場合である。"
+      },
+      {
+        "id": "MedicationRequest.encounter",
+        "path": "MedicationRequest.encounter",
+        "short": "encounter/admission/stay のいずれかとして記録された診察",
+        "definition": "JP Core profileでの使用は規定されていない。\r\nこの対象となるリソース[x]が作成される間やこの記録が作成される対象のencounterは密接に関連している。",
+        "comment": "このエレメントは一般的には外来でのイベントに対応するが、診察が公式に終わる前や後にこの診察についてのコンテキストに対応して開始される活動についても対応する。もし、診療のエピソードに関連させる必要があれば、extensionとして扱われることがある。"
+      },
+      {
+        "id": "MedicationRequest.supportingInformation",
+        "path": "MedicationRequest.supportingInformation",
+        "short": "薬剤オーダについて補助的情報",
+        "definition": "薬剤をオーダーするときに補助的となる追加情報（たとえば、患者の身長や体重））を含む。",
+        "comment": "参照先は実存するFHIR Resourceでなければならず(SHALL)、解決可能(アクセスコントロールや、一時的に利用不可であることなどは許容される)でなければならない(SHALL)。解決の方法はURLから取得可能であるか、Resouce型が適応できるかどうか、正規のURLとして絶対的参照を扱うことができるか、ローカルのレジストリ／リポジトリから参照することができるかである。"
+      },
+      {
+        "id": "MedicationRequest.authoredOn",
+        "path": "MedicationRequest.authoredOn",
+        "short": "この処方オーダーが最初に記述された日",
+        "definition": "JP Core profileでは必須。処方指示が最初に作成された日時。秒の精度まで記録する。タイムゾーンも付与しなければならない。",
+        "min": 1,
+        "mustSupport": true
+      },
+      {
+        "id": "MedicationRequest.requester",
+        "path": "MedicationRequest.requester",
+        "short": "このオーダーを発行した人・物",
+        "definition": "JP Core profileではこのエレメントに対する規定はない。\r\nこのオーダーを発行した責任のある人、組織、機器。",
+        "comment": "参照先は実存するFHIR Resourceでなければならず(SHALL)、解決可能(アクセスコントロールや、一時的に利用不可であることなどは許容される)でなければならない(SHALL)。解決の方法はURLから取得可能であるか、Resouce型が適応できるかどうか、正規のURLとして絶対的参照を扱うことができるか、ローカルのレジストリ／リポジトリから参照することができるかである。"
+      },
+      {
+        "id": "MedicationRequest.performer",
+        "path": "MedicationRequest.performer",
+        "short": "薬剤投与・管理を行った者",
+        "definition": "薬物治療を実施すると予定された者。（たとえば、薬剤投与を行った者）",
+        "comment": "参照先は実存するFHIR Resourceでなければならず(SHALL)、解決可能(アクセスコントロールや、一時的に利用不可であることなどは許容される)でなければならない(SHALL)。解決の方法はURLから取得可能であるか、Resouce型が適応できるかどうか、正規のURLとして絶対的参照を扱うことができるか、ローカルのレジストリ／リポジトリから参照することができるかである。"
+      },
+      {
+        "id": "MedicationRequest.performerType",
+        "path": "MedicationRequest.performerType",
+        "short": "薬剤投与を行った職種",
+        "definition": "薬剤の投与・管理を行った職種を示す。",
+        "comment": "Performerを示さずにこのエレメントが指定された場合は、このエレメントは薬剤の投与／管理が指定の職種でなければならないと言うことを示している。Performerと共に指定された場合は、もし指定されたPerformerが実施できない場合に薬剤投与・管理を行うものについての要件が示されたことを意味する。"
+      },
+      {
+        "id": "MedicationRequest.recorder",
+        "path": "MedicationRequest.recorder",
+        "short": "投薬オーダーの入力者",
+        "definition": "JP Core profileではこのエレメントに対する規定はない。\r\nたとえば口答指示や電話でのオーダーにより、他の人の代理で処方を入力した人。",
+        "comment": "参照先は実存するFHIR Resourceでなければならず(SHALL)、解決可能(アクセスコントロールや、一時的に利用不可であることなどは許容される)でなければならない(SHALL)。解決の方法はURLから取得可能であるか、Resouce型が適応できるかどうか、正規のURLとして絶対的参照を扱うことができるか、ローカルのレジストリ／リポジトリから参照することができるかである。"
+      },
+      {
+        "id": "MedicationRequest.reasonCode",
+        "path": "MedicationRequest.reasonCode",
+        "short": "薬を注文するあるいは注文しない理由や適応",
+        "definition": "このエレメントに対するJP Coreの規定はない。\r\n薬剤をオーダーするあるいはしないことを示した理由。",
+        "comment": "このエレメントは病名コードであってもよい。もし、すべての条件を示す記録があって他の詳細な記録が必要であれば、reasonReferenceを使用すること。"
+      },
+      {
+        "id": "MedicationRequest.reasonReference",
+        "path": "MedicationRequest.reasonReference",
+        "short": "処方箋が書かれた理由について補足するCondition ResourceまたはObservation Resource",
+        "definition": "薬剤がなぜオーダーされたのかを説明する条件や観察。",
+        "comment": "薬剤オーダーの理由を示すこれは条件や観察についての参照である。もし、コードだけであればreasonCodeを使用すること。"
+      },
+      {
+        "id": "MedicationRequest.instantiatesCanonical",
+        "path": "MedicationRequest.instantiatesCanonical",
+        "short": "FHIRプロトコルまたは定義のインスタンス",
+        "definition": "このMedicationRequestの一部あるいは全部が遵守するprotocolやguideline, ordersetなど他の定義を示すURL。",
+        "comment": "[Canonical References](references.html#canonical)を参照すること。"
+      },
+      {
+        "id": "MedicationRequest.instantiatesUri",
+        "path": "MedicationRequest.instantiatesUri",
+        "short": "外部プロトコルまたは定義のインスタンス",
+        "definition": "このMedicationRequestの一部あるいは全部が遵守するprotocolやguideline, ordersetなど他の定義を示すURL。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier"
+      },
+      {
+        "id": "MedicationRequest.basedOn",
+        "path": "MedicationRequest.basedOn",
+        "short": "オーダーが実施される根拠",
+        "definition": "このMedicationRequestの全部あるいは一部を満たす計画やオーダー。",
+        "comment": "参照先は実存するFHIR Resourceでなければならず(SHALL)、解決可能(アクセスコントロールや、一時的に利用不可であることなどは許容される)でなければならない(SHALL)。解決の方法はURLから取得可能であるか、Resouce型が適応できるかどうか、正規のURLとして絶対的参照を扱うことができるか、ローカルのレジストリ／リポジトリから参照することができるかである。"
+      },
+      {
+        "id": "MedicationRequest.groupIdentifier",
+        "path": "MedicationRequest.groupIdentifier",
+        "short": "このRerquestを一部とする複数のオーダーを構成するID",
+        "definition": "一人の処方者が同時期に前後して作成した全てのリクエストに共通するIDで、処方や薬品請求のIDを示す。",
+        "requirements": "リクエストは\"basedOn\"での関連付け（たとえば、あるリクエストが他のリクエストを満たす）か、あるいは共通の請求伝票に書かれているを示すことで関連付けられる。同じ請求伝票にあるリクエストは最初に作成されてからは変更や維持などについては独立したものと見なされる。"
+      },
+      {
+        "id": "MedicationRequest.courseOfTherapyType",
+        "path": "MedicationRequest.courseOfTherapyType",
+        "short": "薬剤投与の全体的なパターン",
+        "definition": "患者が内服する薬剤についての管理の全体的なパターンについての記載。",
+        "comment": "この属性は薬剤プロトコールと混同してはならない。"
+      },
+      {
+        "id": "MedicationRequest.insurance",
+        "path": "MedicationRequest.insurance",
+        "short": "適用される保険",
+        "definition": "リクエストされたサービスについて支払いが求め裸得ることになる、保険のプランや適応範囲の拡大、事前の権限付与、かつ/または事前の判定。",
+        "comment": "参照先は実存するFHIR Resourceでなければならず(SHALL)、解決可能(アクセスコントロールや、一時的に利用不可であることなどは許容される)でなければならない(SHALL)。解決の方法はURLから取得可能であるか、Resouce型が適応できるかどうか、正規のURLとして絶対的参照を扱うことができるか、ローカルのレジストリ／リポジトリから参照することができるかである。"
+      },
+      {
+        "id": "MedicationRequest.note",
+        "path": "MedicationRequest.note",
+        "short": "薬剤単位の備考",
+        "definition": "他の属性では伝えることができなかったMedicationRequestについての付加的情報。",
+        "comment": "構造化されたアノテーションが内システムでは、作成者や記録時間のない一つのアノテーションで情報を伝達している。このエレメントに情報の修正を要する可能性があるためにナラティブな情報も必要としている。Annotationsには機械処理が可能で修正される（\"modifying\")情報を伝達することに使うべきではない(SHOULD NOT)。これがSHOULDである理由はユーザーの行動を強制することはほぼ不可能であるからである。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction",
+        "path": "MedicationRequest.dosageInstruction",
+        "short": "服用指示",
+        "definition": "⽤法や投与量を含む処⽅指⽰。患者がどのようにこの薬剤を服用するのかを示す。",
+        "comment": "MedicationRequestで内服や静脈注射、筋肉注射を含めたサンプルがある。たとえば、「オンダンセトロン 8mg 経口あるいは静注1日2回嘔気時頓用」、あるいは「ノバミン®（プロクロロペラジン） 5-10mg 経口あるいは25mg経直腸1日2回嘔気・嘔吐時頓用」のようなものである。このような場合は2つの薬剤オーダーは同じグループにまとめることができるとして作成される。どのような投与経路を選択するかを決定するのは薬剤を必要とする時点の患者の状態にもとづいている。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.extension",
+        "path": "MedicationRequest.dosageInstruction.extension",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "url"
+            }
+          ],
+          "rules": "open"
+        },
+        "min": 0
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.extension:PeriodOfUse",
+        "path": "MedicationRequest.dosageInstruction.extension",
+        "sliceName": "PeriodOfUse",
+        "min": 0,
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_PeriodOfUse"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.extension:UsageDuration",
+        "path": "MedicationRequest.dosageInstruction.extension",
+        "sliceName": "UsageDuration",
+        "short": "実投与⽇数",
+        "definition": "隔日投与などで実投与日数と処方期間が異なる場合に用いられる。",
+        "min": 0,
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_UsageDuration"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.extension:Device",
+        "path": "MedicationRequest.dosageInstruction.extension",
+        "sliceName": "Device",
+        "short": "投与機器の情報",
+        "definition": "投与機器の情報を記述する拡張。",
+        "min": 0,
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_Device"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.extension:Line",
+        "path": "MedicationRequest.dosageInstruction.extension",
+        "sliceName": "Line",
+        "short": "投与ラインの情報",
+        "definition": "投与ラインの情報を記述する拡張。",
+        "min": 0,
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_Line"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.sequence",
+        "path": "MedicationRequest.dosageInstruction.sequence",
+        "short": "服用指示の順番",
+        "definition": "どの服用指示を適応するか判断するかについての順序を示したもの",
+        "comment": "32 bitの数値。これ以上の値であれば10進数を使うこと。",
+        "requirements": "もし、複数の服用法(Dosage)でsequenceの数値が同じであれば、その指示が同時に扱われることを示している。sequenceの数値が異なれば、服用指示(Dosage)の順番を意図している。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.text",
+        "path": "MedicationRequest.dosageInstruction.text",
+        "short": "フリーテキストの用法指示。",
+        "definition": "JP Coreでは必須。フリーテキストの用法指示。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "フリーテキストでの用法指示はコード化するには複雑すぎる指示の場合には用いてもよい。この属性の文脈は薬剤の名前や説明が入っていない。コード化された指示がある場合は、フリーテキストでの指示は人間が服用あるいは投与するために表示されてもよい。テキストでの指示はつねに配置されることを想定されている。もし、dosage.timing属性も配置されていれば、dosage.textはtimingを同じ情報を反映すべきである。薬剤の投与あるいは調剤についての付加的な情報にはテキストでの説明が入っているべきである。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction",
+        "short": "患者に対する補足指示や注意。たとえば、「食事と一緒に」「眠くなることがあります」",
+        "definition": "どのように薬剤を内服するかについての患者への補足指示（たとえば、「食事と一緒に」や「30分から1時間前に内服」）や薬剤についての注意書き（たとえば、「眠くなることがあります」や「日光や紫外線が皮膚にあたららないようにすること」）",
+        "comment": "薬剤投与や調剤についての情報（たとえば、「腹膜内ポートに可能な限り迅速に注入」や「薬剤Xの直後に」）であり、dosage.textにも複製されるべきである。",
+        "requirements": "補足指示はコード化されるように意図されているが、コードがない場合はエレメントはテキストだけで表現することができる。たとえば、「大量の水で服用する」という指示はコード化されていることもあれば、されていないことおある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction.id",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction.coding",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction.coding",
+        "short": "用法についてのコード",
+        "definition": "用法についてのコードが示される。JAMI 補⾜⽤法８桁コードを使用することを想定している。",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction.coding.id",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction.coding.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction.coding.system",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction.coding.system",
+        "short": "JAMI 補⾜⽤法８桁コードを識別するURI。",
+        "definition": "JAMI 補⾜⽤法８桁コードを識別するURI",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.200250.2.2.20.22"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction.coding.version",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "ターミノロジーのバージョンが文字列としてコードシステムにより定義されていない場合は、そのバージョンが公式に公開された日付を示す（FHIRのdateフォーマットで表現される）dateを用いることが推奨されている。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction.coding.code",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction.coding.code",
+        "short": "JAMI 補⾜⽤法コード",
+        "definition": "JAMI 補⾜⽤法コードを指定する。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "システム内の特定のコードを参照する必要がある。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction.coding.display",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction.coding.display",
+        "short": "コードの表⽰名",
+        "definition": "システムの規則に従ってシステム内のコードの意味を表す表現。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コードが持つ意味をそのシステムを知らない人でも読めるように人間可読であるようにしている必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction.coding.userSelected",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction.coding.userSelected",
+        "short": "このコードが直接ユーザーが指定したものであるかどうか",
+        "definition": "ユーザーが直接コーディングしたかどうかを示す。たとえば、有効な項目のリスト（コードか表現）から選択したかどうか。",
+        "comment": "選択肢の中から、直接選ばれたコードは新しく翻訳するときには最も適切なスタート地点である。何をもって「直接選ばれた」とするのかには曖昧なところがあり、このエレメントの使用について明確にして結論として何を意味するのかより完全になるよう取引先との合意が必要となる。",
+        "requirements": "このエレメントは臨床安全のために特定されてきた。System/codeのペアが明示的に選択されることは、言語処理や何らかの規則を元に推測されるよりも正確だからである。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.additionalInstruction.text",
+        "path": "MedicationRequest.dosageInstruction.additionalInstruction.text",
+        "short": "この概念のプレーンテキスト表現",
+        "definition": "入力したユーザーが見た/選択した/発したとおりの概念および・またはユーザーが意図した概念を自然言語で表現したもの。",
+        "comment": "textエレメントはcodingのdisplayNameエレメントと一致することがよくある。",
+        "requirements": "ターミノロジー由来のコードは必ずしも人間が使う言葉の全てのニュアンスを含めた正確な意味を捉えているわけではなく、適切なコードが見つからない場合もある。そのような場合でもtextエレメントは元々の意味のすべてを捉えるために使うことができる。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.patientInstruction",
+        "path": "MedicationRequest.dosageInstruction.patientInstruction",
+        "short": "患者あるいは消費者向けの指示",
+        "definition": "患者あるいは消費者に理解してもらうための指示。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing",
+        "path": "MedicationRequest.dosageInstruction.timing",
+        "short": "服⽤タイミング",
+        "definition": "服⽤タイミングを記録する。",
+        "comment": "Dosage.textが設定されていることが想定されているのとは異なり、この属性は常に設定されていなくてもよい。もし、療法が設定されている場合はDosage.textはDosage.timingを反映させているべきである。",
+        "requirements": "患者に薬剤を投与すべき計画上のタイミング。このデータ型はさまざまな表現をとることができる。たとえば、「8時間おき」「1日3回」、「2011年12月23日から10日間、朝食全30分前に」、「2013年10月15日と2013年11月1日に」などである。しばしば、総量/総投与期間を表現するような場合に比率は期間を明示しておくことがある（たとえば、500mlを2時間でという指示は2時間と明示している)。しかしながら、比率で期間を表さない場合(たとえば、250ml/毎時）はtiming.repeat.durationで注射の総投与期間を伝える必要がある。",
+        "min": 1,
+        "mustSupport": true
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.id",
+        "path": "MedicationRequest.dosageInstruction.timing.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.event",
+        "path": "MedicationRequest.dosageInstruction.timing.event",
+        "short": "服用タイミングを示す時刻",
+        "definition": "服⽤タイミングを具体的な⽇時で指定する場合に使⽤する"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat",
+        "short": "イベントが発生する時刻",
+        "definition": "イベントがスケジュールされたルールについての記述。",
+        "requirements": "スケジュールされたタイミングの多くは規則的な繰り返しで決定されている。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.id",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x]",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x]",
+        "short": "服⽤開始⽇から服⽤終了⽇までの全⽇数",
+        "definition": "服⽤開始⽇から服⽤終了⽇までの全⽇数。実投与⽇数ではないことに注意する。",
+        "type": [
+          {
+            "code": "Duration"
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].id",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].id",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].value",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].value",
+        "short": "投薬⽇数",
+        "definition": "投薬⽇数",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].comparator",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].comparator",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].unit",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].unit",
+        "short": "投薬⽇数の単位",
+        "definition": "投薬⽇数の単位⽂字列。日で固定される",
+        "min": 1,
+        "fixedString": "日"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].system",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].system",
+        "short": "UCUM",
+        "definition": "単位コード UCUMを識別するURI。固定値。",
+        "min": 1,
+        "fixedUri": "http://unitsofmeasure.org"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].code",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.bounds[x].code",
+        "short": "投与⽇数の単位",
+        "definition": "単位コードUCUMにおける投与⽇数の単位。dで固定される。",
+        "min": 1,
+        "fixedCode": "d"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.count",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.count",
+        "short": "繰り返し服用回数",
+        "definition": "Timing仕様の全てにおいて、特定の期間に繰り返されるように指定された総回数。もし、countMaxが設定されていれば、このエレメントは許容される最低限度の回数を示す。",
+        "comment": "回数に上限、下限の範囲がある場合は、このcountで示される回数が起きるまでは、エレメントは範囲の中にあると解釈されるべきである。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.countMax",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.countMax",
+        "short": "繰り返しの最大回数",
+        "definition": "このエレメントが設定されている場合は、回数に範囲があることを示している。したがって、[count]から[countmax]までの回数で繰り返される。",
+        "comment": "32bit整数。もし、値がこれを超える場合はdecimalで記録される。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.duration",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.duration",
+        "short": "継続時間",
+        "definition": "投与されるタイミングが発生している時間。もし、durationMaxが設定されていれば、このエレメントは許容される継続時間の下限を示す。",
+        "comment": "継続時間はイベントの定義の一部（たとえば、静脈注射(IV)では特定の量と速度が明示される)として示されることがある。その他、Timing仕様の一部（たとえば、運動）として示されることもある。",
+        "requirements": "アクティビティによっては即時的なものではなく、その期間において維持される必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.durationMax",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.durationMax",
+        "short": "継続時間(最大値)",
+        "definition": "もし、このエレメントに値が設定されていれば、durationには範囲があることを示している。したがって、[duration]から[durationMax]までの継続時間の範囲で投与される。",
+        "comment": "継続時間はイベントの定義の一部（たとえば、静脈注射(IV)では特定の量と速度が明示される)として示されることがある。その他、Timing仕様の一部（たとえば、運動）として示されることもある。",
+        "requirements": "アクティビティによっては即時的なものではなく、その期間において維持される必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.durationUnit",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.durationUnit",
+        "definition": "UCUM単位で表される継続時間についての単位。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.frequency",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.frequency",
+        "short": "期間内にイベントが発生する回数、頻度",
+        "definition": "特定の期間に繰り返して発生した行為の回数。もし、frequencyMaxが設定されていれば、このエレメントはfrequencyとして認められた下限を示す。",
+        "comment": "32ビットの数値。もし、値がそれを上回るようであればdecimalを使用する。",
+        "meaningWhenMissing": "frequencyが指定されていなければ、期間内に1回だけイベントが発生すると想定される。しかし、システムはこれを常時特定しておく必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.frequencyMax",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.frequencyMax",
+        "short": "期間内にイベントが発生する最大回数、最大頻度",
+        "definition": "このエレメントに値が設定されていれば、frequencyには範囲が指定されている。つまり、期間あるいは期間の範囲内に[frequency]から[frequencyMax]回繰り返されることを示している。",
+        "comment": "32ビットの数値。もし、値がそれを上回るようであればdecimalを使用する。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.period",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.period",
+        "short": "イベントが発生する頻度に対応する期間",
+        "definition": "繰り返し投与が行われる期間を示す。たとえば、「1日3回」であれば、3は繰り返しの頻度(frequency)であり、「1日」が期間(period)である。もし、periodMaxに値が設定されていれば、このエレメントは期間として認められた範囲の下限を示す。",
+        "comment": "IEEEの浮動小数点型を使わずに、小数点も含むdecimal型のようなものを利用すること（たとえばJavaのBigInteger)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.periodMax",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.periodMax",
+        "short": "期間の上限（3-4時間）",
+        "definition": "もし、この値が設定されていれば、期間は[period]から[periodMax]までであることを示し、「3-5日に1回投与」のような表現が認められる。",
+        "comment": "IEEEの浮動小数点型を使わずに、小数点の制度も示すdecimal型のようなものを利用すること（たとえばJavaのBigInteger)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.periodUnit",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.periodUnit",
+        "definition": "期間を表すUCUM単位。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.dayOfWeek",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.dayOfWeek",
+        "definition": "期間として1週間以上が指定されていれば、指定された曜日のみで投与が行われる。",
+        "comment": "曜日が指定されていなければ、他に指定された日には毎日投与されると想定される。frequencyとperiodエレメントはdayOfWeekと同じように使うことはできない。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.timeOfDay",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.timeOfDay",
+        "short": "一日の間で投与される時刻",
+        "definition": "一日の間で指定された投与される時刻。",
+        "comment": "もし、このtimeOfDayに値が指定されていれば、毎日（daysOfWeekでフィルタされた曜日の）指定された時刻に投与されると推定される。whenやfrequency, periodエレメントはtimeOfDayとは同様に使うことはできない。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.when",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.when",
+        "short": "投薬期間についてのコード",
+        "definition": "一日の間のおおよその時間帯で投与すべきタイミングを示す。日常のイベントに関連付けられていることもある。",
+        "comment": "一つ以上のイベントが記載されている場合、そのイベントは特定のイベントの組み合わせと結びついている。",
+        "requirements": "タイミングはしばしば起床や食事、睡眠などのできごとによってしばしば決定されている。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.repeat.offset",
+        "path": "MedicationRequest.dosageInstruction.timing.repeat.offset",
+        "short": "イベントからの時間(分、前後）",
+        "definition": "イベントからの時間(分)。もし、分で示される時間がイベントのコードが前か後かを示していない場合、offsetはイベントの後であることが想定される。",
+        "comment": "32ビットの数値。もし、値がそれを上回るようであればdecimalを使用する。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.timing.code",
+        "path": "MedicationRequest.dosageInstruction.timing.code",
+        "definition": "スケジュール上のタイミングを表すコード（あるいはcode.text内のテキスト）。BID(1日2回)のようなコードはどこにでもあるが、多くの医療機関は付加的なコードを定義している。もし、コードが示されていれば、構造化されたタイミングで完全に示されたデータであると解釈され、コードまたはTimingを解釈するためのデータであると解釈される。しかし、例外的に.repeat.bounds（コードは含まれません)はコードを上書きして適用される。",
+        "comment": "BIDなどは「施設特有の時間」として定義される。たとえば、施設がBIDを「つねに朝7時と夕方6時」であると指定することがある。この指定が不適切であれば、BIDというコードは使うべきではない。その代わり、HL7が定義したBIDのコードではなく、その施設特有のコードで明示的に示すべきであり、構造化された表現を使うべきである（この場合、2回のイベントの時刻を指定する必要がある）。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.asNeeded[x]",
+        "path": "MedicationRequest.dosageInstruction.asNeeded[x]",
+        "short": "「頓用」指示",
+        "definition": "JP Coreでは頓⽤型の⽤法を指定する場合に”true”を指定し、そのコードを指定する場合は用法コードとして指定する。\r\nMedication(薬剤)が必要なときに指定された量とスケジュールのみで内服するか（Booleanで選択される）、内服する前提条件(CodeableConcept)を示している。",
+        "type": [
+          {
+            "code": "boolean"
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site",
+        "path": "MedicationRequest.dosageInstruction.site",
+        "short": "投与される身体部位",
+        "definition": "投与される身体部位。外⽤薬で部位を指定する場合に使⽤する。",
+        "comment": "もし、BodySite resourceの属性が必要な場合(たとえば、部位の指定や別々に投与経路を設定する場合)は、[bodySite](extension-bodysite.html)の標準拡張を使うこと。要約コードや非常に正確な位置の定義へのreferenceを使用することもできる。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site.id",
+        "path": "MedicationRequest.dosageInstruction.site.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site.coding",
+        "path": "MedicationRequest.dosageInstruction.site.coding",
+        "short": "JAMI外⽤部位３桁コード",
+        "definition": "ターミノロジーを参照する際に定義されたコード",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site.coding.id",
+        "path": "MedicationRequest.dosageInstruction.site.coding.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site.coding.system",
+        "path": "MedicationRequest.dosageInstruction.site.coding.system",
+        "short": "JAMI 外⽤部位３桁コードを識別するURI",
+        "definition": "JAMI 外⽤部位３桁コードを識別するURI。固定値。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.200250.2.2.20.32"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site.coding.version",
+        "path": "MedicationRequest.dosageInstruction.site.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "ターミノロジーのバージョンが文字列としてコードシステムにより定義されていない場合は、そのバージョンが公式に公開された日付を示す（FHIRのdateフォーマットで表現される）dateを用いることが推奨されている。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site.coding.code",
+        "path": "MedicationRequest.dosageInstruction.site.coding.code",
+        "short": "JAMI 外⽤部位３桁コード",
+        "definition": "JAMI 外⽤部位３桁コード",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "システム内の特定のコードを参照する必要がある。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site.coding.display",
+        "path": "MedicationRequest.dosageInstruction.site.coding.display",
+        "short": "JAMI 部位コードの表⽰名",
+        "definition": "JAMI 部位コードの表⽰名",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コードが持つ意味をそのシステムを知らない人でも読めるように人間可読であるようにしている必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site.coding.userSelected",
+        "path": "MedicationRequest.dosageInstruction.site.coding.userSelected",
+        "short": "このコードが直接ユーザーが指定したものであるかどうか",
+        "definition": "ユーザーが直接コーディングしたかどうかを示す。たとえば、有効な項目のリスト（コードか表現）から選択したかどうか。",
+        "comment": "選択肢の中から、直接選ばれたコードは新しく翻訳するときには最も適切なスタート地点である。何をもって「直接選ばれた」とするのかには曖昧なところがあり、このエレメントの使用について明確にして結論として何を意味するのかより完全になるよう取引先との合意が必要となる。",
+        "requirements": "このエレメントは臨床安全のために特定されてきた。System/codeのペアが明示的に選択されることは、言語処理や何らかの規則を元に推測されるよりも正確だからである。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.site.text",
+        "path": "MedicationRequest.dosageInstruction.site.text",
+        "short": "この概念のプレーンテキスト表現",
+        "definition": "入力したユーザーが見た/選択した/発したとおりの概念および・またはユーザーが意図した概念を自然言語で表現したもの。",
+        "comment": "textエレメントはcodingのdisplayNameエレメントと一致することがよくある。",
+        "requirements": "ターミノロジー由来のコードは必ずしも人間が使う言葉の全てのニュアンスを含めた正確な意味を捉えているわけではなく、適切なコードが見つからない場合もある。そのような場合でもtextエレメントは元々の意味のすべてを捉えるために使うことができる。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route",
+        "path": "MedicationRequest.dosageInstruction.route",
+        "short": "投与経路",
+        "definition": "投与経路。",
+        "comment": "投与経路の一般的パターンに全てのターミノロジーが適応しているわけではない。情報モデルはCodeableConceptではなく、直接Codingをを使用してテキストやコーディング、翻訳、そしてエレメントと事前条件、事後条件の関係について管理するためにその構造を提示する必要がある。",
+        "requirements": "治療薬剤が患者の体内に投与される生理学的な経路を特定するためのコード。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route.id",
+        "path": "MedicationRequest.dosageInstruction.route.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route.coding",
+        "path": "MedicationRequest.dosageInstruction.route.coding",
+        "short": "JAMI ⽤法コード表投与経路区分２桁コード",
+        "definition": "JAMI ⽤法コード表投与経路区分２桁コードを識別するURI。JP Coreでは必須。",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route.coding.id",
+        "path": "MedicationRequest.dosageInstruction.route.coding.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route.coding.system",
+        "path": "MedicationRequest.dosageInstruction.route.coding.system",
+        "short": "HL7v2-0162表をベースにしたJPFHIRでの投与経路コード表",
+        "definition": "HL7v2-0162表をベースにしたJPFHIRでの投与経路コード表を示すURL",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。",
+        "min": 1,
+        "fixedUri": "http://jpfhir.jp/fhir/ePrescription/CodeSystem/route-codes"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route.coding.version",
+        "path": "MedicationRequest.dosageInstruction.route.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "ターミノロジーのバージョンが文字列としてコードシステムにより定義されていない場合は、そのバージョンが公式に公開された日付を示す（FHIRのdateフォーマットで表現される）dateを用いることが推奨されている。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route.coding.code",
+        "path": "MedicationRequest.dosageInstruction.route.coding.code",
+        "short": "JAMI ⽤法コード表投与経路区分２桁コード",
+        "definition": "JAMI ⽤法コード表投与経路区分２桁コード",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "システム内の特定のコードを参照する必要がある。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route.coding.display",
+        "path": "MedicationRequest.dosageInstruction.route.coding.display",
+        "short": "JAMI ⽤法コード表投与経路区分２桁コードの表⽰名",
+        "definition": "JAMI ⽤法コード表投与経路区分２桁コードの表⽰名",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コードが持つ意味をそのシステムを知らない人でも読めるように人間可読であるようにしている必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route.coding.userSelected",
+        "path": "MedicationRequest.dosageInstruction.route.coding.userSelected",
+        "short": "このコードが直接ユーザーが指定したものであるかどうか",
+        "definition": "ユーザーが直接コーディングしたかどうかを示す。たとえば、有効な項目のリスト（コードか表現）から選択したかどうか。",
+        "comment": "選択肢の中から、直接選ばれたコードは新しく翻訳するときには最も適切なスタート地点である。何をもって「直接選ばれた」とするのかには曖昧なところがあり、このエレメントの使用について明確にして結論として何を意味するのかより完全になるよう取引先との合意が必要となる。",
+        "requirements": "このエレメントは臨床安全のために特定されてきた。System/codeのペアが明示的に選択されることは、言語処理や何らかの規則を元に推測されるよりも正確だからである。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.route.text",
+        "path": "MedicationRequest.dosageInstruction.route.text",
+        "short": "投与経路の⽂字列表現",
+        "definition": "投与経路の⽂字列表現。コードで指定できない場合、本要素で⽂字列として指定してもよい。",
+        "comment": "textエレメントはcodingのdisplayNameエレメントと一致することがよくある。",
+        "requirements": "ターミノロジー由来のコードは必ずしも人間が使う言葉の全てのニュアンスを含めた正確な意味を捉えているわけではなく、適切なコードが見つからない場合もある。そのような場合でもtextエレメントは元々の意味のすべてを捉えるために使うことができる。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method",
+        "path": "MedicationRequest.dosageInstruction.method",
+        "short": "投与方法",
+        "definition": "投与方法。投与⽅法に対応するJAMI ⽤法コード表基本⽤法１桁コード。",
+        "comment": "ターミノロジーは投与する経路あるいは剤型をあらかじめ指定するために用いられる。",
+        "requirements": "コード化された値は体内に薬剤が投与される方法を示している。注射ではよく使われる。たとえば、緩徐に注入、深部に静注など。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method.id",
+        "path": "MedicationRequest.dosageInstruction.method.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method.coding",
+        "path": "MedicationRequest.dosageInstruction.method.coding",
+        "short": "投与⽅法に対応するJAMI ⽤法コード表基本⽤法１桁コード",
+        "definition": "投与⽅法に対応するJAMI ⽤法コード表基本⽤法１桁コードを識別するURI。urn:oid:1.2.392.200250.2.2.20.30",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method.coding.id",
+        "path": "MedicationRequest.dosageInstruction.method.coding.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method.coding.system",
+        "path": "MedicationRequest.dosageInstruction.method.coding.system",
+        "short": "投与⽅法に対応するJAMI ⽤法コード表基本⽤法１桁コードを示すURI",
+        "definition": "投与⽅法に対応するJAMI ⽤法コード表基本⽤法１桁コード。urn:oid:1.2.392.200250.2.2.20.30で固定される。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.200250.2.2.20.30"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method.coding.version",
+        "path": "MedicationRequest.dosageInstruction.method.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "ターミノロジーのバージョンが文字列としてコードシステムにより定義されていない場合は、そのバージョンが公式に公開された日付を示す（FHIRのdateフォーマットで表現される）dateを用いることが推奨されている。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method.coding.code",
+        "path": "MedicationRequest.dosageInstruction.method.coding.code",
+        "short": "JAMI ⽤法コード表基本⽤法１桁コード",
+        "definition": "JAMI ⽤法コード表基本⽤法１桁コード。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "システム内の特定のコードを参照する必要がある。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method.coding.display",
+        "path": "MedicationRequest.dosageInstruction.method.coding.display",
+        "short": "JAMI ⽤法コード表基本⽤法１桁コードの表⽰名",
+        "definition": "JAMI ⽤法コード表基本⽤法１桁コードの表⽰名。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コードが持つ意味をそのシステムを知らない人でも読めるように人間可読であるようにしている必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method.coding.userSelected",
+        "path": "MedicationRequest.dosageInstruction.method.coding.userSelected",
+        "short": "このコードが直接ユーザーが指定したものであるかどうか",
+        "definition": "ユーザーが直接コーディングしたかどうかを示す。たとえば、有効な項目のリスト（コードか表現）から選択したかどうか。",
+        "comment": "選択肢の中から、直接選ばれたコードは新しく翻訳するときには最も適切なスタート地点である。何をもって「直接選ばれた」とするのかには曖昧なところがあり、このエレメントの使用について明確にして結論として何を意味するのかより完全になるよう取引先との合意が必要となる。",
+        "requirements": "このエレメントは臨床安全のために特定されてきた。System/codeのペアが明示的に選択されることは、言語処理や何らかの規則を元に推測されるよりも正確だからである。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.method.text",
+        "path": "MedicationRequest.dosageInstruction.method.text",
+        "short": "投与⽅法のテキスト表現",
+        "definition": "投与⽅法のテキスト表現。コードで指定できない場合、本要素で⽂字列として指定してもよい。",
+        "comment": "textエレメントはcodingのdisplayNameエレメントと一致することがよくある。",
+        "requirements": "ターミノロジー由来のコードは必ずしも人間が使う言葉の全てのニュアンスを含めた正確な意味を捉えているわけではなく、適切なコードが見つからない場合もある。そのような場合でもtextエレメントは元々の意味のすべてを捉えるために使うことができる。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate",
+        "short": "薬剤の投与量",
+        "definition": "薬剤が投与される量"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.id",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type",
+        "short": "⼒価区分",
+        "definition": "⼒価区分",
+        "comment": "投与速度・量の一般的パターンに全てのターミノロジーが適応しているわけではない。情報モデルはCodeableConceptではなく、直接Codingをを使用してテキストやコーディング、翻訳、そしてエレメントと事前条件、事後条件の関係について管理するためにその構造を提示する必要がある。",
+        "requirements": "このtypeに値が指定されていなければ、\"ordered\"であることが想定される。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type.id",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type.coding",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type.coding",
+        "short": "⼒価区分コード",
+        "definition": "⼒価区分コード",
+        "comment": "コードは臨時で列記したものや、コードのリストからSNOMED CTのように公式に定義されたものまである（HL7 v3 core principle を参照)。FHIR自体ではコーディング規約を定めてはいないし、意味を暗示するために利用されない(SHALL NOT)。一般的に UserSelected = trueの場合には一つのコードシステムが使われる。",
+        "requirements": "他のコードシステムへの変換や代替のコードシステムを使ってエンコードしてもよい。",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.id",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.system",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.system",
+        "short": "⼒価区分コードのコード体系を識別するURI",
+        "definition": "⼒価区分コードのコード体系を識別するURI。固定値。",
+        "comment": "URIはOID(urn:oid:....)やUUID(urn:uuid:....)であることもある。OIDやUUIDはHL7のOIDレジストリを参照していなければならない（SHALL)。そうでなければ、URIはHL7のFHIRのリストに挙げられている特別なURIであるか、用語集が明確な定義が参照されるべきである。",
+        "requirements": "記号の定義の根拠が明確である必要がある。",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.100495.20.2.22"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.version",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.version",
+        "short": "用語集のバージョン - もし必要であれば追加する。",
+        "definition": "コードが選択された際に利用されたコードシステムのバージョンである。コードの意味するところがバージョンが変わっても一貫しているように十分にメンテナンスされているコードシステムであれば、バージョンを表記する必要はないことに留意されたい。しかしながら、一貫性はなかなか保証されるものではないし、意味の一貫性が保証されていないのであればバージョンは交換されるべきである（SHOULD)。",
+        "comment": "ターミノロジーのバージョンが文字列としてコードシステムにより定義されていない場合は、そのバージョンが公式に公開された日付を示す（FHIRのdateフォーマットで表現される）dateを用いることが推奨されている。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.code",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.code",
+        "short": "⼒価区分コード",
+        "definition": "⼒価区分コード",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "システム内の特定のコードを参照する必要がある。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.display",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.display",
+        "short": "⼒価区分コードの表示名",
+        "definition": "⼒価区分コードの表示名",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コードが持つ意味をそのシステムを知らない人でも読めるように人間可読であるようにしている必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.userSelected",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type.coding.userSelected",
+        "short": "このコードが直接ユーザーが指定したものであるかどうか",
+        "definition": "ユーザーが直接コーディングしたかどうかを示す。たとえば、有効な項目のリスト（コードか表現）から選択したかどうか。",
+        "comment": "選択肢の中から、直接選ばれたコードは新しく翻訳するときには最も適切なスタート地点である。何をもって「直接選ばれた」とするのかには曖昧なところがあり、このエレメントの使用について明確にして結論として何を意味するのかより完全になるよう取引先との合意が必要となる。",
+        "requirements": "このエレメントは臨床安全のために特定されてきた。System/codeのペアが明示的に選択されることは、言語処理や何らかの規則を元に推測されるよりも正確だからである。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.type.text",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.type.text",
+        "short": "この概念のプレーンテキスト表現",
+        "definition": "入力したユーザーが見た/選択した/発したとおりの概念および・またはユーザーが意図した概念を自然言語で表現したもの。",
+        "comment": "textエレメントはcodingのdisplayNameエレメントと一致することがよくある。",
+        "requirements": "ターミノロジー由来のコードは必ずしも人間が使う言葉の全てのニュアンスを含めた正確な意味を捉えているわけではなく、適切なコードが見つからない場合もある。そのような場合でもtextエレメントは元々の意味のすべてを捉えるために使うことができる。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.dose[x]",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.dose[x]",
+        "short": "1回投与量",
+        "definition": "1回投与量",
+        "comment": "この量は指定された薬剤の量を指定するものであって、各有効成分の量を指定するものではない。各成分の量はMedication resourceで伝えることができる。たとえば、有効成分が375mgである錠剤を1錠投与することを伝えたい場合、Medication resourceを利用して、XYZ成分が375mg含有しているという錠剤であることを文書化することができる。あるいは1回投与量が375mgであることを伝えるのであれば、Medication resourceをつかって単にそれが錠剤であることを示せばよい。もし、ドーパミンの静注を例に挙げて、400mgのドーパミンを500mlの注射溶液に混ぜて使うことを伝えたいのであれば、それをすべてMedication resourceで伝えることができる。もし、投与について即時に伝達することを意図していない（たとえば投与速度が示されていたり、投与時期に範囲があるような場合）のであれば、たとえば1回500mlを4時間以上かけて投与する予定を伝える場合にもMecication resourceで伝えることができます。",
+        "type": [
+          {
+            "code": "Quantity"
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.dose[x].value",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.dose[x].value",
+        "short": "1回投与量",
+        "definition": "1回投与量",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.dose[x].unit",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.dose[x].unit",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.dose[x].system",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.dose[x].system",
+        "short": "医薬品単位略号を識別するOID。",
+        "definition": "医薬品単位略号を識別するOID。固定値。",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.100495.20.2.101"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.dose[x].code",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.dose[x].code",
+        "short": "医薬品単位略号",
+        "definition": "医薬品単位略号"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x]",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x]",
+        "short": "単位時間内での薬剤量",
+        "definition": "単位時間内での薬剤量。JP Coreでは1 ⽇投与量を表す。",
+        "comment": "JP Coreでは日本ではまだ一般的に利用されている一日量での処方のためにrateRatioを用いる。\r\n\r\n薬剤の詳細な投与法、提供方法を伝えるために、投与速度(rate)とdoseQuantityの両方の情報を提供することができる。もし、投与速度が変更されるようであれば、ローカルルールや制限に基づいて、全ての変更は新しいバージョンのMeddicationRequestに更新された投与速度を記録するか、MedicationRequestの新しいインスタンスに新しい投与速度を記録されるようにするべきである。\r\n\r\nrateRatioとrateQuantityのいずれかを使って時間内の投与速度（たとえば100ml/hour)を指定することができる。rateQuantityを使うには、ml/hourが投与速度の単位と言うだけではなく、時間が分母として指定されているということを示しているというようなUCUM単位の文法をシステムがパース可能であることが求められる。500mlを2時間でというような投与速度指示では、rateRatioがrateQuantityで250mg/hourとするよりもセマンティクスを正確に伝えることができるかもしれない。",
+        "requirements": "患者の体内に導入される、あるいはされた薬剤の速度を指定する。一般的には、たとえば1時間あたり100mlあるいは100ml/hrのように注射の速度を示す。たとえば、500mlを2時間でというように、単位時間あたりの速さを表現することもできる。その他、200マイクログラム/minや200マイクログラム/1分, 1 リットル/8時間のような表現もできる。しばしば、投与速度を投与総量/ 投与総時間で表ような場合に投与時間が明示される（たとえば、500ml/2時間という場合は、投与時間が2時間であることを示している）。しかしながら、投与速度で投与時間が明示されない場合（たとえば、250ml/毎時)は、timing.repeat.durationが注射の総投与時間を示すためには必要となる。",
+        "type": [
+          {
+            "code": "Ratio"
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator",
+        "short": "1 ⽇投与量",
+        "definition": "1 ⽇投与量",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.value",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.value",
+        "short": "1 ⽇投与量",
+        "definition": "1 ⽇投与量",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.comparator",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.comparator",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.unit",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.unit",
+        "short": "投与量の単位",
+        "definition": "投与量の単位。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.system",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.system",
+        "short": "医薬品単位略号を識別するOID",
+        "definition": "医薬品単位略号を識別するOID。固定値。",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.100495.20.2.101"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.code",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].numerator.code",
+        "short": "医薬品単位略号",
+        "definition": "医薬品単位略号"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator",
+        "short": "1 ⽇投与量の分⺟である「1 ⽇」を表す",
+        "definition": "1 ⽇投与量の分⺟である「1 ⽇」を表す。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.value",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.value",
+        "short": "1 ⽇投与量の分⺟である「1 ⽇」",
+        "definition": "1 ⽇投与量の分⺟である「1 ⽇」を表す。",
+        "min": 1,
+        "fixedDecimal": 1.0
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.comparator",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.comparator",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.unit",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.unit",
+        "short": "1 ⽇投与量の分⺟である「1 ⽇」の単位",
+        "definition": "1 ⽇投与量の分⺟である「1 ⽇」の単位。「日」で固定される。",
+        "min": 1,
+        "fixedString": "⽇"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.system",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.system",
+        "short": "UCUM単位コードを識別するURI",
+        "definition": "UCUM単位コードを識別するURI",
+        "min": 1,
+        "fixedUri": "http://unitsofmeasure.org"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.code",
+        "path": "MedicationRequest.dosageInstruction.doseAndRate.rate[x].denominator.code",
+        "short": "「⽇」を表すUCUM単位コード。",
+        "definition": "「⽇」を表すUCUM単位コード。dで固定される。",
+        "min": 1,
+        "fixedCode": "d"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod",
+        "short": "単位期間内の薬剤投与上限",
+        "definition": "単位期間内の薬剤投与上限",
+        "comment": "このエレメントは投与量に上限があるときに用法指示の補助として使われる。たとえば、「1回2錠4時間おきに、1日8錠まで」のような表現である。",
+        "requirements": "一定期間に患者に投与できる治療物質の最大容量。たとえば、24時間で1000mg。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.id",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator",
+        "short": "分子の値",
+        "definition": "分子の値",
+        "comment": "このエレメントはどのような量を表現するか定義するためにコンテキストにあわせてよく定義される。したがって、どのような単位でも利用することができる。使用されるコンテキストによってcomparatorエレメントで値が定義されることもある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.id",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.value",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.value",
+        "short": "（精度が暗示された）数値",
+        "definition": "計測された量。精度を含めた値が暗示される。",
+        "comment": "暗示された精度については常に尊重すべきである。貨幣計算では制度に関する独自のルールがある（会計についての標準的な教科書を参照すること）。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.comparator",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "実際の値が計測して示された値よりも大きいのか小さいのかなど、値がどのように解釈され、表現されるのかを示している。たとえば、もし、comparatorエレメントが\"<\"であれば、実際の値は示された値よりも小さい(<)。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "計測法に制限があって値が<5ug/L や >400mg/L として示されるような場合でも値を扱えるようなフレームワークが必要である。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.unit",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.unit",
+        "short": "単位表現",
+        "definition": "人間にも可読な単位表現",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コンテキストによってさまざまな単位の表現がある。固定された特定の表現が求められることがある。たとえば、mcgはmicrogramを表す。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.system",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.system",
+        "short": "コード化された単位表現を規定するシステム",
+        "definition": "単位をコード化して表現するシステムについてのID。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier",
+        "requirements": "システムによって定義される単位のコードを把握しておく必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.code",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.numerator.code",
+        "short": "単位のコード化された形式",
+        "definition": "単位を表現するシステムで機械処理できる形式での単位。",
+        "comment": "UCUMが推奨されるシステムではあるが、SNOMED CT(慣用単位のために）やISO 4217を通貨のために利用することができる。コンテキストによっては特定なシステムによるコードが付加的に求められることもある。",
+        "requirements": "どのような形式であっても機械処理できる単位形式であることが求められる。UCUMは量についての単位を提供し、SNOMED CTは他に関心のある単位を提供する。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator",
+        "short": "分母の値",
+        "definition": "分母の値",
+        "comment": "このエレメントはどのような量を表現するか定義するためにコンテキストにあわせてよく定義される。したがって、どのような単位でも利用することができる。使用されるコンテキストによってcomparatorエレメントで値が定義されることもある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.id",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.value",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.value",
+        "short": "（精度が暗示された）数値",
+        "definition": "計測された量。精度を含めた値が暗示される。",
+        "comment": "暗示された精度については常に尊重すべきである。貨幣計算では制度に関する独自のルールがある（会計についての標準的な教科書を参照すること）。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.comparator",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "実際の値が計測して示された値よりも大きいのか小さいのかなど、値がどのように解釈され、表現されるのかを示している。たとえば、もし、comparatorエレメントが\"<\"であれば、実際の値は示された値よりも小さい(<)。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "計測法に制限があって値が<5ug/L や >400mg/L として示されるような場合でも値を扱えるようなフレームワークが必要である。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.unit",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.unit",
+        "short": "単位表現",
+        "definition": "人間にも可読な単位表現",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コンテキストによってさまざまな単位の表現がある。固定された特定の表現が求められることがある。たとえば、mcgはmicrogramを表す。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.system",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.system",
+        "short": "コード化された単位表現を規定するシステム",
+        "definition": "単位をコード化して表現するシステムについてのID。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier",
+        "requirements": "システムによって定義される単位のコードを把握しておく必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.code",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerPeriod.denominator.code",
+        "short": "単位のコード化された形式",
+        "definition": "単位を表現するシステムで機械処理できる形式での単位。",
+        "comment": "UCUMが推奨されるシステムではあるが、SNOMED CT(慣用単位のために）やISO 4217を通貨のために利用することができる。コンテキストによっては特定なシステムによるコードが付加的に求められることもある。",
+        "requirements": "どのような形式であっても機械処理できる単位形式であることが求められる。UCUMは量についての単位を提供し、SNOMED CTは他に関心のある単位を提供する。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerAdministration",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerAdministration",
+        "short": "1回投与あたりの最大薬剤量",
+        "definition": "1回投与あたりの最大薬剤量",
+        "comment": "薬剤用量に上限があることについて表現することを意図している。たとえば、体表面積に応じて用量と最大量が設定されている場合、5分から10分かけて1.5mg/m2(最大2mg) 静注(IV)するというような表現はdoseQuantityが1.5mg/m2で、maxDosePerAdministrationが2mgであることで表現できる。",
+        "requirements": "患者に対する治1回あたりの療薬剤の総量としての最大量は投与ごとにに管理されるべきでもある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerAdministration.id",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerAdministration.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerAdministration.value",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerAdministration.value",
+        "short": "（精度が暗示された）数値",
+        "definition": "計測された量。精度を含めた値が暗示される。",
+        "comment": "暗示された精度については常に尊重すべきである。貨幣計算では制度に関する独自のルールがある（会計についての標準的な教科書を参照すること）。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerAdministration.comparator",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerAdministration.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "実際の値が計測して示された値よりも大きいのか小さいのかなど、値がどのように解釈され、表現されるのかを示している。たとえば、もし、comparatorエレメントが\"<\"であれば、実際の値は示された値よりも小さい(<)。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "計測法に制限があって値が<5ug/L や >400mg/L として示されるような場合でも値を扱えるようなフレームワークが必要である。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerAdministration.unit",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerAdministration.unit",
+        "short": "単位表現",
+        "definition": "人間にも可読な単位表現",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コンテキストによってさまざまな単位の表現がある。固定された特定の表現が求められることがある。たとえば、mcgはmicrogramを表す。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerAdministration.system",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerAdministration.system",
+        "short": "コード化された単位表現を規定するシステム",
+        "definition": "単位をコード化して表現するシステムについてのID。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier",
+        "requirements": "システムによって定義される単位のコードを把握しておく必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerAdministration.code",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerAdministration.code",
+        "short": "単位のコード化された形式",
+        "definition": "単位を表現するシステムで機械処理できる形式での単位。",
+        "comment": "UCUMが推奨されるシステムではあるが、SNOMED CT(慣用単位のために）やISO 4217を通貨のために利用することができる。コンテキストによっては特定なシステムによるコードが付加的に求められることもある。",
+        "requirements": "どのような形式であっても機械処理できる単位形式であることが求められる。UCUMは量についての単位を提供し、SNOMED CTは他に関心のある単位を提供する。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerLifetime",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerLifetime",
+        "short": "患者の生涯においての最大投与量",
+        "definition": "患者の障害での最大投与量",
+        "comment": "このエレメントはどのような量を表現するか定義するためにコンテキストにあわせてよく定義される。したがって、どのような単位でも利用することができる。使用されるコンテキストによってcomparatorエレメントで値が定義されることもある。",
+        "requirements": "対象となる患者の人生において治療薬剤として投与される最大総量は管理されていることが望ましい。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerLifetime.id",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerLifetime.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerLifetime.value",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerLifetime.value",
+        "short": "（精度が暗示された）数値",
+        "definition": "計測された量。精度を含めた値が暗示される。",
+        "comment": "暗示された精度については常に尊重すべきである。貨幣計算では制度に関する独自のルールがある（会計についての標準的な教科書を参照すること）。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerLifetime.comparator",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerLifetime.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "実際の値が計測して示された値よりも大きいのか小さいのかなど、値がどのように解釈され、表現されるのかを示している。たとえば、もし、comparatorエレメントが\"<\"であれば、実際の値は示された値よりも小さい(<)。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "計測法に制限があって値が<5ug/L や >400mg/L として示されるような場合でも値を扱えるようなフレームワークが必要である。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerLifetime.unit",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerLifetime.unit",
+        "short": "単位表現",
+        "definition": "人間にも可読な単位表現",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コンテキストによってさまざまな単位の表現がある。固定された特定の表現が求められることがある。たとえば、mcgはmicrogramを表す。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerLifetime.system",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerLifetime.system",
+        "short": "コード化された単位表現を規定するシステム",
+        "definition": "単位をコード化して表現するシステムについてのID。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier",
+        "requirements": "システムによって定義される単位のコードを把握しておく必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dosageInstruction.maxDosePerLifetime.code",
+        "path": "MedicationRequest.dosageInstruction.maxDosePerLifetime.code",
+        "short": "単位のコード化された形式",
+        "definition": "単位を表現するシステムで機械処理できる形式での単位。",
+        "comment": "UCUMが推奨されるシステムではあるが、SNOMED CT(慣用単位のために）やISO 4217を通貨のために利用することができる。コンテキストによっては特定なシステムによるコードが付加的に求められることもある。",
+        "requirements": "どのような形式であっても機械処理できる単位形式であることが求められる。UCUMは量についての単位を提供し、SNOMED CTは他に関心のある単位を提供する。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest",
+        "path": "MedicationRequest.dispenseRequest",
+        "short": "調剤・払い出しについての承認事項",
+        "definition": "薬剤オーダー(MedicationRequest, Medication Prescription, Medication Orderなどとしても表現される）や薬剤オーダーとの一部としての薬剤の払い出しあるいは提供。この情報はオーダーとしてかならず伝えられるというわけではないことに注意。薬剤部門で調剤・払い出しを完了するための施設（たとえば病院）やシステムでのサポートに関する設定をしてもよい。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.id",
+        "path": "MedicationRequest.dispenseRequest.id",
+        "short": "内部エレメントを参照するためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.extension",
+        "path": "MedicationRequest.dispenseRequest.extension",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "url"
+            }
+          ],
+          "rules": "open"
+        },
+        "min": 0
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.extension:InstructionForDispense",
+        "path": "MedicationRequest.dispenseRequest.extension",
+        "sliceName": "InstructionForDispense",
+        "short": "調剤指示",
+        "definition": "薬剤単位の調剤指示を格納する",
+        "min": 0,
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DispenseRequest_InstructionForDispense"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.extension:InstructionForDispense.value[x]",
+        "path": "MedicationRequest.dispenseRequest.extension.value[x]",
+        "short": "調剤指示",
+        "definition": "薬剤単位の調剤・払い出し指示"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.extension:ExpectedRepeatCount",
+        "path": "MedicationRequest.dispenseRequest.extension",
+        "sliceName": "ExpectedRepeatCount",
+        "short": "頓用回数",
+        "definition": "頓用回数",
+        "min": 0,
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DispenseRequest_ExpectedRepeatCount"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill",
+        "path": "MedicationRequest.dispenseRequest.initialFill",
+        "short": "初回の調剤詳細",
+        "definition": "初回の薬剤払い出しでの期間や量への指示",
+        "comment": "このエレメントを設定するときには量あるいは期間が指定されていなければならない。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.id",
+        "path": "MedicationRequest.dispenseRequest.initialFill.id",
+        "short": "内部エレメントを参照するためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.quantity",
+        "path": "MedicationRequest.dispenseRequest.initialFill.quantity",
+        "short": "初回の調剤量",
+        "definition": "初回の払い出しとして提供される薬剤の量。",
+        "comment": "このエレメントはどのような量を表現するか定義するためにコンテキストにあわせてよく定義される。したがって、どのような単位でも利用することができる。使用されるコンテキストによってcomparatorエレメントで値が定義されることもある。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.quantity.id",
+        "path": "MedicationRequest.dispenseRequest.initialFill.quantity.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.quantity.value",
+        "path": "MedicationRequest.dispenseRequest.initialFill.quantity.value",
+        "short": "（精度が暗示された）数値",
+        "definition": "計測された量。精度を含めた値が暗示される。",
+        "comment": "暗示された精度については常に尊重すべきである。貨幣計算では制度に関する独自のルールがある（会計についての標準的な教科書を参照すること）。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.quantity.comparator",
+        "path": "MedicationRequest.dispenseRequest.initialFill.quantity.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "実際の値が計測して示された値よりも大きいのか小さいのかなど、値がどのように解釈され、表現されるのかを示している。たとえば、もし、comparatorエレメントが\"<\"であれば、実際の値は示された値よりも小さい(<)。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "計測法に制限があって値が<5ug/L や >400mg/L として示されるような場合でも値を扱えるようなフレームワークが必要である。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.quantity.unit",
+        "path": "MedicationRequest.dispenseRequest.initialFill.quantity.unit",
+        "short": "単位表現",
+        "definition": "人間にも可読な単位表現",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コンテキストによってさまざまな単位の表現がある。固定された特定の表現が求められることがある。たとえば、mcgはmicrogramを表す。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.quantity.system",
+        "path": "MedicationRequest.dispenseRequest.initialFill.quantity.system",
+        "short": "コード化された単位表現を規定するシステム",
+        "definition": "単位をコード化して表現するシステムについてのID。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier",
+        "requirements": "システムによって定義される単位のコードを把握しておく必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.quantity.code",
+        "path": "MedicationRequest.dispenseRequest.initialFill.quantity.code",
+        "short": "単位のコード化された形式",
+        "definition": "単位を表現するシステムで機械処理できる形式での単位。",
+        "comment": "UCUMが推奨されるシステムではあるが、SNOMED CT(慣用単位のために）やISO 4217を通貨のために利用することができる。コンテキストによっては特定なシステムによるコードが付加的に求められることもある。",
+        "requirements": "どのような形式であっても機械処理できる単位形式であることが求められる。UCUMは量についての単位を提供し、SNOMED CTは他に関心のある単位を提供する。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.duration",
+        "path": "MedicationRequest.dispenseRequest.initialFill.duration",
+        "short": "初回の調剤期間",
+        "definition": "初回に行われる調剤、払い出しで予定される期間",
+        "comment": "このエレメントはどのような量を表現するか定義するためにコンテキストにあわせてよく定義される。したがって、どのような単位でも利用することができる。使用されるコンテキストによってcomparatorエレメントで値が定義されることもある。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.duration.id",
+        "path": "MedicationRequest.dispenseRequest.initialFill.duration.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.duration.value",
+        "path": "MedicationRequest.dispenseRequest.initialFill.duration.value",
+        "short": "（精度が暗示された）数値",
+        "definition": "計測された量。精度を含めた値が暗示される。",
+        "comment": "暗示された精度については常に尊重すべきである。貨幣計算では制度に関する独自のルールがある（会計についての標準的な教科書を参照すること）。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.duration.comparator",
+        "path": "MedicationRequest.dispenseRequest.initialFill.duration.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "実際の値が計測して示された値よりも大きいのか小さいのかなど、値がどのように解釈され、表現されるのかを示している。たとえば、もし、comparatorエレメントが\"<\"であれば、実際の値は示された値よりも小さい(<)。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "計測法に制限があって値が<5ug/L や >400mg/L として示されるような場合でも値を扱えるようなフレームワークが必要である。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.duration.unit",
+        "path": "MedicationRequest.dispenseRequest.initialFill.duration.unit",
+        "short": "単位表現",
+        "definition": "人間にも可読な単位表現",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コンテキストによってさまざまな単位の表現がある。固定された特定の表現が求められることがある。たとえば、mcgはmicrogramを表す。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.duration.system",
+        "path": "MedicationRequest.dispenseRequest.initialFill.duration.system",
+        "short": "コード化された単位表現を規定するシステム",
+        "definition": "単位をコード化して表現するシステムについてのID。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier",
+        "requirements": "システムによって定義される単位のコードを把握しておく必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.initialFill.duration.code",
+        "path": "MedicationRequest.dispenseRequest.initialFill.duration.code",
+        "short": "単位のコード化された形式",
+        "definition": "単位を表現するシステムで機械処理できる形式での単位。",
+        "comment": "UCUMが推奨されるシステムではあるが、SNOMED CT(慣用単位のために）やISO 4217を通貨のために利用することができる。コンテキストによっては特定なシステムによるコードが付加的に求められることもある。",
+        "requirements": "どのような形式であっても機械処理できる単位形式であることが求められる。UCUMは量についての単位を提供し、SNOMED CTは他に関心のある単位を提供する。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.dispenseInterval",
+        "path": "MedicationRequest.dispenseRequest.dispenseInterval",
+        "short": "再調剤までの最短期間",
+        "definition": "再調剤、払い出しを行う予定までの最短の期間",
+        "comment": "このエレメントはどのような量を表現するか定義するためにコンテキストにあわせてよく定義される。したがって、どのような単位でも利用することができる。使用されるコンテキストによってcomparatorエレメントで値が定義されることもある。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.dispenseInterval.id",
+        "path": "MedicationRequest.dispenseRequest.dispenseInterval.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.dispenseInterval.value",
+        "path": "MedicationRequest.dispenseRequest.dispenseInterval.value",
+        "short": "（精度が暗示された）数値",
+        "definition": "計測された量。精度を含めた値が暗示される。",
+        "comment": "暗示された精度については常に尊重すべきである。貨幣計算では制度に関する独自のルールがある（会計についての標準的な教科書を参照すること）。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.dispenseInterval.comparator",
+        "path": "MedicationRequest.dispenseRequest.dispenseInterval.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "実際の値が計測して示された値よりも大きいのか小さいのかなど、値がどのように解釈され、表現されるのかを示している。たとえば、もし、comparatorエレメントが\"<\"であれば、実際の値は示された値よりも小さい(<)。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "計測法に制限があって値が<5ug/L や >400mg/L として示されるような場合でも値を扱えるようなフレームワークが必要である。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.dispenseInterval.unit",
+        "path": "MedicationRequest.dispenseRequest.dispenseInterval.unit",
+        "short": "単位表現",
+        "definition": "人間にも可読な単位表現",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コンテキストによってさまざまな単位の表現がある。固定された特定の表現が求められることがある。たとえば、mcgはmicrogramを表す。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.dispenseInterval.system",
+        "path": "MedicationRequest.dispenseRequest.dispenseInterval.system",
+        "short": "コード化された単位表現を規定するシステム",
+        "definition": "単位をコード化して表現するシステムについてのID。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier",
+        "requirements": "システムによって定義される単位のコードを把握しておく必要がある。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.dispenseInterval.code",
+        "path": "MedicationRequest.dispenseRequest.dispenseInterval.code",
+        "short": "単位のコード化された形式",
+        "definition": "単位を表現するシステムで機械処理できる形式での単位。",
+        "comment": "UCUMが推奨されるシステムではあるが、SNOMED CT(慣用単位のために）やISO 4217を通貨のために利用することができる。コンテキストによっては特定なシステムによるコードが付加的に求められることもある。",
+        "requirements": "どのような形式であっても機械処理できる単位形式であることが求められる。UCUMは量についての単位を提供し、SNOMED CTは他に関心のある単位を提供する。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.validityPeriod",
+        "path": "MedicationRequest.dispenseRequest.validityPeriod",
+        "short": "許可された払い出し期間",
+        "definition": "このエレメントは処方の有効期間（処方が失効する日）を示す。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.validityPeriod.id",
+        "path": "MedicationRequest.dispenseRequest.validityPeriod.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.validityPeriod.start",
+        "path": "MedicationRequest.dispenseRequest.validityPeriod.start",
+        "short": "境界を含む開始時刻",
+        "definition": "期間の開始を示す。境界も含まれる。",
+        "comment": "このエレメントが設定されていなければ、下限が不明であることを示す。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.validityPeriod.end",
+        "path": "MedicationRequest.dispenseRequest.validityPeriod.end",
+        "short": "継続中でなければ境界を含む終了時刻",
+        "definition": "期間の終了時刻。もし、期間の終了が示されていなければ、このインスタンスが生成された時点での終了時刻が不明であったか計画されていなかったかである。開始時刻(start)は過去であることもあり、終了時刻(end)は未来であることもあり、その時点での見込みあるいは予定された終了時刻を意味する。",
+        "comment": "終了時刻は全ての日付・時刻に対応する。たとえば、2012-02-03T10:00:00は2012-02-03を終了時刻(end)の値とする期間を示す。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.numberOfRepeatsAllowed",
+        "path": "MedicationRequest.dispenseRequest.numberOfRepeatsAllowed",
+        "short": "許可された払い出し回数",
+        "definition": "最初の払い出しに追加で許可された払い出し回数（リフィル、日本では分割処方であるが制度的に一致しない)を示す整数であり、患者が処方された薬を受け取ることができる回数である。使用上の注意：この整数には最初の払い出しが含まれない。オーダーが「30錠に加えて3回繰り返し調剤可」であれば、このオーダーで合計4回、120錠が患者に受け渡される。処方者は0回のリフィルが許可されていると示すことで、初回の払い出し以外を認めないことを明示することができる。",
+        "comment": "もし、許可された払い出し回数を表示するのであれば、この数字に1を足すこと。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.quantity",
+        "path": "MedicationRequest.dispenseRequest.quantity",
+        "short": "調剤量",
+        "definition": "1回の調剤で払い出される薬剤の量",
+        "comment": "このエレメントはどのような量を表現するか定義するためにコンテキストにあわせてよく定義される。したがって、どのような単位でも利用することができる。使用されるコンテキストによってcomparatorエレメントで値が定義されることもある。",
+        "min": 1,
+        "mustSupport": true
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.quantity.id",
+        "path": "MedicationRequest.dispenseRequest.quantity.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.quantity.value",
+        "path": "MedicationRequest.dispenseRequest.quantity.value",
+        "short": "調剤量",
+        "definition": "調剤量。精度を含めた値が暗示される。",
+        "comment": "暗示された精度については常に尊重すべきである。貨幣計算では制度に関する独自のルールがある（会計についての標準的な教科書を参照すること）。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.quantity.comparator",
+        "path": "MedicationRequest.dispenseRequest.quantity.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "実際の値が計測して示された値よりも大きいのか小さいのかなど、値がどのように解釈され、表現されるのかを示している。たとえば、もし、comparatorエレメントが\"<\"であれば、実際の値は示された値よりも小さい(<)。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "計測法に制限があって値が<5ug/L や >400mg/L として示されるような場合でも値を扱えるようなフレームワークが必要である。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.quantity.unit",
+        "path": "MedicationRequest.dispenseRequest.quantity.unit",
+        "short": "単位⽂字列",
+        "definition": "単位⽂字列",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コンテキストによってさまざまな単位の表現がある。固定された特定の表現が求められることがある。たとえば、mcgはmicrogramを表す。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.quantity.system",
+        "path": "MedicationRequest.dispenseRequest.quantity.system",
+        "short": "医薬品単位略号を識別するURL",
+        "definition": "医薬品単位略号を識別するURL。urn:oid:1.2.392.200119.4.403.1で固定される。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier",
+        "requirements": "システムによって定義される単位のコードを把握しておく必要がある。",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.200119.4.403.1"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.quantity.code",
+        "path": "MedicationRequest.dispenseRequest.quantity.code",
+        "short": "医薬品単位略号。",
+        "definition": "医薬品単位略号。",
+        "comment": "UCUMが推奨されるシステムではあるが、SNOMED CT(慣用単位のために）やISO 4217を通貨のために利用することができる。コンテキストによっては特定なシステムによるコードが付加的に求められることもある。",
+        "requirements": "どのような形式であっても機械処理できる単位形式であることが求められる。UCUMは量についての単位を提供し、SNOMED CTは他に関心のある単位を提供する。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.expectedSupplyDuration",
+        "path": "MedicationRequest.dispenseRequest.expectedSupplyDuration",
+        "short": "調剤⽇数",
+        "definition": "供給される製品が使用されるか、あるいは払い出しが想定されている時間を指定する期間。",
+        "comment": "状況によっては、この属性は物理的に供給される量というよりも、想定されている期間に供給される薬剤の量を指定する数量の代わりに使われることもある。たとえば、薬剤が90日間供給される（オーダーされた量に基づいて）など。可能であれば、量も示した方がより正確になる。expectedSupplyDurationは外部要因に影響をうけることのある予測値である。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.expectedSupplyDuration.id",
+        "path": "MedicationRequest.dispenseRequest.expectedSupplyDuration.id",
+        "short": "エレメント間参照のためのユニークID",
+        "definition": "エレメント間参照のためのユニークID。空白を含まない全ての文字を使ってもよい(MAY)。"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.expectedSupplyDuration.value",
+        "path": "MedicationRequest.dispenseRequest.expectedSupplyDuration.value",
+        "short": "調剤⽇数",
+        "definition": "調剤⽇数",
+        "comment": "暗示された精度については常に尊重すべきである。貨幣計算では制度に関する独自のルールがある（会計についての標準的な教科書を参照すること）。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.expectedSupplyDuration.comparator",
+        "path": "MedicationRequest.dispenseRequest.expectedSupplyDuration.comparator",
+        "short": "< | <= | >= | > - 値の解釈法",
+        "definition": "実際の値が計測して示された値よりも大きいのか小さいのかなど、値がどのように解釈され、表現されるのかを示している。たとえば、もし、comparatorエレメントが\"<\"であれば、実際の値は示された値よりも小さい(<)。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "計測法に制限があって値が<5ug/L や >400mg/L として示されるような場合でも値を扱えるようなフレームワークが必要である。",
+        "max": "0"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.expectedSupplyDuration.unit",
+        "path": "MedicationRequest.dispenseRequest.expectedSupplyDuration.unit",
+        "short": "調剤⽇数の単位",
+        "definition": "調剤⽇数の単位。「⽇」固定。",
+        "comment": "FHIRの文字列は1MB以上の大きさとなってなはらない(SHALL NOT)。",
+        "requirements": "コンテキストによってさまざまな単位の表現がある。固定された特定の表現が求められることがある。たとえば、mcgはmicrogramを表す。",
+        "min": 1,
+        "fixedString": "⽇"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.expectedSupplyDuration.system",
+        "path": "MedicationRequest.dispenseRequest.expectedSupplyDuration.system",
+        "short": "UCUM単位コードを識別するURI",
+        "definition": "UCUM単位コードを識別するURI。固定値。",
+        "comment": "以下参照。 http://en.wikipedia.org/wiki/Uniform_resource_identifier",
+        "requirements": "システムによって定義される単位のコードを把握しておく必要がある。",
+        "min": 1,
+        "fixedUri": "http://unitsofmeasure.org"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.expectedSupplyDuration.code",
+        "path": "MedicationRequest.dispenseRequest.expectedSupplyDuration.code",
+        "short": "「⽇」を表すUCUM単位コード",
+        "definition": "「⽇」を表すUCUM単位コード。固定値。",
+        "comment": "UCUMが推奨されるシステムではあるが、SNOMED CT(慣用単位のために）やISO 4217を通貨のために利用することができる。コンテキストによっては特定なシステムによるコードが付加的に求められることもある。",
+        "requirements": "どのような形式であっても機械処理できる単位形式であることが求められる。UCUMは量についての単位を提供し、SNOMED CTは他に関心のある単位を提供する。",
+        "min": 1,
+        "fixedCode": "d"
+      },
+      {
+        "id": "MedicationRequest.dispenseRequest.performer",
+        "path": "MedicationRequest.dispenseRequest.performer",
+        "short": "想定された払い出し薬局",
+        "definition": "処方者によって指定される調剤・払い出しを行うと想定されているOrganizationを示す。\r\n\r\nIndicates the intended dispensing Organization specified by the prescriber.",
+        "comment": "参照先は実存するFHIR Resourceでなければならず(SHALL)、解決可能(アクセスコントロールや、一時的に利用不可であることなどは許容される)でなければならない(SHALL)。解決の方法はURLから取得可能であるか、Resouce型が適応できるかどうか、正規のURLとして絶対的参照を扱うことができるか、ローカルのレジストリ／リポジトリから参照することができるかである。"
+      },
+      {
+        "id": "MedicationRequest.substitution",
+        "path": "MedicationRequest.substitution",
+        "short": "後発医薬品への変更可否情報",
+        "definition": "後発医薬品への変更可否情報。代替薬剤を払い出してよいかどうかを示している。代替薬剤を使用しなければいけない場合もあれば、使用しない場合もある。このブロックでは処方者の意図が示される。もし、何も指定されていなければ代替薬品を用いてもよい。"
+      },
+      {
+        "id": "MedicationRequest.substitution.id",
+        "path": "MedicationRequest.substitution.id",
+        "short": "内部エレメントを参照するためのユニークID",
+        "definition": "リソース内のエレメントを参照（内部参照）するためのユニークなID。空白を含まなければどのような文字列であってもよい。"
+      },
+      {
+        "id": "MedicationRequest.substitution.allowed[x]",
+        "path": "MedicationRequest.substitution.allowed[x]",
+        "short": "後発医薬品への変更可否情報。",
+        "definition": "後発医薬品への変更可否情報。",
+        "comment": "代替品が許可されるかどうかは無視できないので、このエレメントはmodifierとしてラベルされる。",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ]
+      },
+      {
+        "id": "MedicationRequest.substitution.allowed[x].coding",
+        "path": "MedicationRequest.substitution.allowed[x].coding",
+        "short": "後発品変更不可コード",
+        "definition": "後発品変更不可コード。",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "MedicationRequest.substitution.allowed[x].coding.system",
+        "path": "MedicationRequest.substitution.allowed[x].coding.system",
+        "short": "後発品変更不可コードを識別するURI",
+        "definition": "後発品変更不可コードを識別するURI。固定値。",
+        "min": 1,
+        "fixedUri": "urn:oid:1.2.392.100495.20.2.41"
+      },
+      {
+        "id": "MedicationRequest.substitution.allowed[x].coding.code",
+        "path": "MedicationRequest.substitution.allowed[x].coding.code",
+        "short": "後発品変更不可コード",
+        "definition": "後発品変更不可コード。",
+        "min": 1
+      },
+      {
+        "id": "MedicationRequest.substitution.allowed[x].coding.display",
+        "path": "MedicationRequest.substitution.allowed[x].coding.display",
+        "short": "後発品変更不可コード表示名",
+        "definition": "後発品変更不可コード表示名。"
+      },
+      {
+        "id": "MedicationRequest.substitution.reason",
+        "path": "MedicationRequest.substitution.reason",
+        "short": "代替品を提供した（あるいは、しなかった）理由",
+        "definition": "代替品にしなければならなかった、あるいは代替品が認められなかった理由を示す。",
+        "comment": "代替品の理由を表す一般的パターンに全てのターミノロジーが適応しているわけではない。情報モデルはCodeableConceptではなく、直接Codingをを使用してテキストやコーディング、翻訳、そしてエレメントと事前条件、事後条件の関係について管理するためにその構造を提示する必要がある。"
+      },
+      {
+        "id": "MedicationRequest.priorPrescription",
+        "path": "MedicationRequest.priorPrescription",
+        "short": "前回のオーダー/処方",
+        "definition": "関連する先行オーダーや処方を表現するMedicationRequest Resouceへのリンク。",
+        "comment": "参照先は実存するFHIR Resourceでなければならず(SHALL)、解決可能(アクセスコントロールや、一時的に利用不可であることなどは許容される)でなければならない(SHALL)。解決の方法はURLから取得可能であるか、Resouce型が適応できるかどうか、正規のURLとして絶対的参照を扱うことができるか、ローカルのレジストリ／リポジトリから参照することができるかである。"
+      },
+      {
+        "id": "MedicationRequest.detectedIssue",
+        "path": "MedicationRequest.detectedIssue",
+        "short": "実施時の臨床的問題",
+        "definition": "患者に対して1回以上の実施されたか提案された診療行為によって、実際に起きたあるいは起きる可能性のある臨床的問題。たとえば、薬剤官相互作用や重複治療、薬剤量についての警告など。DetectedIssueリソースへの参照。",
+        "comment": "このエレメントは意思決定支援システムや臨床医によって指摘された問題点を扱うことができ、問題を表すためのステップについての情報を扱ってもよい。"
+      },
+      {
+        "id": "MedicationRequest.eventHistory",
+        "path": "MedicationRequest.eventHistory",
+        "short": "ライフサイクルで関心のあるイベントのリスト",
+        "definition": "このリソースの現在のバージョンをユーザーから見て関係していそうなキーとなる更新や状態遷移と識別される過去のバージョンのこのリソースあるいは調剤請求あるいはEvent ResourceについてのProvenance resourceへの参照。",
+        "comment": "このエレメントには全てのバージョンのMedicationRequestについてのProvenanceが取り込まれているわけではない。「関連する」あるいは重要と思われたものだけである。現在のバージョンのResouceに関連したProvenance resouceを含めてはならない(SHALL NOT)。（もし、Provenanceとして「関連した」変化と思われれば、後の更新の一部として取り込まれる必要があるだろう。それまでは、このバージョンを_revincludeを使ってprovenanceとして指定して直接クエリーを発行することができる。全てのProvenanceがこのRequestについての履歴を対象として持つべきである。）"
+      }
+    ]
+  }
+}
