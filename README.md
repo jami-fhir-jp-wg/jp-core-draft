@@ -13,4 +13,8 @@ FHIR® is the registered trademark of HL7 and both FHIR and jpfhir.jp are used w
 MedicationRequest,MedicationDispense、MedicationRequestInjection、MedicationDispenseInjectionを共通のProfile であるMedicationRequestBase、MedicationDispenseBaseを新たに作成し、それからの派生profileに変更した。
 そのほか細かい修正、SearchParameterの追加、同じ内容で異なりファイル名ファイルの削除など。
 
+/forSUHI/JPCoreV1/ に http://tx.jpfhir.jp/ のページからダウンロードした
+publisherJPFHIR.jar を配置して、./_genonceForJPFHIR.sh を実行することで
+IG publisherが実行できる。
+
 ### V1.0.0:   最初のリリース 2021.12.26
