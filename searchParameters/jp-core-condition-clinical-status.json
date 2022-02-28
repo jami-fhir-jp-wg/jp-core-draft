@@ -1,7 +1,7 @@
 {
   "resourceType": "SearchParameter",
   "id": "jp-core-condition-clinical-status",
-  "url": "http://jpfhir.jp/fhir/core/SearchParameter/StructureDefinition/jp-core-condition-clinical-Status",
+  "url": "http://jpfhir.jp/fhir/core/SearchParameter/StructureDefinition/jp-core-condition-clinical-status",
   "version": "1.0.0",
   "name": "JPCoreConditionClinicalStatus",
   "status": "active",
