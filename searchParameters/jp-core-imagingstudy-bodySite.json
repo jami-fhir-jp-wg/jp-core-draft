@@ -15,7 +15,7 @@
   ],
   "type": "token",
   "expression": "ImagingStudy.series.bodySite",
-  "xpath": "f:ImagingStudy/series/bodySite",
+  "xpath": "f:ImagingStudy/f:series/f:bodySite",
   "xpathUsage": "normal",
   "multipleOr": true,
   "_multipleOr": {

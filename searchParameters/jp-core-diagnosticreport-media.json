@@ -15,7 +15,7 @@
   ],
   "type": "reference",
   "expression": "DiagnosticReport.media.link",
-  "xpath": "ff:DiagnosticReport/f:media/f:link",
+  "xpath": "f:DiagnosticReport/f:media/f:link",
   "xpathUsage": "normal",
   "target": [
     "Media"

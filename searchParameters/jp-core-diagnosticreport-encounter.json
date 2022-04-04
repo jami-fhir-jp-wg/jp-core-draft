@@ -15,7 +15,7 @@
   ],
   "type": "reference",
   "expression": "DiagnosticReport.encounter",
-  "xpath": "ff:DiagnosticReport/f:encounter",
+  "xpath": "f:DiagnosticReport/f:encounter",
   "xpathUsage": "normal",
   "target": [
     "Encounter"
