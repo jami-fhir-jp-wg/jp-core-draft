@@ -14,7 +14,7 @@
     "Observation"
   ],
   "type": "token",
-  "expression": "(Observation.​value as string) | (Observation.​value as CodeableConcept).​text",
+  "expression": "(Observation.value as string) | (Observation.value as CodeableConcept).text",
   "xpath": "f:Observation/f:value",
   "xpathUsage": "normal",
   "multipleOr": true,

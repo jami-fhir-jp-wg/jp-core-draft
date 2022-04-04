@@ -14,7 +14,7 @@
     "MedicationDispense"
   ],
   "type": "token",
-  "expression": "(MedicationDispense.​medication as CodeableConcept)",
+  "expression": "(MedicationDispense.medication as CodeableConcept)",
   "xpath": "f:MedicationDispense/f:medication",
   "xpathUsage": "normal",
   "multipleOr": true,

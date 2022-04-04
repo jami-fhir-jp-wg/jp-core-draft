@@ -14,7 +14,7 @@
     "MedicationAdministration"
   ],
   "type": "token",
-  "expression": "(MedicationAdministration.​medication as CodeableConcept)",
+  "expression": "(MedicationAdministration.medication as CodeableConcept)",
   "xpath": "f:MedicationAdministration/f:medication",
   "xpathUsage": "normal",
   "multipleOr": true,

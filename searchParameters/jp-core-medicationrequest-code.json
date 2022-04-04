@@ -14,7 +14,7 @@
     "MedicationRequest"
   ],
   "type": "token",
-  "expression": "(MedicationRequest.​medication as CodeableConcept)",
+  "expression": "(MedicationRequest.medication as CodeableConcept)",
   "xpath": "f:MedicationRequest/f:medication",
   "xpathUsage": "normal",
   "multipleOr": true,

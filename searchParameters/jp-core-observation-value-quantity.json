@@ -14,7 +14,7 @@
     "Observation"
   ],
   "type": "quantity",
-  "expression": "(Observation.​value as Quantity)|(Observation.​value as SampledData)",
+  "expression": "(Observation.value as Quantity)|(Observation.value as SampledData)",
   "xpath": "f:Observation/f:value",
   "xpathUsage": "normal",
   "multipleOr": true,
