@@ -14,7 +14,7 @@
     "Condition"
   ],
   "type": "date",
-  "expression": "Condition.onset.as(dateTime) | Condition.onset.pas(Period)",
+  "expression": "Condition.onset.as(dateTime) | Condition.onset.as(Period)",
   "xpath": "f:Condition/f:onset",
   "xpathUsage": "normal",
   "multipleOr": true,
