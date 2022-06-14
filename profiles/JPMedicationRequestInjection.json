@@ -7,8 +7,8 @@
   "status": "active",
   "date": "2021-12-03T16:17:33.415963+00:00",
   "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
-  "description": "このプロファイルはMedicationRequestリソースに対して、注射薬剤処方のデータを送受信するための基礎となる制約と拡張を定めたものである。",
-  "purpose": "このプロファイルはMedicationRequestリソースに対して、内服・外用薬剤処方のデータを送受信するための基礎となる制約と拡張を定めたものである。",
+  "description": "このプロファイルはJP_MedicationRequestBaseリソースに対して、注射薬剤処方のデータを送受信するための基礎となる制約と拡張を定めたものである。",
+  "purpose": "このプロファイルはJP_MedicationRequestBaseリソースに対して、内服・外用薬剤処方のデータを送受信するための基礎となる制約と拡張を定めたものである。",
   "copyright": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
   "fhirVersion": "4.0.1",
   "mapping": [
@@ -41,7 +41,7 @@
   "kind": "resource",
   "abstract": false,
   "type": "MedicationRequest",
-  "baseDefinition": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_MedicationRequest",
+  "baseDefinition": "http://jpfhir.jp/fhir/core/StructureDefinition/JP_MedicationRequestBase",
   "derivation": "constraint",
   "differential": {
     "element": [
@@ -49,48 +49,19 @@
         "id": "MedicationRequest",
         "path": "MedicationRequest",
         "short": "患者あるいはグループに対しての注射薬剤処方オーダ",
-        "definition": "患者への薬の供給と注射や点滴の指示を共に提供するオーダ。ケアプランやワークフローパターンとハーモナイズし、入院や外来でも使えるようにするため、このリソースは\"MedicationPrescription\"や\"MedicationOrder\"ではなく、\"MedicationRequest\"と呼ばれる。"
-      },
-      {
-        "id": "MedicationRequest.dosageInstruction.extension:Line",
-        "path": "MedicationRequest.dosageInstruction.extension",
-        "sliceName": "Line",
-        "min": 0,
-        "type": [
-          {
-            "code": "Extension",
-            "profile": [
-              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_Line"
-            ]
-          }
-        ]
-      },
-      {
-        "id": "MedicationRequest.dosageInstruction.extension:Device",
-        "path": "MedicationRequest.dosageInstruction.extension",
-        "sliceName": "Device",
-        "short": "Device",
-        "min": 0,
-        "type": [
-          {
-            "code": "Extension",
-            "profile": [
-              "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_MedicationRequest_DosageInstruction_Device"
-            ]
-          }
-        ]
+        "definition": "患者への薬の供給と注射や点滴の指示を共に提供するオーダ。ケアプランやワークフローパターンとハーモナイズし、入院や外来でも使えるようにするため、このリソースは\"MedicationPrescription\"や\"MedicationOrder\"ではなく、\"MedicationRequest\"と呼ばれる。JP_MedicationRequestBaseプロファイルからの派生プロファイルである。"
       },
       {
         "id": "MedicationRequest.dosageInstruction.extension:PeriodOfUse",
         "path": "MedicationRequest.dosageInstruction.extension",
         "sliceName": "PeriodOfUse",
-        "max": 0
+        "max": "0"
       },
       {
         "id": "MedicationRequest.dosageInstruction.extension:UsageDuration",
         "path": "MedicationRequest.dosageInstruction.extension",
         "sliceName": "UsageDuration",
-        "max": 0
+        "max": "0"
       },
       {
         "id": "MedicationRequest.dosageInstruction.timing",

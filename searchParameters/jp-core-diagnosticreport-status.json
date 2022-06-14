@@ -1,0 +1,114 @@
+{
+  "resourceType": "SearchParameter",
+  "id": "jp-core-diagnosticreport-status",
+  "url": "http://jpfhir.jp/fhir/core/SearchParameter/jp-core-diagnosticreport-status",
+  "version": "1.0.0",
+  "name": "JPCoreDiagnosticReportStatus",
+  "status": "active",
+  "experimental": false,
+  "date": "2021-12-01",
+  "publisher": "FHIR® Japanese implementation research working group in Japan Association of Medical Informatics (JAMI)",
+  "description": "DiagnosticReportリソースのstatusに関する検索を定義します。",
+  "code": "status",
+  "base": [
+    "DiagnosticReport"
+  ],
+  "type": "token",
+  "expression": "DiagnosticReport.status",
+  "xpath": "f:DiagnosticReport/f:status",
+  "xpathUsage": "normal",
+  "multipleOr": true,
+  "_multipleOr": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+        "valueCode": "SHOULD"
+      }
+    ]
+  },
+  "multipleAnd": true,
+  "_multipleAnd": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+        "valueCode": "MAY"
+      }
+    ]
+  },
+  "modifier": [
+    "missing",
+    "text",
+    "not",
+    "in",
+    "not-in",
+    "below",
+    "above",
+    "ofType"
+  ],
+  "_modifier": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
+          "valueCode": "MAY"
+        }
+      ]
+    }
+  ]
+}

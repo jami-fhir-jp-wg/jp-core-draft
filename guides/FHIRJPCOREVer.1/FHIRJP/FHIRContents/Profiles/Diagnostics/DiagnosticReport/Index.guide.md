@@ -1,1 +1,0 @@
-## [2.1.3.3 DiagnosticReport（診断レポート）](DiagnosticReport)
