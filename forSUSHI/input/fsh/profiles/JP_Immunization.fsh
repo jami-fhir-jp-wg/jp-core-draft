@@ -7,7 +7,7 @@ Description: "日本でのImmunizationリソースを適応するためのProfil
 * ^version = "0.0.1"
 * ^status = #draft
 * ^date = "2022-02-18"
-* ^purpose = "予防接種の記録を交感するために用いられる。"
+* ^purpose = "予防接種の記録を交換するために用いられる。"
 * . ^short = "予防接種"
 * . ^definition = "ワクチンを接種したときの記録，あるいは予防接種について患者や医療従事者などが報告した記録。"
 * id ^short = "このResourceに対する論理ID"
