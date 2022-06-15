@@ -1,7 +1,23 @@
+*~
+*#
+\#*
+.\#*
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+### macOS ###
+# General
 .DS_Store
+.AppleDouble
+.LSOverride
 Thumbs.db
 /forSUHI/JPCoreV1/fsh-generated/
 /forSUHI/JPCoreV1/input-cache/*.jar
 /forSUHI/JPCoreV1/output/
 /forSUHI/JPCoreV1/temp/
 /forSUHI/JPCoreV1/template/
+

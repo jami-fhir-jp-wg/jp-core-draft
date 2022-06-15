@@ -554,7 +554,7 @@ MedicationAdministrationは薬剤をCodeableConceptとして1つまでしか持�
 ### 2.1.2.6.5.5. 実施者
 投与を実施した医療従事者（自己管理の場合は患者）をperformer要素に記述する。
 
-performer.functionには、FHIR標準のValueSetである `http://terminology.hl7.org/CodeSystem/med-admin-perform-function` から、実施者を表す `performer` を固定で記述する。
+performer.functionには、FHIR標準のValueSetである `http://hl7.org/fhir/ValueSet/med-admin-perform-function` から、実施者を表す `performer` を固定で記述する。
 performer.actorには、医療従事者(Practitioner)、または患者(Patient)リソースの参照を記述する。
 ```json
 "performer": [
